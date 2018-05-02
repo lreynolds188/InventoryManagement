@@ -15,8 +15,18 @@ public class Tests {
      */
     @Before@Test
     public void testInit (){
+        testTruckInit();
+        testCargoInit();
+    }
+
+    @Test
+    public void testTruckInit(){
         ordinaryTruck = new OrdinaryTruck();
         refrigeratedTruck = new RefrigeratedTruck();
+    }
+
+    @Test
+    public void testCargoInit(){
         ordCargo = new Cargo(false);
         refCargo = new Cargo(true);
     }
