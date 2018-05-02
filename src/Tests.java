@@ -1,3 +1,7 @@
+import Delivery.Cargo;
+import Delivery.OrdinaryTruck;
+import Delivery.RefrigeratedTruck;
+import Delivery.Truck;
 import org.junit.*;
 
 import java.math.BigDecimal;
