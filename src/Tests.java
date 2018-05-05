@@ -8,6 +8,7 @@ import org.junit.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class Tests {
@@ -52,6 +53,8 @@ public class Tests {
     @Test
     public void testCargo()
     {
+        assertThat(ordCargo.getItemList, instanceOf(HashMap.class));
+
         // test ordinary truck cargo
         HashMap<String, Integer> ordItemList = new HashMap<>();
         ordItemList.put("mushrooms", 1);
@@ -70,31 +73,31 @@ public class Tests {
         ordItemList.put("ice", 1);
         ordItemList.put("frozen meat", 1);
         ordItemList.put("frozen vegetable mix", 1);
-        ordCargo.addItem(new Item("rice",2,3,225,300), 1);
-        ordCargo.addItem(new Item("beans",4,6,450,525), 1);
-        ordCargo.addItem(new Item("pasta",3,4,125,250), 1);
-        ordCargo.addItem(new Item("biscuits",2,5,450,575), 1);
-        ordCargo.addItem(new Item("nuts",5,9,125,250), 1);
-        ordCargo.addItem(new Item("chips",2,4,125,200), 1);
-        ordCargo.addItem(new Item("chocolate",5,8,250,375), 1);
-        ordCargo.addItem(new Item("bread",2,3,125,200), 1);
-        ordCargo.addItem(new Item("mushrooms",2,4,200,325,10), 1);
-        ordCargo.addItem(new Item("tomatoes",1,2,325,400,10), 1);
-        ordCargo.addItem(new Item("lettuce",1,2,250,350,10), 1);
-        ordCargo.addItem(new Item("grapes",4,6,125,225,9), 1);
-        ordCargo.addItem(new Item("asparagus",2,4,175,275,8), 1);
-        ordCargo.addItem(new Item("celery",2,3,225,350,8), 1);
-        ordCargo.addItem(new Item("chicken",10,14,325,425,4), 1);
-        ordCargo.addItem(new Item("beef",12,17,425,550,3), 1);
-        ordCargo.addItem(new Item("fish",13,16,375,475,2), 1);
-        ordCargo.addItem(new Item("yoghurt",10,12,200,325,3), 1);
-        ordCargo.addItem(new Item("milk",2,3,300,425,3), 1);
-        ordCargo.addItem(new Item("cheese",4,7,375,450,3), 1);
-        ordCargo.addItem(new Item("ice cream",8,14,175,250,-20), 1);
-        ordCargo.addItem(new Item("ice",2,5,225,325,-10), 1);
-        ordCargo.addItem(new Item("frozen meat",10,14,450,575,-14), 1);
-        ordCargo.addItem(new Item("frozen vegetable mix",5,8,225,325,-12), 1);
-        assertEquals(ordItemList, ordCargo.getItemList());
+        ordCargo.addItem(new Item("rice", new BigDecimal(2),new BigDecimal(3),225,300), 1);
+        ordCargo.addItem(new Item("beans", new BigDecimal(4),new BigDecimal(6),450,525), 1);
+        ordCargo.addItem(new Item("pasta", new BigDecimal(3),new BigDecimal(4),125,250), 1);
+        ordCargo.addItem(new Item("biscuits",new BigDecimal(2),new BigDecimal(5),450,575), 1);
+        ordCargo.addItem(new Item("nuts",new BigDecimal(5),new BigDecimal(9),125,250), 1);
+        ordCargo.addItem(new Item("chips",new BigDecimal(2),new BigDecimal(4),125,200), 1);
+        ordCargo.addItem(new Item("chocolate",new BigDecimal(5),new BigDecimal(8),250,375), 1);
+        ordCargo.addItem(new Item("bread",new BigDecimal(2),new BigDecimal(3),125,200), 1);
+        ordCargo.addItem(new Item("mushrooms",new BigDecimal(2),new BigDecimal(4),200,325,10), 1);
+        ordCargo.addItem(new Item("tomatoes",new BigDecimal(1),new BigDecimal(2),325,400,10), 1);
+        ordCargo.addItem(new Item("lettuce",new BigDecimal(1),new BigDecimal(2),250,350,10), 1);
+        ordCargo.addItem(new Item("grapes",new BigDecimal(4),new BigDecimal(6),125,225,9), 1);
+        ordCargo.addItem(new Item("asparagus",new BigDecimal(2),new BigDecimal(4),175,275,8), 1);
+        ordCargo.addItem(new Item("celery",new BigDecimal(2),new BigDecimal(3),225,350,8), 1);
+        ordCargo.addItem(new Item("chicken",new BigDecimal(10),new BigDecimal(14),325,425,4), 1);
+        ordCargo.addItem(new Item("beef",new BigDecimal(12),new BigDecimal(17),425,550,3), 1);
+        ordCargo.addItem(new Item("fish",new BigDecimal(13),new BigDecimal(16),375,475,2), 1);
+        ordCargo.addItem(new Item("yoghurt",new BigDecimal(10),new BigDecimal(12),200,325,3), 1);
+        ordCargo.addItem(new Item("milk",new BigDecimal(2),new BigDecimal(3),300,425,3), 1);
+        ordCargo.addItem(new Item("cheese",new BigDecimal(4),new BigDecimal(7),375,450,3), 1);
+        ordCargo.addItem(new Item("ice cream",new BigDecimal(8),new BigDecimal(14),175,250,-20), 1);
+        ordCargo.addItem(new Item("ice",new BigDecimal(2),new BigDecimal(5),225,325,-10), 1);
+        ordCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
+        ordCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
+        assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.getItemList());
 
         // test refrigerated truck cargo
         HashMap<String, Integer> refItemList = new HashMap<>();
@@ -122,30 +125,30 @@ public class Tests {
         refItemList.put("ice", 1);
         refItemList.put("frozen meat", 1);
         refItemList.put("frozen vegetable mix", 1);
-        refCargo.addItem(new Item("rice",2,3,225,300), 1);
-        refCargo.addItem(new Item("beans",4,6,450,525), 1);
-        refCargo.addItem(new Item("pasta",3,4,125,250), 1);
-        refCargo.addItem(new Item("biscuits",2,5,450,575), 1);
-        refCargo.addItem(new Item("nuts",5,9,125,250), 1);
-        refCargo.addItem(new Item("chips",2,4,125,200), 1);
-        refCargo.addItem(new Item("chocolate",5,8,250,375), 1);
-        refCargo.addItem(new Item("bread",2,3,125,200), 1);
-        refCargo.addItem(new Item("mushrooms",2,4,200,325,10), 1);
-        refCargo.addItem(new Item("tomatoes",1,2,325,400,10), 1);
-        refCargo.addItem(new Item("lettuce",1,2,250,350,10), 1);
-        refCargo.addItem(new Item("grapes",4,6,125,225,9), 1);
-        refCargo.addItem(new Item("asparagus",2,4,175,275,8), 1);
-        refCargo.addItem(new Item("celery",2,3,225,350,8), 1);
-        refCargo.addItem(new Item("chicken",10,14,325,425,4), 1);
-        refCargo.addItem(new Item("beef",12,17,425,550,3), 1);
-        refCargo.addItem(new Item("fish",13,16,375,475,2), 1);
-        refCargo.addItem(new Item("yoghurt",10,12,200,325,3), 1);
-        refCargo.addItem(new Item("milk",2,3,300,425,3), 1);
-        refCargo.addItem(new Item("cheese",4,7,375,450,3), 1);
-        refCargo.addItem(new Item("ice cream",8,14,175,250,-20), 1);
-        refCargo.addItem(new Item("ice",2,5,225,325,-10), 1);
-        refCargo.addItem(new Item("frozen meat",10,14,450,575,-14), 1);
-        refCargo.addItem(new Item("frozen vegetable mix",5,8,225,325,-12), 1);
+        refCargo.addItem(new Item("rice", new BigDecimal(2),new BigDecimal(3),225,300), 1);
+        refCargo.addItem(new Item("beans", new BigDecimal(4),new BigDecimal(6),450,525), 1);
+        refCargo.addItem(new Item("pasta", new BigDecimal(3),new BigDecimal(4),125,250), 1);
+        refCargo.addItem(new Item("biscuits",new BigDecimal(2),new BigDecimal(5),450,575), 1);
+        refCargo.addItem(new Item("nuts",new BigDecimal(5),new BigDecimal(9),125,250), 1);
+        refCargo.addItem(new Item("chips",new BigDecimal(2),new BigDecimal(4),125,200), 1);
+        refCargo.addItem(new Item("chocolate",new BigDecimal(5),new BigDecimal(8),250,375), 1);
+        refCargo.addItem(new Item("bread",new BigDecimal(2),new BigDecimal(3),125,200), 1);
+        refCargo.addItem(new Item("mushrooms",new BigDecimal(2),new BigDecimal(4),200,325,10), 1);
+        refCargo.addItem(new Item("tomatoes",new BigDecimal(1),new BigDecimal(2),325,400,10), 1);
+        refCargo.addItem(new Item("lettuce",new BigDecimal(1),new BigDecimal(2),250,350,10), 1);
+        refCargo.addItem(new Item("grapes",new BigDecimal(4),new BigDecimal(6),125,225,9), 1);
+        refCargo.addItem(new Item("asparagus",new BigDecimal(2),new BigDecimal(4),175,275,8), 1);
+        refCargo.addItem(new Item("celery",new BigDecimal(2),new BigDecimal(3),225,350,8), 1);
+        refCargo.addItem(new Item("chicken",new BigDecimal(10),new BigDecimal(14),325,425,4), 1);
+        refCargo.addItem(new Item("beef",new BigDecimal(12),new BigDecimal(17),425,550,3), 1);
+        refCargo.addItem(new Item("fish",new BigDecimal(13),new BigDecimal(16),375,475,2), 1);
+        refCargo.addItem(new Item("yoghurt",new BigDecimal(10),new BigDecimal(12),200,325,3), 1);
+        refCargo.addItem(new Item("milk",new BigDecimal(2),new BigDecimal(3),300,425,3), 1);
+        refCargo.addItem(new Item("cheese",new BigDecimal(4),new BigDecimal(7),375,450,3), 1);
+        refCargo.addItem(new Item("ice cream",new BigDecimal(8),new BigDecimal(14),175,250,-20), 1);
+        refCargo.addItem(new Item("ice",new BigDecimal(2),new BigDecimal(5),225,325,-10), 1);
+        refCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
+        refCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
         assertEquals(refItemList, refCargo.getItemList());
     }
 
