@@ -13,8 +13,7 @@ import static org.junit.Assert.*;
 
 public class Item_Tests {
 
-    private Item item = new Item();
-
+    private Item item = new Item("rice",new BigDecimal(2),new BigDecimal(3),225,300);
 
     //Tests if item is of class Item
     @Test

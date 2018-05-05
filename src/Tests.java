@@ -32,6 +32,7 @@ public class Tests {
 
     @Test
     public void testCargoInit(){
+        // test Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
         ordCargo = new Cargo(false);
         refCargo = new Cargo(true);
     }
