@@ -1,4 +1,4 @@
-package test.Delivery;
+package Tests.Delivery;
 
 import Delivery.OrdinaryTruck;
 import Delivery.RefrigeratedTruck;

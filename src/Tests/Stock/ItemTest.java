@@ -1,10 +1,7 @@
-package test.Stock;
+package Tests.Stock;
 
 import Stock.Item;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
 
 import java.math.BigDecimal;
 

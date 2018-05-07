@@ -1,15 +1,10 @@
-package test.Stock; 
+package Tests.Stock;
 
 import Stock.Item;
-import Stock.Stock;
 import com.sun.tools.javac.jvm.Items;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;

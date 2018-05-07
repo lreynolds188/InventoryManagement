@@ -1,11 +1,9 @@
-package test.Delivery; 
+package Tests.Delivery;
 
 import Delivery.OrdinaryTruck;
 import Delivery.RefrigeratedTruck;
 import Delivery.Truck;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After;
 
 import java.util.HashMap;
 

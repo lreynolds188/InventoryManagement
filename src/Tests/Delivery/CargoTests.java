@@ -1,4 +1,4 @@
-package test.Delivery;
+package Tests.Delivery;
 
 import Delivery.Cargo;
 
@@ -27,7 +27,7 @@ public class CargoTests {
      */
     @Before@Test
     public void testInit (){
-        // test Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
+        // Tests Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
         ordCargo = new Cargo(false);
         refCargo = new Cargo(true);
     }
@@ -86,7 +86,7 @@ public class CargoTests {
         ordCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
         ordCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
 
-        // test that only non refrigerated food was able to be entered into the ordinary cargo
+        // Tests that only non refrigerated food was able to be entered into the ordinary cargo
         assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.getItemList());
     }
 
@@ -151,7 +151,7 @@ public class CargoTests {
         refCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
         refCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
 
-        // test that all food was able to be entered into the refrigerated cargo
+        // Tests that all food was able to be entered into the refrigerated cargo
         assertEquals("Not all items were able to be stored into the refrigerated trucks cargo" ,refItemList, refCargo.getItemList());
     }
 }
