@@ -1,61 +1,47 @@
+package test.Delivery;
+
 import Delivery.Cargo;
-import Delivery.OrdinaryTruck;
-import Delivery.RefrigeratedTruck;
-import Delivery.Truck;
+
 import Stock.Item;
+
 import org.junit.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
+/**
+ * @author Luke Reynolds
+ * @version 1.0
+ * @email lreynolds188@gmail.com
+ * @website lukereynolds.net
+ * @github https://github.com/lreynolds188
+ */
+public class CargoTests {
 
-public class Tests {
-
-    Truck ordinaryTruck, refrigeratedTruck;
     Cargo ordCargo, refCargo;
 
     /**
-     * Tests the existence and the ability to create an instance of required objects and their functions.
+     * Tests the existence and ability to create an instance of required objects and their functions.
      */
     @Before@Test
     public void testInit (){
-        testTruckInit();
-        testCargoInit();
-    }
-
-    @Test
-    public void testTruckInit(){
-        ordinaryTruck = new OrdinaryTruck();
-        refrigeratedTruck = new RefrigeratedTruck();
-    }
-
-    @Test
-    public void testCargoInit(){
         // test Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
         ordCargo = new Cargo(false);
         refCargo = new Cargo(true);
     }
 
+    /**
+     * Tests that all non refrigerated items can be added to the ordinary trucks cargo, and none of the refrigerated items can
+     */
     @Test
-    public void testTruckCost(){
-        assertEquals(BigDecimal.valueOf(750.50).setScale(2, BigDecimal.ROUND_CEILING) ,ordinaryTruck.getCost());
-        assertEquals(BigDecimal.valueOf(1732.99).setScale(2, BigDecimal.ROUND_CEILING) ,refrigeratedTruck.getCost());
-    }
-
-    @Test
-    public void testTruckCapacity(){
-        assertEquals(1000, ordinaryTruck.getCapacity());
-        assertEquals(800, refrigeratedTruck.getCapacity());
-    }
-
-    @Test
-    public void testCargo()
+    public void testOrdinaryCargo()
     {
+        // assert that the item list is of the correct data type
         assertThat(ordCargo.getItemList, instanceOf(HashMap.class));
 
-        // test ordinary truck cargo
+        // add items that can be added to the ordinary cargo
         HashMap<String, Integer> ordItemList = new HashMap<>();
         ordItemList.put("mushrooms", 1);
         ordItemList.put("tomatoes", 1);
@@ -73,6 +59,8 @@ public class Tests {
         ordItemList.put("ice", 1);
         ordItemList.put("frozen meat", 1);
         ordItemList.put("frozen vegetable mix", 1);
+
+        // attempt to add all items to the ordinary cargo object
         ordCargo.addItem(new Item("rice", new BigDecimal(2),new BigDecimal(3),225,300), 1);
         ordCargo.addItem(new Item("beans", new BigDecimal(4),new BigDecimal(6),450,525), 1);
         ordCargo.addItem(new Item("pasta", new BigDecimal(3),new BigDecimal(4),125,250), 1);
@@ -97,9 +85,20 @@ public class Tests {
         ordCargo.addItem(new Item("ice",new BigDecimal(2),new BigDecimal(5),225,325,-10), 1);
         ordCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
         ordCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
-        assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.getItemList());
 
-        // test refrigerated truck cargo
+        // test that only non refrigerated food was able to be entered into the ordinary cargo
+        assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.getItemList());
+    }
+
+    /**
+     * Tests that all items can be stored in the refrigerated trucks cargo
+     */
+    @Test
+    public void testRefrigeratedCargo(){
+        // assert that the item list is of the correct data type
+        assertThat(refCargo.getItemList, instanceOf(HashMap.class));
+
+        // attempt to add all items to the ordinary cargo object
         HashMap<String, Integer> refItemList = new HashMap<>();
         refItemList.put("rice", 1);
         refItemList.put("beans", 1);
@@ -125,6 +124,8 @@ public class Tests {
         refItemList.put("ice", 1);
         refItemList.put("frozen meat", 1);
         refItemList.put("frozen vegetable mix", 1);
+
+        // attempt to add all items to the ordinary cargo object
         refCargo.addItem(new Item("rice", new BigDecimal(2),new BigDecimal(3),225,300), 1);
         refCargo.addItem(new Item("beans", new BigDecimal(4),new BigDecimal(6),450,525), 1);
         refCargo.addItem(new Item("pasta", new BigDecimal(3),new BigDecimal(4),125,250), 1);
@@ -149,11 +150,8 @@ public class Tests {
         refCargo.addItem(new Item("ice",new BigDecimal(2),new BigDecimal(5),225,325,-10), 1);
         refCargo.addItem(new Item("frozen meat",new BigDecimal(10),new BigDecimal(14),450,575,-14), 1);
         refCargo.addItem(new Item("frozen vegetable mix",new BigDecimal(5),new BigDecimal(8),225,325,-12), 1);
-        assertEquals(refItemList, refCargo.getItemList());
-    }
 
-    @Test
-    public void testTruckTemp(){
-        assertEquals(-20 ,refrigeratedTruck.getTemperature());
+        // test that all food was able to be entered into the refrigerated cargo
+        assertEquals("Not all items were able to be stored into the refrigerated trucks cargo" ,refItemList, refCargo.getItemList());
     }
 }
