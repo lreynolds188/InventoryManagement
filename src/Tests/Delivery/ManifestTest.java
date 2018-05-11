@@ -1,5 +1,6 @@
 package Tests.Delivery;
 
+import Delivery.Manifest;
 import Delivery.OrdinaryTruck;
 import Delivery.RefrigeratedTruck;
 import Delivery.Truck;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertThat;
 */ 
 public class ManifestTest {
 
+    Manifest manifest_object;
 
     /**
      * Testing manifest collection type is of hashmap

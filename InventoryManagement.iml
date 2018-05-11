@@ -17,5 +17,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="commons-lang3-3.0" level="application" />
+    <orderEntry type="library" name="opencsv-4.1" level="application" />
   </component>
 </module>

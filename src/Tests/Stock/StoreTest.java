@@ -1,4 +1,4 @@
-package test.Stock; 
+package Tests.Stock;
 
 import org.junit.Test; 
 import org.junit.Before; 
