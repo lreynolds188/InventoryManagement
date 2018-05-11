@@ -11,13 +11,13 @@ import java.util.HashMap;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 
-/** 
-* Manifest Tester. 
-* 
-* @author <Jonathan Gonzalez | n9821112>
-* @since <pre>May 7, 2018</pre> 
-* @version 1.0 
-*/ 
+/**
+ * Manifest Tester.
+ *
+ * @author <Jonathan Gonzalez | n9821112>
+ * @since <pre>May 7, 2018</pre>
+ * @version 1.0
+ */
 public class ManifestTest {
 
     Manifest manifest_object;

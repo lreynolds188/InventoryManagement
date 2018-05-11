@@ -40,15 +40,15 @@ public class Store {
         return capital;
     }
 
-    public String getCapitalToString(){
-        return capital.setScale(2, BigDecimal.ROUND_CEILING).toString();
-    }
-
-    public Stock getStock(){
+    public Stock getInventory(){
         return stock;
     }
 
     public Manifest getManifest() {
         return manifest;
+    }
+
+    public String getCapitalToString(){
+        return capital.setScale(2, BigDecimal.ROUND_CEILING).toString();
     }
 }

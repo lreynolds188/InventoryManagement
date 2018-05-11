@@ -1,12 +1,14 @@
 package Tests.Delivery;
 
 import Delivery.Cargo;
-
-import org.junit.*;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashMap;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Luke Reynolds
@@ -36,7 +38,7 @@ public class CargoTests {
     public void testOrdinaryCargo()
     {
         // assert that the item list is of the correct data type
-        assertThat(ordCargo.getItemList, instanceOf(HashMap.class));
+        assertThat(ordCargo.getItemList(), instanceOf(HashMap.class));
 
         // add items that can be added to the ordinary cargo
         HashMap<String, Integer> ordItemList = new HashMap<>();
@@ -74,7 +76,7 @@ public class CargoTests {
         ordCargo.addItem("celery", 1);
         ordCargo.addItem("chicken", 1);
         ordCargo.addItem("beef", 1);
-        ordCargo.addItem("fish";
+        ordCargo.addItem("fish", 1);
         ordCargo.addItem("yoghurt", 1);
         ordCargo.addItem("milk", 1);
         ordCargo.addItem("cheese", 1);
@@ -93,7 +95,7 @@ public class CargoTests {
     @Test
     public void testRefrigeratedCargo(){
         // assert that the item list is of the correct data type
-        assertThat(refCargo.getItemList, instanceOf(HashMap.class));
+        assertThat(refCargo.getItemList(), instanceOf(HashMap.class));
 
         // attempt to add all items to the ordinary cargo object
         HashMap<String, Integer> refItemList = new HashMap<>();
@@ -139,7 +141,7 @@ public class CargoTests {
         refCargo.addItem("celery", 1);
         refCargo.addItem("chicken", 1);
         refCargo.addItem("beef", 1);
-        refCargo.addItem("fish";
+        refCargo.addItem("fish", 1);
         refCargo.addItem("yoghurt", 1);
         refCargo.addItem("milk", 1);
         refCargo.addItem("cheese", 1);

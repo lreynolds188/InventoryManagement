@@ -9,12 +9,12 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 
 /**
-* Item Tester.
-*
-* @author <Jonathan Gonzalez | n9821112>
-* @since <pre>May 5, 2018</pre>
-* @version 1.0
-*/
+ * Item Tester.
+ *
+ * @author <Jonathan Gonzalez | n9821112>
+ * @since <pre>May 5, 2018</pre>
+ * @version 1.0
+ */
 public class ItemTest {
 
     Item item = new Item("rice",new BigDecimal(2),new BigDecimal(3),225,300);
@@ -34,17 +34,17 @@ public class ItemTest {
         // Test that name is of type String and not Null
         assertThat(
                 "name is required and cannot be null.",
-                item.name,
+                item.getName(),
                 instanceOf(String.class));
 
         // Test that name is not empty
-        assert (item.name != "") : "name can not be an empty string";
+        assert (item.getName() != "") : "name can not be an empty string";
 
     }
 
-    /**
-     * Item quantity located in the stock class
-     */
+
+
+    // TO DO: Item quantity is located in the stock class
 //    @Test
 //    public void test_item_quantity_property() {
 //
@@ -63,14 +63,14 @@ public class ItemTest {
         // Test that manufacturing cost is not Null
         assertThat(
                 "Manufacturing cost must be of type Big Decimal.",
-                item.manufacturing_cost,
+                item.getManufacturing_cost(),
                 instanceOf(BigDecimal.class));
 
         // Test that manufacturing cost scale is set to 2 values after decimal point
-        assert (item.manufacturing_cost.scale() == 2 ) : "Big Decimal scale must be set to 2 with Rounding to Floor";
+        assert (item.getManufacturing_cost().scale() == 2 ) : "Big Decimal scale must be set to 2 with Rounding to Floor";
 
         // Test that manufacturing cost is value is greater than zero
-        assert (item.manufacturing_cost.compareTo(zero) > 0) : "Manufacturing cost must be greater than Zero.";
+        assert (item.getManufacturing_cost().compareTo(zero) > 0) : "Manufacturing cost must be greater than Zero.";
 
     }
 
@@ -85,20 +85,20 @@ public class ItemTest {
         // Test that sell price is of type Big Decimal
         assertThat(
                 "Sell price must be of type Big Decimal",
-                item.sell_price,
+                item.getSell_price(),
                 instanceOf(BigDecimal.class));
 
         // Test that sell price is greater than zero
-        assert (item.sell_price.compareTo(zero) > 0);
+        assert (item.getSell_price().compareTo(zero) > 0);
 
         // Test that sell price value is formatted to 2 decimal points
-        assert (item.sell_price.scale() ==  2);
+        assert (item.getSell_price().scale() ==  2);
 
         // Test that sell price is of type Big Decimal - Appropriate for currency values
-        assertThat(item.sell_price, instanceOf(BigDecimal.class));
+        assertThat(item.getSell_price(), instanceOf(BigDecimal.class));
 
         // Test that sell price is greater than manufacturing cost
-        assert (item.sell_price.compareTo(item.manufacturing_cost) > 0);
+        assert (item.getSell_price().compareTo(item.getManufacturing_cost()) > 0);
     }
 
     /**
@@ -110,11 +110,11 @@ public class ItemTest {
         // Test that reorder point property is of type int
         assertThat(
                 "reorder point must be of type int.",
-                item.reorder_point,
+                item.getReorder_point(),
                 instanceOf(Integer.class));
 
         // Test that reorder point is greater than or equal to zero
-        assert (item.reorder_point >= 0);
+        assert (item.getReorder_point() >= 0);
 
     }
 
@@ -127,11 +127,11 @@ public class ItemTest {
         // Test that amount property is of type int
         assertThat(
                 "amount must be of type int.",
-                item.reorder_amount,
+                item.getReorder_amount(),
                 instanceOf(Integer.class));
 
         // Test that amount point is greater than or equal to zero
-        assert (item.reorder_amount >= 0);
+        assert (item.getReorder_amount() >= 0);
     }
 
     /**
@@ -143,7 +143,7 @@ public class ItemTest {
         // Test that temperature variable is of type Integer
         assertThat(
                 "temperature must be of type int.",
-                item.temperature,
+                item.getTemperature(),
                 instanceOf(Integer.class));
 
     }
