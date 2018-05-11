@@ -42,6 +42,13 @@ public class ItemTest {
 
     }
 
+    @Test
+    public void test_item_quantity_property() {
+
+        // Test that quantity is of type Integer
+        assertThat( item.quantity, instanceOf(Integer.class));
+    }
+
     /**
      * Series of tests for Manufacturing cost in dollars
      */
