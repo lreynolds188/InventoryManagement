@@ -1,6 +1,7 @@
 package Tests.Delivery;
 
-import Delivery.Cargo;
+import Delivery.Cargo.Cargo;
+import Delivery.Cargo.CargoFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,14 +22,20 @@ public class CargoTests {
 
     Cargo ordCargo, refCargo;
 
+
+
     /**
      * Tests the existence and ability to create an instance of required objects and their functions.
      */
     @Before@Test
     public void testInit (){
+        // Intstantiate cargo factory object
+        CargoFactory cargoFactory = new CargoFactory();
+
         // Tests Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
-        ordCargo = new Cargo(false);
-        refCargo = new Cargo(true);
+        ordCargo = cargoFactory.getCargo(true);
+        refCargo = cargoFactory.getCargo(false);
+        System.out.print(refCargo.getClass());
     }
 
     /**
