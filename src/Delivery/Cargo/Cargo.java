@@ -15,7 +15,7 @@ public interface Cargo {
      * Method signature for getting the list of cargo items
       * @return
      */
-    HashMap<String,Integer> getItemList();
+    HashMap<String,Integer> get_cargo();
 
     /**
      * Method signature for adding items to the cargo list

@@ -1,6 +1,7 @@
 package Tests.Stock;
 
 import Stock.Stock;
+import Stock.Item;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertThat;
  */
 public class StockTest {
 
-    Stock.Stock stock_object = new Stock.Stock();
+    Stock stock_object = new Stock();
     /**
      * Testing stock items collection is of type HashMap
      */
@@ -37,7 +38,7 @@ public class StockTest {
     @Test
     public void test_hashmap_value_object() {
 
-        Stock.Item item1 = new Stock.Item("car",new BigDecimal(100),new BigDecimal(200),1,5);
+        Item item1 = new Item("car",new BigDecimal(100),new BigDecimal(200),1,5);
         stock_object.put(item1 , 5);
 
         String name = item1.getName();

@@ -1,6 +1,9 @@
 package Delivery.Truck;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import CSV.Utility;
 
 /**
@@ -46,7 +49,7 @@ public class OrdinaryTruck extends Truck {
      * @return list of cargo
      */
     @Override
-    public ArrayList<Object[]> get_cargo(){
+    public HashMap<String, Integer> get_cargo(){
         return cargo;
     }
 
@@ -62,5 +65,15 @@ public class OrdinaryTruck extends Truck {
     @Override
     public int get_temperature() {
         return 0;
+    }
+
+    @Override
+    public BigDecimal getCost() {
+        return null;
+    }
+
+    @Override
+    public void addItem(String s, int i) {
+
     }
 }

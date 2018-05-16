@@ -1,9 +1,12 @@
 package Delivery.Truck;
 
 import CSV.Utility;
+import Delivery.Cargo.Cargo;
+import Delivery.Cargo.CargoFactory;
 import Stock.Item;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.HashMap;
 
 /**
  * Refrigerated truck class extending Truck class
@@ -15,10 +18,13 @@ import java.util.ArrayList;
 
 public class Refrigerated_Truck extends Truck {
 
-    double cost;
+    BigDecimal cost;
     int cargo_cap, temperature;
-    ArrayList<Object[]> cargo;
+    Cargo cargo;
     Utility utility;
+
+    // Instantiate new cargo Factory object
+    CargoFactory cargoFactory = new CargoFactory();
 
     /**
      * Class constructor that initializes class property fields
@@ -27,7 +33,8 @@ public class Refrigerated_Truck extends Truck {
 
         this.utility = new Utility();
 
-        this.cargo = new ArrayList<>();
+        // creates a new cargo object from factory. Pass True for ordinary truck, False for refrigerated truck
+        this.cargo = cargoFactory.getCargo(false);
 
         this.load_cargo();
 
@@ -37,7 +44,7 @@ public class Refrigerated_Truck extends Truck {
 
         // Cost in dollars equal to 900 + 200 × 0.7^T/5
         // where T is  the  truck’s temperature in °C
-        this.cost = 900+(200*Math.pow(0.7, temperature/5));
+        this.cost = new BigDecimal(900+(200*Math.pow(0.7, temperature/5)));
     }
 
     @Override
@@ -50,8 +57,8 @@ public class Refrigerated_Truck extends Truck {
      * @return list of cargo
      */
     @Override
-    public ArrayList<Object[]> get_cargo(){
-        return cargo;
+    public HashMap<String, Integer> get_cargo(){
+        return cargo.get_cargo();
     }
 
     /**
@@ -73,6 +80,7 @@ public class Refrigerated_Truck extends Truck {
 
         Item item;
 
+        // Cargo is a hashmap so will need to implement an iterator
         for (Object[] obj:cargo) {
             item = utility.getItem(obj[0].toString());
             if (item.temperature < temp){
@@ -80,6 +88,16 @@ public class Refrigerated_Truck extends Truck {
             }
         }
         return temp;
+    }
+
+    @Override
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    @Override
+    public void addItem(String s, int i) {
+
     }
 
 }

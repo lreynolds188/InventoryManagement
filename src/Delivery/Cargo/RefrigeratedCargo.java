@@ -12,15 +12,15 @@ import java.util.HashMap;
 public class RefrigeratedCargo implements Cargo{
 
     // Instance of hash map data structure for storing cargo items
-    HashMap<String, Integer> ref_cargo = new HashMap<>();
+    HashMap<String, Integer> refrigerated_cargo = new HashMap<>();
 
     /**
      * Gets the data structure object holding all the refrigerated cargo items
      * @return data structure
      */
     @Override
-    public HashMap<String, Integer> getItemList() {
-        return ref_cargo;
+    public HashMap<String, Integer> get_cargo() {
+        return refrigerated_cargo;
     }
 
     /**
@@ -30,7 +30,7 @@ public class RefrigeratedCargo implements Cargo{
      */
     @Override
     public void addItem(String name, Integer quantity) {
-        ref_cargo.put(name,quantity);
+        refrigerated_cargo.put(name,quantity);
     }
 
 }

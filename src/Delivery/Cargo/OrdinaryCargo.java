@@ -19,7 +19,7 @@ public class OrdinaryCargo implements Cargo{
      * @return data structure
      */
     @Override
-    public HashMap<String, Integer> getItemList() {
+    public HashMap<String, Integer> get_cargo() {
         return ord_cargo;
     }
 

@@ -45,7 +45,7 @@ public class CargoTests {
     public void testOrdinaryCargo()
     {
         // assert that the item list is of the correct data type
-        assertThat(ordCargo.getItemList(), instanceOf(HashMap.class));
+        assertThat(ordCargo.get_cargo(), instanceOf(HashMap.class));
 
         // add items that can be added to the ordinary cargo
         HashMap<String, Integer> ordItemList = new HashMap<>();
@@ -93,7 +93,7 @@ public class CargoTests {
         ordCargo.addItem("frozen vegetable mix", 1);
 
         // Tests that only non refrigerated food was able to be entered into the ordinary cargo
-        assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.getItemList());
+        assertEquals("Refrigerated food was able to be stored in the ordinary trucks cargo", ordItemList, ordCargo.get_cargo());
     }
 
     /**
@@ -102,7 +102,7 @@ public class CargoTests {
     @Test
     public void testRefrigeratedCargo(){
         // assert that the item list is of the correct data type
-        assertThat(refCargo.getItemList(), instanceOf(HashMap.class));
+        assertThat(refCargo.get_cargo(), instanceOf(HashMap.class));
 
         // attempt to add all items to the ordinary cargo object
         HashMap<String, Integer> refItemList = new HashMap<>();
@@ -158,6 +158,6 @@ public class CargoTests {
         refCargo.addItem("frozen vegetable mix", 1);
 
         // Tests that all food was able to be entered into the refrigerated cargo
-        assertEquals("Not all items were able to be stored into the refrigerated trucks cargo" ,refItemList, refCargo.getItemList());
+        assertEquals("Not all items were able to be stored into the refrigerated trucks cargo" ,refItemList, refCargo.get_cargo());
     }
 }

@@ -1,6 +1,7 @@
 package Delivery.Truck;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Abstract truck class
@@ -14,9 +15,13 @@ public abstract class Truck {
 
     public void load_cargo(){}
 
-    public ArrayList<Object[]> get_cargo(){return null;}
+    public abstract HashMap<String, Integer> get_cargo();
 
     public abstract int get_capacity();
 
     public abstract int get_temperature();
+
+    public abstract BigDecimal getCost();
+
+    public abstract void addItem(String s, int i);
 }

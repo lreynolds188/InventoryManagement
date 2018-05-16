@@ -1,6 +1,6 @@
 package Tests.Stock;
 
-import Stock.Stock;
+import Stock.*;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
  */
 public class StoreTest {
 
-    Stock.Store store_singleton = Stock.Store.getInstance();
+    Store store_singleton = Store.getInstance();
 
     /**
      * Tests for Store capital property
@@ -56,6 +56,6 @@ public class StoreTest {
     public void test_store_inventory() {
 
         // Assert that singleton stock is of type Stock
-        assertThat(store_singleton.getInventory(), instanceOf(Stock.Stock.class));
+        assertThat(store_singleton.getInventory(), instanceOf(Stock.class));
     }
 }
