@@ -1,8 +1,8 @@
 package Tests.Delivery;
 
-import Delivery.OrdinaryTruck;
-import Delivery.RefrigeratedTruck;
-import Delivery.Truck;
+import Delivery.Truck.OrdinaryTruck;
+import Delivery.Truck.Refrigerated_Truck;
+import Delivery.Truck.Truck;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class TruckTests {
     @Test
     public void testInit (){
         ordinaryTruck = new OrdinaryTruck();
-        refrigeratedTruck = new RefrigeratedTruck();
+        refrigeratedTruck = new Refrigerated_Truck();
     }
 
     /**
@@ -45,8 +45,8 @@ public class TruckTests {
      */
     @Test
     public void testTruckCapacity(){
-        assertEquals("Ordinary trucks capacity inaccurate", 1000, ordinaryTruck.getCapacity());
-        assertEquals("Refrigerated trucks capacity inaccurate", 800, refrigeratedTruck.getCapacity());
+        assertEquals("Ordinary trucks capacity inaccurate", 1000, ordinaryTruck.get_capacity());
+        assertEquals("Refrigerated trucks capacity inaccurate", 800, refrigeratedTruck.get_capacity());
     }
 
     /**
@@ -54,6 +54,6 @@ public class TruckTests {
      */
     @Test
     public void testTruckTemp(){
-        assertEquals("Refrigerated trucks temperature inaccurate", -20 ,refrigeratedTruck.getTemperature());
+        assertEquals("Refrigerated trucks temperature inaccurate", -20 ,refrigeratedTruck.get_temperature());
     }
 }

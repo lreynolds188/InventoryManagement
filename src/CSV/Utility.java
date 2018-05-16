@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import Delivery.OrdinaryTruck;
-import Delivery.RefrigeratedTruck;
-import Delivery.Truck;
+import Delivery.Truck.OrdinaryTruck;
+import Delivery.Truck.Refrigerated_Truck;
+import Delivery.Truck.Truck;
 import Stock.Item;
 
 import com.opencsv.CSVReader;
@@ -80,7 +80,7 @@ public class Utility {
     public static HashMap<String, Truck> readManifest(){
         try{
             HashMap<String, Truck> items = new HashMap<>();
-            Truck refrigerated1 = new RefrigeratedTruck();
+            Truck refrigerated1 = new Refrigerated_Truck();
             Truck ordinary1 = new OrdinaryTruck();
             CSVReader csvReader = new CSVReader(new FileReader(manifestFileName));
             boolean refrigerated = false;

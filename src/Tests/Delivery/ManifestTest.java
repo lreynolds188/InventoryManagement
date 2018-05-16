@@ -1,9 +1,9 @@
 package Tests.Delivery;
 
 import Delivery.Manifest;
-import Delivery.OrdinaryTruck;
-import Delivery.RefrigeratedTruck;
-import Delivery.Truck;
+import Delivery.Truck.OrdinaryTruck;
+import Delivery.Truck.Refrigerated_Truck;
+import Delivery.Truck.Truck;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -40,7 +40,7 @@ public class ManifestTest {
     @Test
     public void test_manifest_value_type() {
 
-        Truck refrigerated_truck = new RefrigeratedTruck();
+        Truck refrigerated_truck = new Refrigerated_Truck();
         Truck ordinary_truck = new OrdinaryTruck();
 
         manifest_object.put("refrigerated1", refrigerated_truck);

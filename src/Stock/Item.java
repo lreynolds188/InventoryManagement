@@ -13,7 +13,8 @@ public class Item {
 
     private String name;
     private BigDecimal manufacturing_cost, sell_price;
-    private int reorder_point, reorder_amount, temperature;
+    private int reorder_point, reorder_amount;
+    public int temperature;
 
     public Item(String name, BigDecimal manufacturing_cost, BigDecimal price, int reorderPoint, int reorderAmount, int temperature){
         this.name = name;
