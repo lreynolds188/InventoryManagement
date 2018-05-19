@@ -1,6 +1,11 @@
 package Delivery.Cargo;
 
+import CSV.Utility;
+import Stock.Item;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Item Tester.
@@ -15,12 +20,14 @@ public interface Cargo {
      * Method signature for getting the list of cargo items
       * @return
      */
-    HashMap<String,Integer> get_cargo();
+    HashMap<Item,Integer> get_cargo();
+
+    BigDecimal getCost();
 
     /**
      * Method signature for adding items to the cargo list
      * @return
      */
-    void addItem(String name, Integer quantity);
+    void addItem(Item name, Integer quantity);
 
 }

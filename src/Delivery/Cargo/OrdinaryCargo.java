@@ -1,6 +1,10 @@
 package Delivery.Cargo;
 
+import Stock.Item;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Ordinary cargo class implementing Cargo interface.
@@ -12,24 +16,34 @@ import java.util.HashMap;
 public class OrdinaryCargo implements Cargo{
 
     // Instance of hash map data structure for storing cargo items
-    HashMap<String, Integer> ord_cargo = new HashMap<>();
+    HashMap<Item, Integer> ord_cargo = new HashMap<>();
 
     /**
      * Gets the data structure object holding all the ordinary cargo items
      * @return data structure
      */
     @Override
-    public HashMap<String, Integer> get_cargo() {
+    public HashMap<Item, Integer> get_cargo() {
         return ord_cargo;
+    }
+
+    @Override
+    public BigDecimal getCost(){
+        BigDecimal cost = new BigDecimal(0);
+        for (Map.Entry<Item, Integer> set : ord_cargo.entrySet()){
+            BigDecimal temp = set.getKey().getManufacturing_cost().multiply(new BigDecimal(set.getValue()));
+            cost = cost.add(temp);
+        }
+        return cost;
     }
 
     /**
      * Adds a new ordinary cargo item to the ordinary cargo data structure
-     * @param name - key
+     * @param item - key
      * @param quantity - value
      */
     @Override
-    public void addItem(String name, Integer quantity) {
-        ord_cargo.put(name, quantity);
+    public void addItem(Item item, Integer quantity) {
+        ord_cargo.put(item, quantity);
     }
 }

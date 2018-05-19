@@ -13,29 +13,21 @@ import java.util.HashMap;
  */
 public class Stock {
 
-    private HashMap<Item, Integer> stocklist;
+    private HashMap<Item, Integer> stockList;
 
     public Stock(){
-        loadStock();
-    }
-
-    public void loadStock(){
-        stocklist = Utility.readItemList();
+        stockList = new HashMap<>();
     }
 
     public void put(Item item, Integer quantity){
-        stocklist.put(item, quantity);
+        stockList.put(item, quantity);
     }
 
     public Integer get(String name){
-        return(stocklist.get(name));
-    }
-
-    public void saveStock() {
-        Utility.writeItemList(stocklist);
+        return(stockList.get(name));
     }
 
     public HashMap<Item, Integer> getStock(){
-        return stocklist;
+        return stockList;
     }
 }

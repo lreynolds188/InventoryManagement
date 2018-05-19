@@ -1,9 +1,6 @@
 package Tests.Delivery;
 
-import Delivery.Manifest;
-import Delivery.Truck.OrdinaryTruck;
-import Delivery.Truck.Refrigerated_Truck;
-import Delivery.Truck.Truck;
+import Delivery.Trucks.Manifest;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -29,13 +26,13 @@ public class ManifestTest {
     public void test_manifest_collection_type(){
 
         assertThat(
-                "This collection must be of type HashMap whose key is a String and value is an instance of Truck",
+                "This collection must be of type HashMap whose key is a String and value is an instance of TruckAbst",
                 manifest_object,
                 instanceOf(HashMap.class));
     }
 
     /**
-     * Test that manifest takes objects of type Truck
+     * Test that manifest takes objects of type TruckAbst
      */
     @Test
     public void test_manifest_value_type() {
@@ -47,13 +44,13 @@ public class ManifestTest {
         manifest_object.put("ordinary1", ordinary_truck);
 
 
-        // Test that manifest value for refrigerated truck is of type Truck
+        // Test that manifest value for refrigerated truck is of type TruckAbst
         assertThat(
                 "Value object should be of type Item ",
                 manifest_object.get("refrigerated1"),
                 instanceOf(Truck.class));
 
-        // Test that manifest value for ordinary truck is of type Truck
+        // Test that manifest value for ordinary truck is of type TruckAbst
         assertThat(
                 "Value object should be of type Item ",
                 manifest_object.get("ordinary1"),

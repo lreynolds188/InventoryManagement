@@ -1,8 +1,8 @@
 package Tests.Delivery;
 
-import Delivery.Truck.OrdinaryTruck;
-import Delivery.Truck.Refrigerated_Truck;
-import Delivery.Truck.Truck;
+import Delivery.TruckAbst.OrdinaryTruck;
+import Delivery.TruckAbst.Refrigerated_Truck;
+import Delivery.TruckAbst.Truck;
 import org.junit.Before;
 import org.junit.Test;
 

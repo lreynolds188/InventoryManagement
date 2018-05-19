@@ -1,8 +1,10 @@
 package Stock;
 
-import Delivery.Manifest;
+import Delivery.Trucks.Manifest;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Luke Reynolds
@@ -12,10 +14,10 @@ import java.math.BigDecimal;
  * @github https://github.com/lreynolds188
  */
 public class Store {
-    String name;
-    BigDecimal capital;
-    Stock stock;
-    Manifest manifest;
+    private static String name;
+    private static BigDecimal capital;
+    private static Stock stock;
+    private static Manifest manifest;
 
     protected Store(String name) {
         this.name = name;
@@ -32,23 +34,33 @@ public class Store {
         return InstanceHolder.INSTANCE;
     }
 
-    public String getName(){
+    public static void putCapital(BigDecimal value){
+        capital = capital.add(value);
+    }
+
+    public static void addInventory(HashMap<Item, Integer> itemList){
+        for (Map.Entry<Item, Integer> set : itemList.entrySet()){
+            stock.put(set.getKey(), set.getValue());
+        }
+    }
+
+    public static String getName(){
         return name;
     }
 
-    public BigDecimal getCapital(){
+    public static BigDecimal getCapital(){
         return capital;
     }
 
-    public Stock getInventory(){
+    public static Stock getInventory(){
         return stock;
     }
 
-    public Manifest getManifest() {
+    public static Manifest getManifest() {
         return manifest;
     }
 
-    public String getCapitalToString(){
+    public static String getCapitalToString(){
         return capital.setScale(2, BigDecimal.ROUND_CEILING).toString();
     }
 }
