@@ -101,20 +101,20 @@ public class Utility {
                 }
             }
 
-            sortMap(refCargo);
+            List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(refCargo);
 
-            while(refCargo.size() != 0){
-                if(refCargo.size() != 1){
+            while(sortedRefCargo.size() != 0){
+                if(sortedRefCargo.size() != 1){
                     Map.Entry<Item, Integer> highItem = null, lowItem = null;
                     int high = 0;
-                    for (Map.Entry<Item, Integer> map1 : refCargo.entrySet()) {
-                        for (Map.Entry<Item, Integer> map2 : refCargo.entrySet()) {
+                    for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
+                        for (Map.Entry<Item, Integer> map2 : sortedRefCargo) {
                             if (!map1.equals(map2)) {
-                                if (map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() > high &&
-                                        map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() <= 800) {
+                                if (map1.getValue() + map2.getValue() > high &&
+                                        map1.getValue() + map2.getValue() <= 800) {
                                     highItem = map1;
                                     lowItem = map2;
-                                    high = map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount();
+                                    high = map1.getValue() + map2.getValue();
                                 }
                             }
                         }
@@ -122,18 +122,18 @@ public class Utility {
                     Truck temp = new Refrigerated_Truck();
                     temp.addItem(highItem.getKey(), highItem.getValue());
                     temp.addItem(lowItem.getKey(), lowItem.getValue());
-                    refCargo.remove(highItem.getKey());
-                    refCargo.remove(lowItem.getKey());
+                    sortedRefCargo.remove(highItem);
+                    sortedRefCargo.remove(lowItem);
                     manifest.put(refTruckName + refIndex, temp);
                     refIndex++;
                 } else {
                     Truck temp = new Refrigerated_Truck();
 
-                    Item lastItem = (Item) refCargo.keySet().toArray()[0];
+                    Item lastItem = (Item) sortedRefCargo.toArray()[0];
 
                     System.out.println(lastItem.getName() + " " + lastItem.getReorder_amount());
                     temp.addItem(lastItem, lastItem.getReorder_amount());
-                    refCargo.remove(lastItem);
+                    sortedRefCargo.remove(lastItem);
                     manifest.put(refTruckName + refIndex, temp);
                     refIndex++;
                 }
