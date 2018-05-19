@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Delivery.Trucks.Truck;
 import Delivery.Trucks.Ordinary_Truck;
@@ -17,6 +18,7 @@ import Stock.Item;
 import Stock.Store;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import org.omg.CORBA.INTERNAL;
 
 import javax.swing.text.html.HTMLDocument;
 
@@ -55,6 +57,13 @@ public class Utility {
         }
     }
 
+    public static List<Map.Entry<Item, Integer>> sortMap(HashMap<Item, Integer> map){
+        List<Map.Entry<Item, Integer>> temp = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
+        List<Map.Entry<Item, Integer>> copyTemp = temp.subList(0, temp.size());
+        Collections.reverse(copyTemp);
+        return temp;
+    }
+
     /**
      *
      * @return
@@ -91,6 +100,8 @@ public class Utility {
                     ordCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
                 }
             }
+
+            sortMap(refCargo);
 
             while(refCargo.size() != 0){
                 if(refCargo.size() != 1){
