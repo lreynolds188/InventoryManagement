@@ -95,9 +95,9 @@ public class Utility {
                 }
 
                 if (refrigerated){
-                    refrigerated1.addItem(nextRecord[0], Integer.parseInt(nextRecord[1]));
+                    refrigerated1.add_item(nextRecord[0], Integer.parseInt(nextRecord[1]));
                 } else {
-                    ordinary1.addItem(nextRecord[0], Integer.parseInt(nextRecord[1]));
+                    ordinary1.add_item(nextRecord[0], Integer.parseInt(nextRecord[1]));
                 }
             }
             csvReader.close();

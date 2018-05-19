@@ -16,11 +16,11 @@ public abstract class Truck {
 
     public Cargo get_cargo(){return null;}
 
-    public void addItem(String item, Integer quantity){}
+    public void add_item(String item, Integer quantity){}
 
-    public BigDecimal getCost(){return null;}
+    public BigDecimal get_cost(){return null;}
 
     public int get_capacity(){return -1;}
 
-    public int getTemperature(){return 11;}
+    public int get_temperature(){return 11;}
 }

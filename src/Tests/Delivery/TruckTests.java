@@ -36,8 +36,10 @@ public class TruckTests {
      */
     @Test
     public void testTruckCost(){
-        assertEquals("Ordinary trucks cost inaccurate", BigDecimal.valueOf(750.50).setScale(2, BigDecimal.ROUND_CEILING) ,ordinaryTruck.getCost());
-        assertEquals("Refrigerated trucks cost inaccurate", BigDecimal.valueOf(1732.99).setScale(2, BigDecimal.ROUND_CEILING) ,refrigeratedTruck.getCost());
+        assertEquals("Ordinary trucks cost inaccurate", BigDecimal.valueOf(750.50).setScale(2, BigDecimal
+                .ROUND_CEILING) ,ordinaryTruck.get_cost());
+        assertEquals("Refrigerated trucks cost inaccurate", BigDecimal.valueOf(1732.99).setScale(2, BigDecimal
+                .ROUND_CEILING) ,refrigeratedTruck.get_cost());
     }
 
     /**

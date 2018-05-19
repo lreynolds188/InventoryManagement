@@ -54,7 +54,7 @@ public class Refrigerated_Truck extends Truck {
      * @return Cost as dollars
      */
     @Override
-    public BigDecimal getCost() {
+    public BigDecimal get_cost() {
         return cost.setScale(2, BigDecimal.ROUND_CEILING);
     }
 
@@ -90,7 +90,7 @@ public class Refrigerated_Truck extends Truck {
     }
 
     @Override
-    public void addItem(String item, Integer quantity) {
+    public void add_item(String item, Integer quantity) {
         cargo.addItem(item,quantity);
     }
 

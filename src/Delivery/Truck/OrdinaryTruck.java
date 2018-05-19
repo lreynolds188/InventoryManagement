@@ -1,5 +1,9 @@
 package Delivery.Truck;
 
+import Delivery.Cargo.Cargo;
+import Delivery.Cargo.CargoFactory;
+import Stock.StockException;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,41 +20,23 @@ import CSV.Utility;
 
 public class OrdinaryTruck extends Truck {
 
-    double cost;
-    int cargo_cap;
-    ArrayList<Object[]> cargo;
-    Utility utility;
+    private BigDecimal cost;
+    private int capacity = 1000;
+    private Cargo cargo;
+
+    // Instantiate new cargo Factory object
+    CargoFactory cargoFactory = new CargoFactory();
 
     /**
      * Class constructor that initializes class property fields
      */
     public OrdinaryTruck(){
 
-        this.utility = new Utility();
-
-        this.cargo_cap = 1000;
-
-        this.cargo = new ArrayList<>();
-
-        this.load_cargo();
+        this.cargo = cargoFactory.getCargo(true);
 
         // Cost in dollars equal to 750 + 0.25q
         // where q is the total quantity of items in the cargo
-        this.cost = 750 + (0.25 * cargo.size());
-    }
-
-    @Override
-    public void load_cargo() {
-        cargo = utility.readManifest("./assets/manifest.csv", false);
-    }
-
-    /**
-     * Gets the list of cargo for the ordinary truck
-     * @return list of cargo
-     */
-    @Override
-    public HashMap<String, Integer> get_cargo(){
-        return cargo;
+        this.cost = new BigDecimal(750 + (0.25 * cargo.get_cargo().keySet().size()));
     }
 
     /**
@@ -59,21 +45,26 @@ public class OrdinaryTruck extends Truck {
      */
     @Override
     public int get_capacity() {
-        return cargo_cap;
+        return capacity;
+    }
+
+
+    /**
+     * Gets the total cost of the cargo in the truck
+     * @return integer cost as dollars
+     */
+    @Override
+    public BigDecimal get_cost() {
+        return  cost.setScale(2, BigDecimal.ROUND_CEILING);
     }
 
     @Override
-    public int get_temperature() {
-        return 0;
+    public Cargo get_cargo(){
+        return cargo;
     }
 
     @Override
-    public BigDecimal getCost() {
-        return null;
-    }
-
-    @Override
-    public void addItem(String s, int i) {
-
+    public void add_item(String item, Integer quantity){
+        cargo.addItem(item, quantity);
     }
 }
