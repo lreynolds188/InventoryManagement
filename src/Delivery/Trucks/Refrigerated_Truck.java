@@ -5,6 +5,7 @@ import Delivery.Cargo.RefrigeratedCargo;
 import Stock.Item;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class Refrigerated_Truck extends Truck {
 
@@ -32,25 +33,11 @@ public class Refrigerated_Truck extends Truck {
     }
 
     @Override
-    public int getTemperature(){
-        int temp = 0;
-        for (Item item:cargo.get_cargo().keySet()) {
-            if (item.getTemperature() < temp){
-                temp = item.getTemperature();
-            }
-        }
-        return temp;
-    }
-
-    @Override
-    public BigDecimal getCargoCost(){
-        return cargo.getCost();
-    }
-
-    @Override
     public void addItem(Item item, Integer quantity){
         cargo.addItem(item, quantity);
-        temperature = getTemperature();
+        if (item.temperature < temperature){
+            temperature = item.temperature;
+        }
         cost = new BigDecimal(900+(200*Math.pow(0.7, temperature/5)));
     }
 

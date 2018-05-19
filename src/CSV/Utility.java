@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import Delivery.Trucks.Truck;
 import Delivery.Trucks.Ordinary_Truck;
@@ -18,6 +17,8 @@ import Stock.Item;
 import Stock.Store;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+
+import javax.swing.text.html.HTMLDocument;
 
 /**
  * @author Luke Reynolds
@@ -64,44 +65,159 @@ public class Utility {
 
             String refTruckName = "refrigerated_";
             String ordTruckName = "ordinary_";
-            int index = 0;
+            int refIndex = 0;
+            int ordIndex = 0;
 
-            manifest.put(refTruckName + index, new Refrigerated_Truck());
-            manifest.put(ordTruckName + index, new Ordinary_Truck());
+            HashMap<Item, Integer> refCargo = new HashMap<>();
+            HashMap<Item, Integer> ordCargo = new HashMap<>();
 
+            // LOADS CSV IN
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
             boolean refrigerated = false;
             String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null){
-                if (nextRecord[0].equalsIgnoreCase(">Refrigerated")){
+            while ((nextRecord = csvReader.readNext()) != null) {
+                if (nextRecord[0].equalsIgnoreCase(">Refrigerated")) {
                     refrigerated = true;
                     continue;
-                } else if (nextRecord[0].equalsIgnoreCase(">Ordinary")){
+                } else if (nextRecord[0].equalsIgnoreCase(">Ordinary")) {
                     refrigerated = false;
                     continue;
                 }
 
-                if (manifest.get(refTruckName + index).getCargo().get_cargo().size() < manifest.get(refTruckName + index).getCapacity()){
-                    if (refrigerated){
-                        manifest.get(refTruckName + index).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-                    } else {
-                        manifest.get(ordTruckName + index).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-                    }
+                // SEPARATES ITEMS INTO REFRIGERATED OR ORDINARY
+                if (refrigerated) {
+                    refCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
                 } else {
-                    index++;
+                    ordCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
                 }
+            }
 
+            while(refCargo.size() != 0){
+                if(refCargo.size() != 1){
+                    Map.Entry<Item, Integer> highItem = null, lowItem = null;
+                    int high = 0;
+                    for (Map.Entry<Item, Integer> map1 : refCargo.entrySet()) {
+                        for (Map.Entry<Item, Integer> map2 : refCargo.entrySet()) {
+                            if (!map1.equals(map2)) {
+                                if (map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() > high &&
+                                        map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() <= 800) {
+                                    highItem = map1;
+                                    lowItem = map2;
+                                    high = map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount();
+                                }
+                            }
+                        }
+                    }
+                    Truck temp = new Refrigerated_Truck();
+                    temp.addItem(highItem.getKey(), highItem.getValue());
+                    temp.addItem(lowItem.getKey(), lowItem.getValue());
+                    refCargo.remove(highItem.getKey());
+                    refCargo.remove(lowItem.getKey());
+                    manifest.put(refTruckName + refIndex, temp);
+                    refIndex++;
+                } else {
+                    Truck temp = new Refrigerated_Truck();
+
+                    Item lastItem = (Item) refCargo.keySet().toArray()[0];
+
+                    System.out.println(lastItem.getName() + " " + lastItem.getReorder_amount());
+                    temp.addItem(lastItem, lastItem.getReorder_amount());
+                    refCargo.remove(lastItem);
+                    manifest.put(refTruckName + refIndex, temp);
+                    refIndex++;
+                }
             }
+
+//            while(ordCargo.size() != 0){
+//                if(ordCargo.size() != 1){
+//                    Map.Entry<Item, Integer> highItem = null, lowItem = null;
+//                    int high = 0;
+//                    for (Map.Entry<Item, Integer> map1 : refCargo.entrySet()) {
+//                        for (Map.Entry<Item, Integer> map2 : refCargo.entrySet()) {
+//                            if (!map1.equals(map2)) {
+//                                if (map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() > high &&
+//                                        map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() <= 800) {
+//                                    highItem = map1;
+//                                    lowItem = map2;
+//                                    high = map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount();
+//                                }
+//                            }
+//                        }
+//                    }
+//                    Truck temp = new Refrigerated_Truck();
+//                    temp.addItem(highItem.getKey(), highItem.getValue());
+//                    temp.addItem(lowItem.getKey(), lowItem.getValue());
+//                    refCargo.remove(highItem.getKey());
+//                    refCargo.remove(lowItem.getKey());
+//                    manifest.put(refTruckName + refIndex, temp);
+//                    refIndex++;
+//                } else {
+//                    Truck temp = new Refrigerated_Truck();
+//
+//
+//                    Item lastItem = (Item) refCargo.keySet().toArray()[0];
+//
+//                    System.out.println(lastItem.getName() + " " + lastItem.getReorder_amount());
+//                    temp.addItem(lastItem, lastItem.getReorder_amount());
+//                    refCargo.remove(lastItem);
+//                    manifest.put(refTruckName + refIndex, temp);
+//                    refIndex++;
+//                }
+//            }
+
             csvReader.close();
-            for (Map.Entry<String, Truck> set : manifest.entrySet()){
-                manifest.put(set.getKey(), set.getValue());
-            }
             return manifest;
         } catch (Exception err) {
             System.out.println("Error loading manifest!");
             err.printStackTrace();
             return null;
         }
+
+
+
+//
+
+
+//
+//
+//                refIndex = 0;
+//                // for each truck in the list
+//                for (Map.Entry<String, Truck> set: manifest.entrySet()){
+//                    // if truck is refrigerated
+//                    if (set.getKey().contains("refrigerated")){
+//                        // get the truck from the hashmap
+//                        Truck tempRefTruck = set.getValue();
+//                        // if truck cargo + item < truck capacity
+//                        if ((tempRefTruck.getCargo().get_size() + Integer.parseInt(nextRecord[1])) < tempRefTruck.getCapacity()) {
+//                            // add item to cargo
+//                            tempRefTruck.addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+//                        // move on to next refrigerated truck
+//                        } else {
+//                            refIndex++;
+//                            if (manifest.containsKey(refTruckName + (refIndex))){
+//                                 continue;
+//                            } else {
+//                                manifest.put(refTruckName + refIndex, new Refrigerated_Truck());
+//                                manifest.get(refTruckName + refIndex).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//
+//
+//                } else {
+//                    Truck tempOrdTruck = manifest.get(ordTruckName + ordIndex);
+//                    if (tempOrdTruck.getCargo().get_size() + Integer.parseInt(nextRecord[1]) < tempOrdTruck.getCapacity()) {
+//                        tempOrdTruck.addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+//                    } else {
+//                        ordIndex++;
+//                        manifest.put(ordTruckName + ordIndex, new Ordinary_Truck());
+//                        manifest.get(ordTruckName + ordIndex).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+//                    }
+//                }
+//
     }
 
     /**

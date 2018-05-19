@@ -27,11 +27,6 @@ public class Ordinary_Truck extends Truck {
     }
 
     @Override
-    public BigDecimal getCargoCost(){
-        return cargo.getCost();
-    }
-
-    @Override
     public Cargo getCargo(){
         return cargo;
     }
@@ -39,7 +34,7 @@ public class Ordinary_Truck extends Truck {
     @Override
     public void addItem(Item item, Integer quantity){
         cargo.addItem(item, quantity);
-        cost = new BigDecimal(750 + (0.25 * cargo.get_cargo().size()));
+        cost = new BigDecimal(750 + (0.25 * cargo.get_size()));
     }
 
 }

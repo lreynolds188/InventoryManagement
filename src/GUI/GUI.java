@@ -165,16 +165,17 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         itemListPanel = new JPanel();
         itemListPanel.setBounds(0, 0, 1080, 800);
         itemListPanel.setVisible(true);
+        btnExportManifest = generateButton("Export Manifest", 195, 40);
+        btnLoadItemList = generateButton("Load Item List", 195, 40);
+        itemListPanel.add(btnExportManifest);
+        itemListPanel.add(btnLoadItemList);
 
         generateItemListTable();
         generateScrollPane();
         itemListPanel.add(scrollPane);
 
         generateFileChooser();
-        btnExportManifest = generateButton("Export Manifest", 195, 40);
-        btnLoadItemList = generateButton("Load Item List", 195, 40);
-        itemListPanel.add(btnExportManifest);
-        itemListPanel.add(btnLoadItemList);
+
     }
 
     public void generateFileChooser(){

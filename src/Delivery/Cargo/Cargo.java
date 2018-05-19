@@ -30,4 +30,5 @@ public interface Cargo {
      */
     void addItem(Item name, Integer quantity);
 
+    Integer get_size();
 }

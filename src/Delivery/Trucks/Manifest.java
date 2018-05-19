@@ -26,15 +26,11 @@ public class Manifest {
     public void load_manifest(String filename) {
         manifest = Utility.loadManifest(filename);
 
-
-        Store.putCapital(manifest.get("refrigerated1").getCost().negate());
-        Store.putCapital(manifest.get("refrigerated1").getCargoCost().negate());
-
-        Store.putCapital(manifest.get("ordinary1").getCost().negate());
-        Store.putCapital(manifest.get("ordinary1").getCargoCost().negate());
-
-        Store.addInventory(manifest.get("refrigerated1").getCargo().get_cargo());
-        Store.addInventory(manifest.get("ordinary1").getCargo().get_cargo());
+        for (Map.Entry<String, Truck> temp: manifest.entrySet()){
+            Store.putCapital(temp.getValue().getCost().negate());
+            Store.putCapital(temp.getValue().getCargo().getCost().negate());
+            Store.addInventory(temp.getValue().getCargo().get_cargo());
+        }
     }
 
     public void put(String name, Truck truck){
