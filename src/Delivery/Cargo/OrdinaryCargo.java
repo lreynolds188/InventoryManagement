@@ -34,7 +34,7 @@ public class OrdinaryCargo implements Cargo{
             BigDecimal temp = set.getKey().getManufacturing_cost().multiply(new BigDecimal(set.getValue()));
             cost = cost.add(temp);
         }
-        return cost.setScale(2, BigDecimal.ROUND_CEILING);
+        return cost.setScale(2, BigDecimal.ROUND_FLOOR);
     }
 
     /**

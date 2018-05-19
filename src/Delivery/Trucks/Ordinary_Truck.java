@@ -23,7 +23,7 @@ public class Ordinary_Truck extends Truck {
 
     @Override
     public BigDecimal getCost(){
-        return cost.setScale(2, BigDecimal.ROUND_CEILING);
+        return cost.setScale(2, BigDecimal.ROUND_FLOOR);
     }
 
     @Override

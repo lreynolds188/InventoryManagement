@@ -156,17 +156,16 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         manifestPanel.setBounds(0, 0, 1080, 800);
         manifestPanel.setBackground(Color.BLACK);
         manifestPanel.setVisible(false);
-
-        btnLoadManifest = generateButton("Load Manifest", 195, 40);
-        manifestPanel.add(btnLoadManifest);
     }
 
     public void generateItemListPanel(){
         itemListPanel = new JPanel();
         itemListPanel.setBounds(0, 0, 1080, 800);
         itemListPanel.setVisible(true);
+        btnLoadManifest = generateButton("Load Manifest", 195, 40);
         btnExportManifest = generateButton("Export Manifest", 195, 40);
         btnLoadItemList = generateButton("Load Item List", 195, 40);
+        itemListPanel.add(btnLoadManifest);
         itemListPanel.add(btnExportManifest);
         itemListPanel.add(btnLoadItemList);
 
@@ -184,7 +183,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
 
     public void generateSalesPanel(){
         salesPanel = new JPanel();
-        salesPanel.setBounds(0, 0, 520, 480);
+        salesPanel.setBounds(0, 0, 1080, 800);
         salesPanel.setBackground(Color.GREEN);
         salesPanel.setVisible(false);
     }

@@ -1,5 +1,6 @@
 package CSV;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import Delivery.Trucks.Truck;
@@ -68,8 +70,8 @@ public class Utility {
      *
      * @return
      */
-    public static HashMap<String, Truck> loadManifest(String fileName){
-        try{
+    public static HashMap<String, Truck> loadManifest(String fileName) {
+        try {
             HashMap<String, Truck> manifest = new HashMap<>();
 
             String refTruckName = "refrigerated_";
@@ -93,7 +95,7 @@ public class Utility {
                     continue;
                 }
 
-                // SEPARATES ITEMS INTO REFRIGERATED OR ORDINARY
+                // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
                 if (refrigerated) {
                     refCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
                 } else {
@@ -101,10 +103,13 @@ public class Utility {
                 }
             }
 
+            // FORMAT MAP INTO SORTED LIST
             List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(refCargo);
+            List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(ordCargo);
 
-            while(sortedRefCargo.size() != 0){
-                if(sortedRefCargo.size() != 1){
+            // ADD REF CARGO TO REF TRUCKS
+            while (sortedRefCargo.size() != 0) {
+                if (sortedRefCargo.size() != 1) {
                     Map.Entry<Item, Integer> highItem = null, lowItem = null;
                     int high = 0;
                     for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
@@ -128,10 +133,7 @@ public class Utility {
                     refIndex++;
                 } else {
                     Truck temp = new Refrigerated_Truck();
-
                     Item lastItem = (Item) sortedRefCargo.toArray()[0];
-
-                    System.out.println(lastItem.getName() + " " + lastItem.getReorder_amount());
                     temp.addItem(lastItem, lastItem.getReorder_amount());
                     sortedRefCargo.remove(lastItem);
                     manifest.put(refTruckName + refIndex, temp);
@@ -139,42 +141,40 @@ public class Utility {
                 }
             }
 
-//            while(ordCargo.size() != 0){
-//                if(ordCargo.size() != 1){
-//                    Map.Entry<Item, Integer> highItem = null, lowItem = null;
-//                    int high = 0;
-//                    for (Map.Entry<Item, Integer> map1 : refCargo.entrySet()) {
-//                        for (Map.Entry<Item, Integer> map2 : refCargo.entrySet()) {
-//                            if (!map1.equals(map2)) {
-//                                if (map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() > high &&
-//                                        map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount() <= 800) {
-//                                    highItem = map1;
-//                                    lowItem = map2;
-//                                    high = map1.getKey().getReorder_amount() + map2.getKey().getReorder_amount();
-//                                }
-//                            }
-//                        }
-//                    }
-//                    Truck temp = new Refrigerated_Truck();
-//                    temp.addItem(highItem.getKey(), highItem.getValue());
-//                    temp.addItem(lowItem.getKey(), lowItem.getValue());
-//                    refCargo.remove(highItem.getKey());
-//                    refCargo.remove(lowItem.getKey());
-//                    manifest.put(refTruckName + refIndex, temp);
-//                    refIndex++;
-//                } else {
-//                    Truck temp = new Refrigerated_Truck();
-//
-//
-//                    Item lastItem = (Item) refCargo.keySet().toArray()[0];
-//
-//                    System.out.println(lastItem.getName() + " " + lastItem.getReorder_amount());
-//                    temp.addItem(lastItem, lastItem.getReorder_amount());
-//                    refCargo.remove(lastItem);
-//                    manifest.put(refTruckName + refIndex, temp);
-//                    refIndex++;
-//                }
-//            }
+            // ADD BEST PLACE ORD CARGO INTO REF TRUCKS
+            Map.Entry<Item, Integer> stockEntry = new AbstractMap.SimpleEntry<>(null, 0);
+            for (Map.Entry<String, Truck> manifestEntry : manifest.entrySet()){
+                Map.Entry<Item, Integer> bestItem = stockEntry;
+                Truck currentTruck = manifestEntry.getValue();
+                for (Map.Entry<Item, Integer> cargoEntry : sortedOrdCargo){
+                    if (((currentTruck.getCargo().get_size() + cargoEntry.getValue()) <= 800) && ((currentTruck.getCargo().get_size() + cargoEntry.getValue()) > bestItem.getValue())){
+                        bestItem = cargoEntry;
+                    }
+                }
+                if (bestItem != stockEntry){
+                    manifestEntry.getValue().addItem(bestItem.getKey(), bestItem.getValue());
+                    sortedOrdCargo.remove(bestItem);
+                }
+            }
+
+            // ADD REMAINING ORD CARGO INTO ORD TRUCKS
+            while (sortedOrdCargo.size() != 0){
+                Truck temp = new Ordinary_Truck();
+                HashMap<Item, Integer> items = new HashMap<>();
+                for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
+                        if ((map1.getValue() + temp.getCargo().get_size()) <= 1000){
+                            temp.addItem(map1.getKey(), map1.getValue());
+                            items.put(map1.getKey(), map1.getValue());
+                        }
+                }
+
+                for (Map.Entry<Item, Integer> item : items.entrySet()) {
+                    sortedOrdCargo.remove(item);
+                }
+
+                manifest.put(ordTruckName + ordIndex, temp);
+                ordIndex++;
+            }
 
             csvReader.close();
             return manifest;
@@ -183,52 +183,6 @@ public class Utility {
             err.printStackTrace();
             return null;
         }
-
-
-
-//
-
-
-//
-//
-//                refIndex = 0;
-//                // for each truck in the list
-//                for (Map.Entry<String, Truck> set: manifest.entrySet()){
-//                    // if truck is refrigerated
-//                    if (set.getKey().contains("refrigerated")){
-//                        // get the truck from the hashmap
-//                        Truck tempRefTruck = set.getValue();
-//                        // if truck cargo + item < truck capacity
-//                        if ((tempRefTruck.getCargo().get_size() + Integer.parseInt(nextRecord[1])) < tempRefTruck.getCapacity()) {
-//                            // add item to cargo
-//                            tempRefTruck.addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-//                        // move on to next refrigerated truck
-//                        } else {
-//                            refIndex++;
-//                            if (manifest.containsKey(refTruckName + (refIndex))){
-//                                 continue;
-//                            } else {
-//                                manifest.put(refTruckName + refIndex, new Refrigerated_Truck());
-//                                manifest.get(refTruckName + refIndex).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-//                            }
-//                        }
-//                    }
-//
-//                }
-//
-//
-//
-//                } else {
-//                    Truck tempOrdTruck = manifest.get(ordTruckName + ordIndex);
-//                    if (tempOrdTruck.getCargo().get_size() + Integer.parseInt(nextRecord[1]) < tempOrdTruck.getCapacity()) {
-//                        tempOrdTruck.addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-//                    } else {
-//                        ordIndex++;
-//                        manifest.put(ordTruckName + ordIndex, new Ordinary_Truck());
-//                        manifest.get(ordTruckName + ordIndex).addItem(Utility.getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-//                    }
-//                }
-//
     }
 
     /**
