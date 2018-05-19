@@ -18,10 +18,9 @@ import java.util.HashMap;
 
 public class Refrigerated_Truck extends Truck {
 
-    BigDecimal cost;
-    int cargo_cap, temperature;
-    Cargo cargo;
-    Utility utility;
+    private BigDecimal cost;
+    private int capacity = 800, temperature;
+    private Cargo cargo;
 
     // Instantiate new cargo Factory object
     CargoFactory cargoFactory = new CargoFactory();
@@ -31,14 +30,8 @@ public class Refrigerated_Truck extends Truck {
      */
     public Refrigerated_Truck(){
 
-        this.utility = new Utility();
-
         // creates a new cargo object from factory. Pass True for ordinary truck, False for refrigerated truck
         this.cargo = cargoFactory.getCargo(false);
-
-        this.load_cargo();
-
-        this.cargo_cap = 800;
 
         this.temperature = get_temperature();
 
@@ -47,9 +40,22 @@ public class Refrigerated_Truck extends Truck {
         this.cost = new BigDecimal(900+(200*Math.pow(0.7, temperature/5)));
     }
 
+    /**
+     * Gets the trucks cargo capactity
+     * @return integer representing cargo capacity
+     */
     @Override
-    public void load_cargo() {
-        cargo = utility.readManifest("./assets/manifest.csv", true);
+    public int get_capacity() {
+        return capacity;
+    }
+
+    /**
+     * Gets the cost total cost of the cargo
+     * @return Cost as dollars
+     */
+    @Override
+    public BigDecimal getCost() {
+        return cost.setScale(2, BigDecimal.ROUND_CEILING);
     }
 
     /**
@@ -57,47 +63,35 @@ public class Refrigerated_Truck extends Truck {
      * @return list of cargo
      */
     @Override
-    public HashMap<String, Integer> get_cargo(){
-        return cargo.get_cargo();
+    public Cargo get_cargo(){
+        return cargo;
     }
 
-    /**
-     * Gets the trucks cargo capactity
-     * @return integer representing cargo capacity
-     */
-    @Override
-    public int get_capacity() {
-        return cargo_cap;
-    }
 
     /**
      * Gets the trucks temperature based on items in cargo
      * @return temperature
      */
     public int get_temperature(){
-
         int temp = 0;
 
         Item item;
 
-        // Cargo is a hashmap so will need to implement an iterator
-        for (Object[] obj:cargo) {
-            item = utility.getItem(obj[0].toString());
-            if (item.temperature < temp){
-                temp = item.temperature;
+        for (String obj:cargo.get_cargo().keySet()) {
+
+            item = Utility.getItem(obj);
+
+            if (item.getTemperature() < temp){
+
+                temp = item.getTemperature();
             }
         }
         return temp;
     }
 
     @Override
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    @Override
-    public void addItem(String s, int i) {
-
+    public void addItem(String item, Integer quantity) {
+        cargo.addItem(item,quantity);
     }
 
 }

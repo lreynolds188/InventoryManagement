@@ -3,7 +3,7 @@ package Delivery.Cargo;
 import java.util.HashMap;
 
 /**
- * Ordinary cargo class implementing Cargo interface.
+ * Refrigerated cargo class implementing Cargo interface.
  *
  * @author <Jonathan Gonzalez | n9821112>
  * @since <pre>May 16, 2018</pre>

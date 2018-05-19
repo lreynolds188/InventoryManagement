@@ -1,7 +1,8 @@
 package Delivery.Truck;
 
+import Delivery.Cargo.*;
+
 import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * Abstract truck class
@@ -13,15 +14,13 @@ import java.util.*;
 
 public abstract class Truck {
 
-    public void load_cargo(){}
+    public Cargo get_cargo(){return null;}
 
-    public abstract HashMap<String, Integer> get_cargo();
+    public void addItem(String item, Integer quantity){}
 
-    public abstract int get_capacity();
+    public BigDecimal getCost(){return null;}
 
-    public abstract int get_temperature();
+    public int get_capacity(){return -1;}
 
-    public abstract BigDecimal getCost();
-
-    public abstract void addItem(String s, int i);
+    public int getTemperature(){return 11;}
 }
