@@ -8,7 +8,7 @@ import Stock.Item;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class Refrigerated_Truck extends Truck {
+public class Refrigerated_Truck implements Truck {
 
     private BigDecimal cost;
     private int capacity = 800, temperature;
