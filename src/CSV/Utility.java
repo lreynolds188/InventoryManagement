@@ -78,7 +78,7 @@ public class Utility {
             Truck temp = new Refrigerated_Truck();
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
-                if ((map1.getValue() + temp.getCargo().get_size()) <= 800){
+                if ((map1.getValue() + temp.getCargo().getSize()) <= 800){
                     temp.addItem(map1.getKey(), map1.getValue());
                     items.put(map1.getKey(), map1.getValue());
                 }
@@ -96,7 +96,7 @@ public class Utility {
             Map.Entry<Item, Integer> bestItem = stockEntry;
             Truck currentTruck = manifestEntry.getValue();
             for (Map.Entry<Item, Integer> cargoEntry : sortedOrdCargo){
-                if (((currentTruck.getCargo().get_size() + cargoEntry.getValue()) <= 800) && ((currentTruck.getCargo().get_size() + cargoEntry.getValue()) > bestItem.getValue())){
+                if (((currentTruck.getCargo().getSize() + cargoEntry.getValue()) <= 800) && ((currentTruck.getCargo().getSize() + cargoEntry.getValue()) > bestItem.getValue())){
                     bestItem = cargoEntry;
                 }
             }
@@ -111,7 +111,7 @@ public class Utility {
             Truck temp = new Ordinary_Truck();
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
-                    if ((map1.getValue() + temp.getCargo().get_size()) <= 1000){
+                    if ((map1.getValue() + temp.getCargo().getSize()) <= 1000){
                         temp.addItem(map1.getKey(), map1.getValue());
                         items.put(map1.getKey(), map1.getValue());
                     }

@@ -23,7 +23,7 @@ public class RefrigeratedCargo implements Cargo{
      * @return data structure
      */
     @Override
-    public HashMap<Item, Integer> get_cargo() {
+    public HashMap<Item, Integer> getCargo() {
         return refrigerated_cargo;
     }
 
@@ -48,7 +48,7 @@ public class RefrigeratedCargo implements Cargo{
     }
 
     @Override
-    public Integer get_size() {
+    public Integer getSize() {
         int size = 0;
         for (Map.Entry<Item, Integer> temp: refrigerated_cargo.entrySet()){
             size += temp.getValue();

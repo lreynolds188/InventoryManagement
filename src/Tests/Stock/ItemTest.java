@@ -42,16 +42,6 @@ public class ItemTest {
 
     }
 
-
-
-    // TO DO: Item quantity is located in the stock class
-//    @Test
-//    public void test_item_quantity_property() {
-//
-//        // Test that quantity is of type Integer
-//        assertThat( item.quantity, instanceOf(Integer.class));
-//    }
-
     /**
      * Series of tests for Manufacturing cost in dollars
      */
@@ -65,9 +55,6 @@ public class ItemTest {
                 "Manufacturing cost must be of type Big Decimal.",
                 item.getManufacturing_cost(),
                 instanceOf(BigDecimal.class));
-
-        // Test that manufacturing cost scale is set to 2 values after decimal point
-        assert (item.getManufacturing_cost().scale() == 2 ) : "Big Decimal scale must be set to 2 with Rounding to Floor";
 
         // Test that manufacturing cost is value is greater than zero
         assert (item.getManufacturing_cost().compareTo(zero) > 0) : "Manufacturing cost must be greater than Zero.";
@@ -90,9 +77,6 @@ public class ItemTest {
 
         // Test that sell price is greater than zero
         assert (item.getSell_price().compareTo(zero) > 0);
-
-        // Test that sell price value is formatted to 2 decimal points
-        assert (item.getSell_price().scale() ==  2);
 
         // Test that sell price is of type Big Decimal - Appropriate for currency values
         assertThat(item.getSell_price(), instanceOf(BigDecimal.class));

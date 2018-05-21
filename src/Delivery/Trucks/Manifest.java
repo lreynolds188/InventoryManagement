@@ -5,7 +5,6 @@ import CSV.Utility;
 import Stock.Item;
 import Stock.Store;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class Manifest {
         for (Map.Entry<String, Truck> temp: manifest.entrySet()){
             Store.putCapital(temp.getValue().getCost().negate());
             Store.putCapital(temp.getValue().getCargo().getCost().negate());
-            Store.addInventory(temp.getValue().getCargo().get_cargo());
+            Store.addInventory(temp.getValue().getCargo().getCargo());
         }
     }
 

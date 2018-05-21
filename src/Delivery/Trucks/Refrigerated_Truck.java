@@ -1,6 +1,7 @@
 package Delivery.Trucks;
 
 import Delivery.Cargo.Cargo;
+import Delivery.Cargo.CargoFactory;
 import Delivery.Cargo.RefrigeratedCargo;
 import Stock.Item;
 
@@ -14,7 +15,7 @@ public class Refrigerated_Truck extends Truck {
     private Cargo cargo;
 
     public Refrigerated_Truck(){
-        this.cargo = new RefrigeratedCargo();
+        this.cargo = CargoFactory.getCargo(true);
     }
 
     @Override

@@ -10,16 +10,16 @@ package Delivery.Cargo;
 
 public class CargoFactory {
     /**
-     * If boolean passed to get_cargo method is TRUE
+     * If boolean passed to getCargo method is TRUE
      * return an ordinary cargo object from the OrdinaryCargo Class
      * vis versa for a refrigerated cargo object.
      */
-    public Cargo getCargo(boolean ord_cargo){
-        if(ord_cargo == true){
-            return new OrdinaryCargo();
+    public static Cargo getCargo(boolean ref_cargo){
+        if(ref_cargo == true){
+            return new RefrigeratedCargo();
         }
         else{
-            return new RefrigeratedCargo();
+            return new OrdinaryCargo();
         }
     }
 }

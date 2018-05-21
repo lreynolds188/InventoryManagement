@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -208,6 +209,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
 
     public void generateFileChooser(){
         fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/assets"));
     }
 
     public void generateSalesPanel(){
