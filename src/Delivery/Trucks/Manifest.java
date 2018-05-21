@@ -1,5 +1,6 @@
 package Delivery.Trucks;
 
+import CSV.CSVFormatException;
 import CSV.Utility;
 import Stock.Item;
 import Stock.Store;
@@ -23,7 +24,7 @@ public class Manifest {
         manifest = new HashMap<>();
     }
 
-    public void load_manifest(String filename) {
+    public void load_manifest(String filename) throws CSVFormatException {
         manifest = Utility.loadManifest(filename);
 
         for (Map.Entry<String, Truck> temp: manifest.entrySet()){

@@ -1,5 +1,6 @@
 package GUI;
 
+import CSV.CSVFormatException;
 import CSV.Utility;
 import Stock.Item;
 import Stock.Store;
@@ -66,7 +67,11 @@ public class GUI extends JPanel implements Runnable, ActionListener{
             int returnVal = fileChooser.showOpenDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                loadItemList(fileChooser.getSelectedFile().getAbsolutePath());
+                try {
+                    loadItemList(fileChooser.getSelectedFile().getAbsolutePath());
+                } catch (CSVFormatException e1) {
+                    displayError(e1.error);
+                }
             }
         }
 
@@ -78,7 +83,11 @@ public class GUI extends JPanel implements Runnable, ActionListener{
             int returnVal = fileChooser.showOpenDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                loadManifest(fileChooser.getSelectedFile().getAbsolutePath());
+                try {
+                    loadManifest(fileChooser.getSelectedFile().getAbsolutePath());
+                } catch (CSVFormatException e1) {
+                    displayError(e1.error);
+                }
             }
         }
 
@@ -86,24 +95,28 @@ public class GUI extends JPanel implements Runnable, ActionListener{
             int returnVal = fileChooser.showOpenDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                loadSalesLog(fileChooser.getSelectedFile().getAbsolutePath());
+                try {
+                    loadSalesLog(fileChooser.getSelectedFile().getAbsolutePath());
+                } catch (CSVFormatException e1) {
+                    displayError(e1.error);
+                }
             }
         }
     }
 
-    public void loadManifest(String fileName){
+    public void loadManifest(String fileName) throws CSVFormatException {
         store.loadManifest(fileName);
         updateCapital();
         updateItemList();
     }
 
-    public void loadSalesLog(String fileName){
+    public void loadSalesLog(String fileName) throws CSVFormatException {
         store.loadSalesLog(fileName);
         updateCapital();
         updateItemList();
     }
 
-    public void loadItemList(String filename){
+    public void loadItemList(String filename) throws CSVFormatException {
         HashMap<Item, Integer> hashMapData = Utility.readItemList(filename);
         tableModel.setRowCount(0);
         store.getInventory().getStock().clear();
@@ -251,5 +264,12 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         temp.addActionListener(this);
         temp.setSize(width, height);
         return temp;
+    }
+
+    public void displayError(String error){
+        JOptionPane.showMessageDialog(this,
+                error,
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }

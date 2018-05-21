@@ -1,5 +1,6 @@
 package Stock;
 
+import CSV.CSVFormatException;
 import CSV.Utility;
 import Delivery.Trucks.Manifest;
 
@@ -51,15 +52,20 @@ public class Store {
         }
     }
 
-    public static void loadManifest(String fileName){
+    public static void loadManifest(String fileName) throws CSVFormatException {
         manifest.load_manifest(fileName);
     }
 
-    public static void loadSalesLog(String fileName){
-        HashMap<Item, Integer> sales = Utility.loadSalesLog(fileName);
-        Store.removeInventory(sales);
-        for (Map.Entry<Item, Integer> log : sales.entrySet()){
-            Store.putCapital(log.getKey().getSell_price().multiply(new BigDecimal(log.getValue())));
+    public static void loadSalesLog(String fileName) throws CSVFormatException {
+        try {
+            HashMap<Item, Integer> sales = Utility.loadSalesLog(fileName);
+            Store.removeInventory(sales);
+
+            for (Map.Entry<Item, Integer> log : sales.entrySet()){
+                Store.putCapital(log.getKey().getSell_price().multiply(new BigDecimal(log.getValue())));
+            }
+        }catch(NullPointerException err){
+            throw new CSVFormatException("Error 4: Failed to load sales log " + fileName + "\nNullPointerException: Please check that the item list has been loaded!");
         }
     }
 

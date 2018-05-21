@@ -33,10 +33,10 @@ public class Utility {
      *
      * @return
      */
-    public static HashMap<Item, Integer> readItemList(String filename){
-        HashMap<Item, Integer> itemlist;
+    public static HashMap<Item, Integer> readItemList(String filename) throws CSVFormatException{
+
         try{
-            itemlist = new HashMap<>();
+            HashMap<Item, Integer> itemlist = new HashMap<>();
             CSVReader csvReader = new CSVReader(new FileReader(filename));
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null){
@@ -52,6 +52,8 @@ public class Utility {
             System.out.println("Error loading item list!");
             e.printStackTrace();
             return null;
+        } catch (ArrayIndexOutOfBoundsException err){
+            throw new CSVFormatException("Error 100: Failed to load " + filename + "\nInvalid file contents");
         }
     }
 
@@ -59,74 +61,68 @@ public class Utility {
      *
      * @return
      */
-    public static HashMap<String, Truck> loadManifest(String fileName) {
-        try {
-            HashMap<String, Truck> manifest = new HashMap<>();
+    public static HashMap<String, Truck> loadManifest(String fileName) throws CSVFormatException {
+        HashMap<String, Truck> manifest = new HashMap<>();
 
-            String refTruckName = "refrigerated_";
-            String ordTruckName = "ordinary_";
-            int refIndex = 0;
-            int ordIndex = 0;
+        String refTruckName = "refrigerated_";
+        String ordTruckName = "ordinary_";
+        int refIndex = 0;
+        int ordIndex = 0;
 
-            // READ MANIFEST INTO HASHMAP<ITEM, INTEGER> AND THEN SEND THE HASHMAPS THROUGH SORTMAP INTO A SORTED LIST OF TYPE <MAP.ENTRY<ITEM, INTEGER>>
-            List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(readManifest(fileName, true));
-            List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(readManifest(fileName, false));
+        // READ MANIFEST INTO HASHMAP<ITEM, INTEGER> AND THEN SEND THE HASHMAPS THROUGH SORTMAP INTO A SORTED LIST OF TYPE <MAP.ENTRY<ITEM, INTEGER>>
+        List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(readManifest(fileName, true));
+        List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(readManifest(fileName, false));
 
-            // ADD REF CARGO INTO REF TRUCKS
-            while (sortedRefCargo.size() != 0){
-                Truck temp = new Refrigerated_Truck();
-                HashMap<Item, Integer> items = new HashMap<>();
-                for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
-                    if ((map1.getValue() + temp.getCargo().get_size()) <= 800){
+        // ADD REF CARGO INTO REF TRUCKS
+        while (sortedRefCargo.size() != 0){
+            Truck temp = new Refrigerated_Truck();
+            HashMap<Item, Integer> items = new HashMap<>();
+            for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
+                if ((map1.getValue() + temp.getCargo().get_size()) <= 800){
+                    temp.addItem(map1.getKey(), map1.getValue());
+                    items.put(map1.getKey(), map1.getValue());
+                }
+            }
+            for (Map.Entry<Item, Integer> item : items.entrySet()) {
+                sortedRefCargo.remove(item);
+            }
+            manifest.put(refTruckName + refIndex, temp);
+            refIndex++;
+        }
+
+        // ADD BEST POSSIBLE ORD CARGO INTO REF TRUCKS
+        Map.Entry<Item, Integer> stockEntry = new AbstractMap.SimpleEntry<>(null, 0);
+        for (Map.Entry<String, Truck> manifestEntry : manifest.entrySet()){
+            Map.Entry<Item, Integer> bestItem = stockEntry;
+            Truck currentTruck = manifestEntry.getValue();
+            for (Map.Entry<Item, Integer> cargoEntry : sortedOrdCargo){
+                if (((currentTruck.getCargo().get_size() + cargoEntry.getValue()) <= 800) && ((currentTruck.getCargo().get_size() + cargoEntry.getValue()) > bestItem.getValue())){
+                    bestItem = cargoEntry;
+                }
+            }
+            if (bestItem != stockEntry){
+                manifestEntry.getValue().addItem(bestItem.getKey(), bestItem.getValue());
+                sortedOrdCargo.remove(bestItem);
+            }
+        }
+
+        // ADD REMAINING ORD CARGO INTO ORD TRUCKS
+        while (sortedOrdCargo.size() != 0){
+            Truck temp = new Ordinary_Truck();
+            HashMap<Item, Integer> items = new HashMap<>();
+            for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
+                    if ((map1.getValue() + temp.getCargo().get_size()) <= 1000){
                         temp.addItem(map1.getKey(), map1.getValue());
                         items.put(map1.getKey(), map1.getValue());
                     }
-                }
-                for (Map.Entry<Item, Integer> item : items.entrySet()) {
-                    sortedRefCargo.remove(item);
-                }
-                manifest.put(refTruckName + refIndex, temp);
-                refIndex++;
             }
-
-            // ADD BEST POSSIBLE ORD CARGO INTO REF TRUCKS
-            Map.Entry<Item, Integer> stockEntry = new AbstractMap.SimpleEntry<>(null, 0);
-            for (Map.Entry<String, Truck> manifestEntry : manifest.entrySet()){
-                Map.Entry<Item, Integer> bestItem = stockEntry;
-                Truck currentTruck = manifestEntry.getValue();
-                for (Map.Entry<Item, Integer> cargoEntry : sortedOrdCargo){
-                    if (((currentTruck.getCargo().get_size() + cargoEntry.getValue()) <= 800) && ((currentTruck.getCargo().get_size() + cargoEntry.getValue()) > bestItem.getValue())){
-                        bestItem = cargoEntry;
-                    }
-                }
-                if (bestItem != stockEntry){
-                    manifestEntry.getValue().addItem(bestItem.getKey(), bestItem.getValue());
-                    sortedOrdCargo.remove(bestItem);
-                }
+            for (Map.Entry<Item, Integer> item : items.entrySet()) {
+                sortedOrdCargo.remove(item);
             }
-
-            // ADD REMAINING ORD CARGO INTO ORD TRUCKS
-            while (sortedOrdCargo.size() != 0){
-                Truck temp = new Ordinary_Truck();
-                HashMap<Item, Integer> items = new HashMap<>();
-                for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
-                        if ((map1.getValue() + temp.getCargo().get_size()) <= 1000){
-                            temp.addItem(map1.getKey(), map1.getValue());
-                            items.put(map1.getKey(), map1.getValue());
-                        }
-                }
-                for (Map.Entry<Item, Integer> item : items.entrySet()) {
-                    sortedOrdCargo.remove(item);
-                }
-                manifest.put(ordTruckName + ordIndex, temp);
-                ordIndex++;
-            }
-            return manifest;
-        } catch (Exception err) {
-            System.out.println("Error loading manifest!");
-            err.printStackTrace();
-            return null;
+            manifest.put(ordTruckName + ordIndex, temp);
+            ordIndex++;
         }
+        return manifest;
     }
 
     /**
@@ -141,7 +137,7 @@ public class Utility {
         return temp;
     }
 
-    public static HashMap<Item, Integer> readManifest(String fileName, Boolean ref){
+    public static HashMap<Item, Integer> readManifest(String fileName, Boolean ref) throws CSVFormatException{
         try{
             HashMap<Item, Integer> tempCargo = new HashMap<>();
 
@@ -158,6 +154,13 @@ public class Utility {
                     continue;
                 }
 
+                // CHECK VALUE EXISTS IN ITEM LIST
+                if (getItem(nextRecord[0]) == null){
+                    throw new CSVFormatException("Error 300: Failed to load " + fileName + "\nItem not contained in item list");
+                } else if (nextRecord.length != 2){
+                    throw new CSVFormatException("Error 301: Failed to load " + fileName + "\nInvalid file contents");
+                }
+
                 // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
                 if (refrigerated) {
                     if(ref){
@@ -171,7 +174,7 @@ public class Utility {
             }
             csvReader.close();
             return tempCargo;
-        } catch(Exception err){
+        } catch(IOException err){
             err.printStackTrace();
             return null;
         }
@@ -242,19 +245,24 @@ public class Utility {
      * @param fileName
      * @return
      */
-    public static HashMap<Item, Integer> loadSalesLog(String fileName){
+    public static HashMap<Item, Integer> loadSalesLog(String fileName) throws CSVFormatException{
         try{
             // LOADS CSV IN
             HashMap<Item, Integer> tempLog = new HashMap<>();
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null) {
-                tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+                if(nextRecord.length == 2){
+                    tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+                } else {
+                    throw new CSVFormatException("Error 400: Failed to load " + fileName + "\nInvalid file contents");
+                }
             }
             return tempLog;
-        } catch (Exception err){
-            err.printStackTrace();
-            return null;
+        } catch (IOException err){
+            throw new CSVFormatException("Error 401: Failed to load " + fileName + "\nInvalid file contents");
+        } catch (ArrayIndexOutOfBoundsException err){
+            throw new CSVFormatException("Error 402: Failed to load " + fileName + "\nInvalid file contents");
         }
     }
 
