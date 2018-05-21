@@ -25,8 +25,8 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     private JLayeredPane layeredPane;
     private JLabel capitolLabel;
     private JFrame mainFrame;
-    private JPanel menuPanel, manifestPanel, itemListPanel, salesPanel;
-    private JButton btnManifest, btnItemList, btnSales, btnLoadItemList, btnExportManifest, btnLoadManifest;
+    private JPanel menuPanel, expansionPanel_1, itemListPanel, expansionPanel_2;
+    private JButton btnExpansion_1, btnItemList, btnExpansion_2, btnLoadItemList, btnExportManifest, btnLoadManifest, btnLoadSalesLog;
     private JTable itemListTable;
     private JScrollPane scrollPane;
     private JFileChooser fileChooser;
@@ -44,22 +44,22 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-        if (e.getSource() == btnManifest){
-            manifestPanel.setVisible(true);
+        if (e.getSource() == btnExpansion_1){
+            expansionPanel_1.setVisible(true);
             itemListPanel.setVisible(false);
-            salesPanel.setVisible(false);
+            expansionPanel_2.setVisible(false);
         }
 
         if (e.getSource() == btnItemList){
-            manifestPanel.setVisible(false);
+            expansionPanel_1.setVisible(false);
             itemListPanel.setVisible(true);
-            salesPanel.setVisible(false);
+            expansionPanel_2.setVisible(false);
         }
 
-        if (e.getSource() == btnSales){
-            manifestPanel.setVisible(false);
+        if (e.getSource() == btnExpansion_2){
+            expansionPanel_1.setVisible(false);
             itemListPanel.setVisible(false);
-            salesPanel.setVisible(true);
+            expansionPanel_2.setVisible(true);
         }
 
         if (e.getSource() == btnLoadItemList){
@@ -81,10 +81,24 @@ public class GUI extends JPanel implements Runnable, ActionListener{
                 loadManifest(fileChooser.getSelectedFile().getAbsolutePath());
             }
         }
+
+        if (e.getSource() == btnLoadSalesLog){
+            int returnVal = fileChooser.showOpenDialog(this);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                loadSalesLog(fileChooser.getSelectedFile().getAbsolutePath());
+            }
+        }
     }
 
     public void loadManifest(String fileName){
-        store.getManifest().load_manifest(fileName);
+        store.loadManifest(fileName);
+        updateCapital();
+        updateItemList();
+    }
+
+    public void loadSalesLog(String fileName){
+        store.loadSalesLog(fileName);
         updateCapital();
         updateItemList();
     }
@@ -152,19 +166,21 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     }
 
     public void generateManifestPanel(){
-        manifestPanel = new JPanel();
-        manifestPanel.setBounds(0, 0, 1080, 800);
-        manifestPanel.setBackground(Color.BLACK);
-        manifestPanel.setVisible(false);
+        expansionPanel_1 = new JPanel();
+        expansionPanel_1.setBounds(0, 0, 1080, 800);
+        expansionPanel_1.setBackground(Color.BLACK);
+        expansionPanel_1.setVisible(false);
     }
 
     public void generateItemListPanel(){
         itemListPanel = new JPanel();
         itemListPanel.setBounds(0, 0, 1080, 800);
         itemListPanel.setVisible(true);
+        btnLoadSalesLog = generateButton("Load Sales Log", 195, 40);
         btnLoadManifest = generateButton("Load Manifest", 195, 40);
         btnExportManifest = generateButton("Export Manifest", 195, 40);
         btnLoadItemList = generateButton("Load Item List", 195, 40);
+        itemListPanel.add(btnLoadSalesLog);
         itemListPanel.add(btnLoadManifest);
         itemListPanel.add(btnExportManifest);
         itemListPanel.add(btnLoadItemList);
@@ -182,10 +198,10 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     }
 
     public void generateSalesPanel(){
-        salesPanel = new JPanel();
-        salesPanel.setBounds(0, 0, 1080, 800);
-        salesPanel.setBackground(Color.GREEN);
-        salesPanel.setVisible(false);
+        expansionPanel_2 = new JPanel();
+        expansionPanel_2.setBounds(0, 0, 1080, 800);
+        expansionPanel_2.setBackground(Color.GREEN);
+        expansionPanel_2.setVisible(false);
     }
 
     public void generateMenuPanel(){
@@ -194,14 +210,14 @@ public class GUI extends JPanel implements Runnable, ActionListener{
 
         capitolLabel = new JLabel("Capital: $" + store.getCapitalToString());
         capitolLabel.setHorizontalAlignment(JLabel.CENTER);
-        btnManifest = generateButton("Manifests", 195, 40);
         btnItemList = generateButton("Item List", 195, 40);
-        btnSales = generateButton("Sales", 195, 40);
+        btnExpansion_1 = generateButton("Expansion_1", 195, 40);
+        btnExpansion_2 = generateButton("Expansion_2", 195, 40);
 
         menuPanel.add(capitolLabel);
         menuPanel.add(btnItemList);
-        menuPanel.add(btnManifest);
-        menuPanel.add(btnSales);
+        menuPanel.add(btnExpansion_1);
+        menuPanel.add(btnExpansion_2);
     }
 
     public void generateItemListTable(){
@@ -225,9 +241,9 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         generateManifestPanel();
         generateItemListPanel();
         generateSalesPanel();
-        layeredPane.add(manifestPanel, new Integer(0), 0);
         layeredPane.add(itemListPanel, new Integer(1), 0);
-        layeredPane.add(salesPanel, new Integer(2), 0);
+        layeredPane.add(expansionPanel_1, new Integer(0), 0);
+        layeredPane.add(expansionPanel_2, new Integer(2), 0);
     }
 
     public JButton generateButton(String text, int width, int height){

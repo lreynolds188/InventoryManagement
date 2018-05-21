@@ -1,5 +1,6 @@
 package Stock;
 
+import CSV.Utility;
 import Delivery.Trucks.Manifest;
 
 import java.math.BigDecimal;
@@ -40,7 +41,25 @@ public class Store {
 
     public static void addInventory(HashMap<Item, Integer> itemList){
         for (Map.Entry<Item, Integer> set : itemList.entrySet()){
-            stock.put(set.getKey(), set.getValue());
+            stock.put(set.getKey(), stock.getStock().get(set.getKey()) + set.getValue());
+        }
+    }
+
+    public static void removeInventory(HashMap<Item, Integer> itemList){
+        for (Map.Entry<Item, Integer> set : itemList.entrySet()){
+            stock.put(set.getKey(), stock.getStock().get(set.getKey()) - set.getValue());
+        }
+    }
+
+    public static void loadManifest(String fileName){
+        manifest.load_manifest(fileName);
+    }
+
+    public static void loadSalesLog(String fileName){
+        HashMap<Item, Integer> sales = Utility.loadSalesLog(fileName);
+        Store.removeInventory(sales);
+        for (Map.Entry<Item, Integer> log : sales.entrySet()){
+            Store.putCapital(log.getKey().getSell_price().multiply(new BigDecimal(log.getValue())));
         }
     }
 

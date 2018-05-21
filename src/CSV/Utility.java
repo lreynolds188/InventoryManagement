@@ -1,6 +1,5 @@
 package CSV;
 
-import java.awt.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,9 +19,6 @@ import Stock.Item;
 import Stock.Store;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import org.omg.CORBA.INTERNAL;
-
-import javax.swing.text.html.HTMLDocument;
 
 /**
  * @author Luke Reynolds
@@ -59,13 +55,6 @@ public class Utility {
         }
     }
 
-    public static List<Map.Entry<Item, Integer>> sortMap(HashMap<Item, Integer> map){
-        List<Map.Entry<Item, Integer>> temp = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
-        List<Map.Entry<Item, Integer>> copyTemp = temp.subList(0, temp.size());
-        Collections.reverse(copyTemp);
-        return temp;
-    }
-
     /**
      *
      * @return
@@ -79,69 +68,28 @@ public class Utility {
             int refIndex = 0;
             int ordIndex = 0;
 
-            HashMap<Item, Integer> refCargo = new HashMap<>();
-            HashMap<Item, Integer> ordCargo = new HashMap<>();
+            // READ MANIFEST INTO HASHMAP<ITEM, INTEGER> AND THEN SEND THE HASHMAPS THROUGH SORTMAP INTO A SORTED LIST OF TYPE <MAP.ENTRY<ITEM, INTEGER>>
+            List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(readManifest(fileName, true));
+            List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(readManifest(fileName, false));
 
-            // LOADS CSV IN
-            CSVReader csvReader = new CSVReader(new FileReader(fileName));
-            boolean refrigerated = false;
-            String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null) {
-                if (nextRecord[0].equalsIgnoreCase(">Refrigerated")) {
-                    refrigerated = true;
-                    continue;
-                } else if (nextRecord[0].equalsIgnoreCase(">Ordinary")) {
-                    refrigerated = false;
-                    continue;
-                }
-
-                // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
-                if (refrigerated) {
-                    refCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-                } else {
-                    ordCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-                }
-            }
-
-            // FORMAT MAP INTO SORTED LIST
-            List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(refCargo);
-            List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(ordCargo);
-
-            // ADD REF CARGO TO REF TRUCKS
-            while (sortedRefCargo.size() != 0) {
-                if (sortedRefCargo.size() != 1) {
-                    Map.Entry<Item, Integer> highItem = null, lowItem = null;
-                    int high = 0;
-                    for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
-                        for (Map.Entry<Item, Integer> map2 : sortedRefCargo) {
-                            if (!map1.equals(map2)) {
-                                if (map1.getValue() + map2.getValue() > high &&
-                                        map1.getValue() + map2.getValue() <= 800) {
-                                    highItem = map1;
-                                    lowItem = map2;
-                                    high = map1.getValue() + map2.getValue();
-                                }
-                            }
-                        }
+            // ADD REF CARGO INTO REF TRUCKS
+            while (sortedRefCargo.size() != 0){
+                Truck temp = new Refrigerated_Truck();
+                HashMap<Item, Integer> items = new HashMap<>();
+                for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
+                    if ((map1.getValue() + temp.getCargo().get_size()) <= 800){
+                        temp.addItem(map1.getKey(), map1.getValue());
+                        items.put(map1.getKey(), map1.getValue());
                     }
-                    Truck temp = new Refrigerated_Truck();
-                    temp.addItem(highItem.getKey(), highItem.getValue());
-                    temp.addItem(lowItem.getKey(), lowItem.getValue());
-                    sortedRefCargo.remove(highItem);
-                    sortedRefCargo.remove(lowItem);
-                    manifest.put(refTruckName + refIndex, temp);
-                    refIndex++;
-                } else {
-                    Truck temp = new Refrigerated_Truck();
-                    Item lastItem = (Item) sortedRefCargo.toArray()[0];
-                    temp.addItem(lastItem, lastItem.getReorder_amount());
-                    sortedRefCargo.remove(lastItem);
-                    manifest.put(refTruckName + refIndex, temp);
-                    refIndex++;
                 }
+                for (Map.Entry<Item, Integer> item : items.entrySet()) {
+                    sortedRefCargo.remove(item);
+                }
+                manifest.put(refTruckName + refIndex, temp);
+                refIndex++;
             }
 
-            // ADD BEST PLACE ORD CARGO INTO REF TRUCKS
+            // ADD BEST POSSIBLE ORD CARGO INTO REF TRUCKS
             Map.Entry<Item, Integer> stockEntry = new AbstractMap.SimpleEntry<>(null, 0);
             for (Map.Entry<String, Truck> manifestEntry : manifest.entrySet()){
                 Map.Entry<Item, Integer> bestItem = stockEntry;
@@ -167,19 +115,63 @@ public class Utility {
                             items.put(map1.getKey(), map1.getValue());
                         }
                 }
-
                 for (Map.Entry<Item, Integer> item : items.entrySet()) {
                     sortedOrdCargo.remove(item);
                 }
-
                 manifest.put(ordTruckName + ordIndex, temp);
                 ordIndex++;
             }
-
-            csvReader.close();
             return manifest;
         } catch (Exception err) {
             System.out.println("Error loading manifest!");
+            err.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    public static List<Map.Entry<Item, Integer>> sortMap(HashMap<Item, Integer> map){
+        List<Map.Entry<Item, Integer>> temp = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
+        List<Map.Entry<Item, Integer>> copyTemp = temp.subList(0, temp.size());
+        Collections.reverse(copyTemp);
+        return temp;
+    }
+
+    public static HashMap<Item, Integer> readManifest(String fileName, Boolean ref){
+        try{
+            HashMap<Item, Integer> tempCargo = new HashMap<>();
+
+            // LOADS CSV IN
+            CSVReader csvReader = new CSVReader(new FileReader(fileName));
+            boolean refrigerated = false;
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                if (nextRecord[0].equalsIgnoreCase(">Refrigerated")) {
+                    refrigerated = true;
+                    continue;
+                } else if (nextRecord[0].equalsIgnoreCase(">Ordinary")) {
+                    refrigerated = false;
+                    continue;
+                }
+
+                // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
+                if (refrigerated) {
+                    if(ref){
+                        tempCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+                    }
+                } else {
+                    if(!ref){
+                        tempCargo.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+                    }
+                }
+            }
+            csvReader.close();
+            return tempCargo;
+        } catch(Exception err){
             err.printStackTrace();
             return null;
         }
@@ -221,6 +213,10 @@ public class Utility {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static String getManifestFileName(){
         String fileName = "./assets/manifest_0.csv";
 
@@ -239,6 +235,27 @@ public class Utility {
             counter++;
         }
         return fileName;
+    }
+
+    /**
+     *
+     * @param fileName
+     * @return
+     */
+    public static HashMap<Item, Integer> loadSalesLog(String fileName){
+        try{
+            // LOADS CSV IN
+            HashMap<Item, Integer> tempLog = new HashMap<>();
+            CSVReader csvReader = new CSVReader(new FileReader(fileName));
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
+            }
+            return tempLog;
+        } catch (Exception err){
+            err.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -282,20 +299,5 @@ public class Utility {
     public static Item convertStringArrToItem(String name, String cost, String price, String reorderPoint, String reorderAmount){
         return new Item(name, new BigDecimal(cost), new BigDecimal(price), Integer.parseInt(reorderPoint), Integer.parseInt(reorderAmount));
     }
-
-//    /**
-//     *
-//     * @param item
-//     * @return
-//     */
-//    public static String[] convertItemToStringArr(Item item){
-//        String[] temp;
-//        if (item.getTemperature() >= -20 && item.getTemperature() <= 10){
-//            temp = new String[]{item.getName(), String.valueOf(item.getManufacturing_cost()), String.valueOf(item.getSell_price()), String.valueOf(item.getReorder_point()), String.valueOf(item.getReorder_amount()), String.valueOf(item.getTemperature())};
-//        } else {
-//            temp = new String[]{item.getName(), String.valueOf(item.getManufacturing_cost()), String.valueOf(item.getSell_price()), String.valueOf(item.getReorder_point()), String.valueOf(item.getReorder_amount())};
-//        }
-//        return temp;
-//    }
 
 }

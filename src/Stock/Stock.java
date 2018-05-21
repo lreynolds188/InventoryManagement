@@ -1,7 +1,5 @@
 package Stock;
 
-import CSV.Utility;
-
 import java.util.HashMap;
 
 /**
@@ -23,8 +21,8 @@ public class Stock {
         stockList.put(item, quantity);
     }
 
-    public Integer get(String name){
-        return(stockList.get(name));
+    public Integer get(Item item){
+        return(stockList.get(item));
     }
 
     public HashMap<Item, Integer> getStock(){
