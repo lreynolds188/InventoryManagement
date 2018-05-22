@@ -31,7 +31,7 @@ public class OrdinaryCargo implements Cargo{
     public BigDecimal getCost(){
         BigDecimal cost = new BigDecimal(0);
         for (Map.Entry<Item, Integer> set : ord_cargo.entrySet()){
-            BigDecimal temp = set.getKey().getManufacturing_cost().multiply(new BigDecimal(set.getValue()));
+            BigDecimal temp = set.getKey().getManufacturingCost().multiply(new BigDecimal(set.getValue()));
             cost = cost.add(temp);
         }
         return cost.setScale(2, BigDecimal.ROUND_FLOOR);

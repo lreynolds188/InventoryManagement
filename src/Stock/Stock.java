@@ -11,20 +11,37 @@ import java.util.HashMap;
  */
 public class Stock {
 
+    /**
+     * Stores all items and their quantities
+     */
     private HashMap<Item, Integer> stockList;
 
     public Stock(){
         stockList = new HashMap<>();
     }
 
+    /**
+     * Adds items to the stock list
+     * @param item Item
+     * @param quantity Integer
+     */
     public void put(Item item, Integer quantity){
         stockList.put(item, quantity);
     }
 
+    /**
+     * Gets a quantity for an item in the stock list
+     * @param item Item
+     * @return Integer
+     */
     public Integer get(Item item){
         return(stockList.get(item));
     }
 
+    /**
+     * Getter for the stock list
+     * @return HashMap<Item, Integer>
+     */
     public HashMap<Item, Integer> getStock(){
         return stockList;
     }

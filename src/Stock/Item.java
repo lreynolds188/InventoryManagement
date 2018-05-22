@@ -12,50 +12,90 @@ import java.math.BigDecimal;
 public class Item {
 
     private String name;
-    private BigDecimal manufacturing_cost, sell_price;
-    private int reorder_point, reorder_amount;
+    private BigDecimal manufacturingCost, sellPrice;
+    private int reorderPoint, reorderAmount;
     public int temperature;
 
-    public Item(String name, BigDecimal manufacturing_cost, BigDecimal price, int reorderPoint, int reorderAmount, int temperature){
+    /**
+     * Instantiate item with temperature value
+     * @param name String
+     * @param manufacturingCost BigDecimal
+     * @param price BigDecimal
+     * @param reorderPoint int
+     * @param reorderAmount int
+     * @param temperature int
+     */
+    public Item(String name, BigDecimal manufacturingCost, BigDecimal price, int reorderPoint, int reorderAmount, int temperature){
         this.name = name;
-        this.manufacturing_cost = manufacturing_cost;
-        this.sell_price = price;
-        this.reorder_point = reorderPoint;
-        this.reorder_amount = reorderAmount;
+        this.manufacturingCost = manufacturingCost;
+        this.sellPrice = price;
+        this.reorderPoint = reorderPoint;
+        this.reorderAmount = reorderAmount;
         this.temperature = temperature;
     }
 
-    public Item(String name, BigDecimal manufacturing_cost, BigDecimal price, int reorderPoint, int reorderAmount){
+    /**
+     * Instantiate item without temperature value
+     * @param name String
+     * @param manufacturingCost BigDecimal
+     * @param price BigDecimal
+     * @param reorderPoint int
+     * @param reorderAmount int
+     */
+    public Item(String name, BigDecimal manufacturingCost, BigDecimal price, int reorderPoint, int reorderAmount){
         this.name = name;
-        this.manufacturing_cost = manufacturing_cost;
-        this.sell_price = price;
-        this.reorder_point = reorderPoint;
-        this.reorder_amount = reorderAmount;
+        this.manufacturingCost = manufacturingCost;
+        this.sellPrice = price;
+        this.reorderPoint = reorderPoint;
+        this.reorderAmount = reorderAmount;
         this.temperature = 11;
     }
 
-
+    /**
+     * Getter for item name
+     * @return String name
+     */
     public String getName(){
         return name;
     }
 
-    public BigDecimal getManufacturing_cost(){
-        return manufacturing_cost;
+    /**
+     * Getter for item manufacturingCost
+     * @return BigDecimal manufacturingCost
+     */
+    public BigDecimal getManufacturingCost(){
+        return manufacturingCost;
     }
 
-    public BigDecimal getSell_price() {
-        return sell_price;
+    /**
+     * Getter for item sellPrice
+     * @return BigDecimal sellPrice
+     */
+    public BigDecimal getSellPrice() {
+        return sellPrice;
     }
 
-    public int getReorder_point(){
-        return reorder_point;
+    /**
+     * Getter for item reorderPoint
+     * @return int reorderPoint
+     */
+    public int getReorderPoint(){
+        return reorderPoint;
     }
 
+    /**
+     * Getter for item temperature
+     * @return int temperature
+     */
     public int getTemperature() {
         return temperature;
     }
 
-    public int getReorder_amount() {
-        return reorder_amount;
+    /**
+     * Getter for item reorderAmount
+     * @return int reorderAmount
+     */
+    public int getReorderAmount() {
+        return reorderAmount;
     }
 }

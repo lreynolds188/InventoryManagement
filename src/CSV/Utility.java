@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Delivery.Trucks.Truck;
-import Delivery.Trucks.Ordinary_Truck;
-import Delivery.Trucks.Refrigerated_Truck;
+import Delivery.Trucks.OrdinaryTruck;
+import Delivery.Trucks.RefrigeratedTruck;
 import Stock.Item;
 
 import Stock.Store;
@@ -30,8 +30,8 @@ import com.opencsv.CSVWriter;
 public class Utility {
 
     /**
-     *
-     * @return
+     * Returns an item list of type HashMap<Item, Integer> from selected file
+     * @return HashMap<Item, Integer>
      */
     public static HashMap<Item, Integer> readItemList(String filename) throws CSVFormatException{
 
@@ -58,10 +58,10 @@ public class Utility {
     }
 
     /**
-     *
-     * @return
+     * Loads the manifest and splits the items into refrigerated and ordinary trucks
+     * @return HashMap<String, Truck>
      */
-    public static HashMap<String, Truck> loadManifest(String fileName) throws CSVFormatException {
+    public static HashMap<String, Truck> loadManifest(String filename) throws CSVFormatException {
         HashMap<String, Truck> manifest = new HashMap<>();
 
         String refTruckName = "refrigerated_";
@@ -70,12 +70,12 @@ public class Utility {
         int ordIndex = 0;
 
         // READ MANIFEST INTO HASHMAP<ITEM, INTEGER> AND THEN SEND THE HASHMAPS THROUGH SORTMAP INTO A SORTED LIST OF TYPE <MAP.ENTRY<ITEM, INTEGER>>
-        List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(readManifest(fileName, true));
-        List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(readManifest(fileName, false));
+        List<Map.Entry<Item, Integer>> sortedRefCargo = sortMap(readManifest(filename, true));
+        List<Map.Entry<Item, Integer>> sortedOrdCargo = sortMap(readManifest(filename, false));
 
         // ADD REF CARGO INTO REF TRUCKS
         while (sortedRefCargo.size() != 0){
-            Truck temp = new Refrigerated_Truck();
+            Truck temp = new RefrigeratedTruck();
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
                 if ((map1.getValue() + temp.getCargo().getSize()) <= 800){
@@ -108,7 +108,7 @@ public class Utility {
 
         // ADD REMAINING ORD CARGO INTO ORD TRUCKS
         while (sortedOrdCargo.size() != 0){
-            Truck temp = new Ordinary_Truck();
+            Truck temp = new OrdinaryTruck();
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
                     if ((map1.getValue() + temp.getCargo().getSize()) <= 1000){
@@ -126,9 +126,9 @@ public class Utility {
     }
 
     /**
-     *
-     * @param map
-     * @return
+     * Returns a sorted manifest of type List<Map.Entry<Item, Integer>> in descending order by item quantity
+     * @param map HashMap<Item, Integer>
+     * @return List<Map.Entry<Item, Integer>>
      */
     public static List<Map.Entry<Item, Integer>> sortMap(HashMap<Item, Integer> map){
         List<Map.Entry<Item, Integer>> temp = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
@@ -137,12 +137,19 @@ public class Utility {
         return temp;
     }
 
-    public static HashMap<Item, Integer> readManifest(String fileName, Boolean ref) throws CSVFormatException{
+    /**
+     * Returns an unsorted manifest of type HashMap<Item, Integer> from a selected file
+     * @param filename String
+     * @param ref Boolean
+     * @return HashMap<Item, Integer>
+     * @throws CSVFormatException
+     */
+    public static HashMap<Item, Integer> readManifest(String filename, Boolean ref) throws CSVFormatException{
         try{
             HashMap<Item, Integer> tempCargo = new HashMap<>();
 
             // LOADS CSV IN
-            CSVReader csvReader = new CSVReader(new FileReader(fileName));
+            CSVReader csvReader = new CSVReader(new FileReader(filename));
             boolean refrigerated = false;
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null) {
@@ -156,9 +163,9 @@ public class Utility {
 
                 // CHECK VALUE EXISTS IN ITEM LIST
                 if (getItem(nextRecord[0]) == null){
-                    throw new CSVFormatException("Error 300: Failed to load " + fileName + "\nItem not contained in item list");
+                    throw new CSVFormatException("Error 300: Failed to load " + filename + "\nItem not contained in item list");
                 } else if (nextRecord.length != 2){
-                    throw new CSVFormatException("Error 301: Failed to load " + fileName + "\nInvalid file contents");
+                    throw new CSVFormatException("Error 301: Failed to load " + filename + "\nInvalid file contents");
                 }
 
                 // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
@@ -181,8 +188,8 @@ public class Utility {
     }
 
     /**
-     *
-     * @param manifest
+     * Exports manifest into a .csv format from HashMap<Item, Integer>
+     * @param manifest HashMap<Item, Integer>
      */
     public static void createManifest(HashMap<Item, Integer> manifest){
         try{
@@ -194,8 +201,8 @@ public class Utility {
             csvWriter.writeNext(new String[]{">Refrigerated"});
             for (Map.Entry<Item, Integer> entry:manifest.entrySet()) {
                 if (entry.getKey().temperature != 11){
-                    if (entry.getValue() <= entry.getKey().getReorder_point()){
-                        String[] temp = new String[]{entry.getKey().getName(), Integer.toString(entry.getKey().getReorder_amount())};
+                    if (entry.getValue() <= entry.getKey().getReorderPoint()){
+                        String[] temp = new String[]{entry.getKey().getName(), Integer.toString(entry.getKey().getReorderAmount())};
                         csvWriter.writeNext(temp);
                     }
                 }
@@ -203,8 +210,8 @@ public class Utility {
             csvWriter.writeNext(new String[]{">Ordinary"});
             for (Map.Entry<Item, Integer> entry:manifest.entrySet()) {
                 if (entry.getKey().temperature == 11){
-                    if (entry.getValue() <= entry.getKey().getReorder_point()){
-                        String[] temp = new String[]{entry.getKey().getName(), Integer.toString(entry.getKey().getReorder_amount())};
+                    if (entry.getValue() <= entry.getKey().getReorderPoint()){
+                        String[] temp = new String[]{entry.getKey().getName(), Integer.toString(entry.getKey().getReorderAmount())};
                         csvWriter.writeNext(temp);
                     }
                 }
@@ -217,8 +224,8 @@ public class Utility {
     }
 
     /**
-     *
-     * @return
+     * Returns the next available manifest file name
+     * @return String
      */
     public static String getManifestFileName(){
         String fileName = "./assets/manifest_0.csv";
@@ -241,35 +248,35 @@ public class Utility {
     }
 
     /**
-     *
-     * @param fileName
-     * @return
+     * Returns a sales log of type HashMap<Item, Integer> from selected file
+     * @param filename String
+     * @return HashMap<Item, Integer>
      */
-    public static HashMap<Item, Integer> loadSalesLog(String fileName) throws CSVFormatException{
+    public static HashMap<Item, Integer> loadSalesLog(String filename) throws CSVFormatException{
         try{
             // LOADS CSV IN
             HashMap<Item, Integer> tempLog = new HashMap<>();
-            CSVReader csvReader = new CSVReader(new FileReader(fileName));
+            CSVReader csvReader = new CSVReader(new FileReader(filename));
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null) {
                 if(nextRecord.length == 2){
                     tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
                 } else {
-                    throw new CSVFormatException("Error 400: Failed to load " + fileName + "\nInvalid file contents");
+                    throw new CSVFormatException("Error 400: Failed to load " + filename + "\nInvalid file contents");
                 }
             }
             return tempLog;
         } catch (IOException err){
-            throw new CSVFormatException("Error 401: Failed to load " + fileName + "\nInvalid file contents");
+            throw new CSVFormatException("Error 401: Failed to load " + filename + "\nInvalid file contents");
         } catch (ArrayIndexOutOfBoundsException err){
-            throw new CSVFormatException("Error 402: Failed to load " + fileName + "\nInvalid file contents");
+            throw new CSVFormatException("Error 402: Failed to load " + filename + "\nInvalid file contents");
         }
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Returns an item that matches the String name
+     * @param name String
+     * @return Item
      */
     public static Item getItem(String name){
         HashMap<Item, Integer> items = Store.getInventory().getStock();
@@ -282,27 +289,27 @@ public class Utility {
     }
 
     /**
-     *
-     * @param name
-     * @param cost
-     * @param price
-     * @param reorderPoint
-     * @param reorderAmount
-     * @param temperature
-     * @return
+     * Returns an item to match the specifications with temperature
+     * @param name String
+     * @param cost String
+     * @param price String
+     * @param reorderPoint String
+     * @param reorderAmount String
+     * @param temperature String
+     * @return Item
      */
     public static Item convertStringArrToItem(String name, String cost, String price, String reorderPoint, String reorderAmount, String temperature){
         return new Item(name, new BigDecimal(cost), new BigDecimal(price), Integer.parseInt(reorderPoint), Integer.parseInt(reorderAmount), Integer.parseInt(temperature));
     }
 
     /**
-     *
-     * @param name
-     * @param cost
-     * @param price
-     * @param reorderPoint
-     * @param reorderAmount
-     * @return
+     * Returns an item to match the specifications without temperature
+     * @param name String
+     * @param cost String
+     * @param price String
+     * @param reorderPoint String
+     * @param reorderAmount String
+     * @return Item
      */
     public static Item convertStringArrToItem(String name, String cost, String price, String reorderPoint, String reorderAmount){
         return new Item(name, new BigDecimal(cost), new BigDecimal(price), Integer.parseInt(reorderPoint), Integer.parseInt(reorderAmount));

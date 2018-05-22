@@ -9,10 +9,10 @@ package Delivery.Trucks;
 public class TruckFactory {
     public static Truck generateTruck(boolean refTruck){
         if(refTruck){
-            return new Refrigerated_Truck();
+            return new RefrigeratedTruck();
         }
         else{
-            return new Ordinary_Truck();
+            return new OrdinaryTruck();
         }
     }
 }

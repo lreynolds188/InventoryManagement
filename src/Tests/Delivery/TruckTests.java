@@ -1,7 +1,7 @@
 package Tests.Delivery;
 
-import Delivery.Trucks.Ordinary_Truck;
-import Delivery.Trucks.Refrigerated_Truck;
+import Delivery.Trucks.OrdinaryTruck;
+import Delivery.Trucks.RefrigeratedTruck;
 import Delivery.Trucks.Truck;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,8 +27,8 @@ public class TruckTests {
     @Before
     @Test
     public void testInit (){
-        ordinaryTruck = new Ordinary_Truck();
-        refrigeratedTruck = new Refrigerated_Truck();
+        ordinaryTruck = new OrdinaryTruck();
+        refrigeratedTruck = new RefrigeratedTruck();
     }
 
     /**

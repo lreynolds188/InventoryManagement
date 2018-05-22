@@ -15,13 +15,13 @@ import java.util.Map;
  * @version 1.0
  */
 
-public class Refrigerated_Truck implements Truck {
+public class RefrigeratedTruck implements Truck {
 
     private BigDecimal cost;
     private int capacity = 800, temperature;
     private Cargo cargo;
 
-    public Refrigerated_Truck(){
+    public RefrigeratedTruck(){
         this.cargo = CargoFactory.getCargo(true);
     }
 
@@ -48,5 +48,4 @@ public class Refrigerated_Truck implements Truck {
         }
         cost = new BigDecimal(900+(200*Math.pow(0.7, temperature/5)));
     }
-
 }

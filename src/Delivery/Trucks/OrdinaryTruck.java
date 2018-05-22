@@ -12,13 +12,13 @@ import java.math.BigDecimal;
  * @version 1.0
  */
 
-public class Ordinary_Truck implements Truck {
+public class OrdinaryTruck implements Truck {
 
     private BigDecimal cost;
     private int capacity = 1000;
     private Cargo cargo;
 
-    public Ordinary_Truck(){
+    public OrdinaryTruck(){
         this.cargo = CargoFactory.getCargo(false);
     }
 

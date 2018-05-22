@@ -1,9 +1,8 @@
-package Delivery.Trucks;
+package Stock;
 
 import CSV.CSVFormatException;
 import CSV.Utility;
-import Stock.Item;
-import Stock.Store;
+import Delivery.Trucks.Truck;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,12 @@ public class Manifest {
         manifest = new HashMap<>();
     }
 
-    public void load_manifest(String filename) throws CSVFormatException {
+    /**
+     * Loads the manifest by calling the loadManifest function inside the Utility class and update the capital and inventory
+     * @param filename String
+     * @throws CSVFormatException
+     */
+    public void loadManifest(String filename) throws CSVFormatException {
         manifest = Utility.loadManifest(filename);
 
         for (Map.Entry<String, Truck> temp: manifest.entrySet()){
@@ -33,14 +37,28 @@ public class Manifest {
         }
     }
 
+    /**
+     * Setter for the manifest
+     * @param name String
+     * @param truck Truck
+     */
     public void put(String name, Truck truck){
         manifest.put(name, truck);
     }
 
+    /**
+     * Getter for the manifest value
+     * @param name String
+     * @return Truck
+     */
     public Truck get(String name){
         return(manifest.get(name));
     }
 
+    /**
+     * Exports a new manifest by calling the createManifest() function in the Utility class
+     * @param itemList HashMap<Item, Integer>
+     */
     public void exportManifest(HashMap<Item, Integer> itemList){
         Utility.createManifest(itemList);
     }
