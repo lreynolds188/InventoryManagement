@@ -156,6 +156,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         manifestPanel.setBounds(0, 0, 1080, 800);
         manifestPanel.setBackground(Color.BLACK);
         manifestPanel.setVisible(false);
+
     }
 
     public void generateItemListPanel(){

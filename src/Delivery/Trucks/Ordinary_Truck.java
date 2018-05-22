@@ -6,7 +6,7 @@ import Stock.Item;
 
 import java.math.BigDecimal;
 
-public class Ordinary_Truck extends Truck {
+public class Ordinary_Truck implements Truck {
 
     private BigDecimal cost;
     private int capacity = 1000;
