@@ -12,11 +12,10 @@ import java.util.HashMap;
  * @since <pre>May 16, 2018</pre>
  * @version 1.0
  */
-
 public interface Cargo {
     /**
      * Method signature for getting the list of cargo items
-      * @return
+     * @return
      */
     HashMap<Item,Integer> getCargo();
 
@@ -30,3 +29,4 @@ public interface Cargo {
 
     Integer getSize();
 }
+
