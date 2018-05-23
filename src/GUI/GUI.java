@@ -81,7 +81,11 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         }
 
         if (e.getSource() == btnExportManifest){
-            exportManifest();
+            try {
+                exportManifest();
+            } catch (CSVFormatException e1) {
+                displayError(e1.error);
+            }
         }
 
         if (e.getSource() == btnLoadManifest){
@@ -148,7 +152,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     /**
      * Exports a new manifest to .csv
      */
-    public void exportManifest(){
+    public void exportManifest() throws CSVFormatException {
         store.getManifest().exportManifest(store.getInventory().getStock());
     }
 

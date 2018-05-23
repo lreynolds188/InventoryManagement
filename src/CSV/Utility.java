@@ -37,6 +37,10 @@ public class Utility {
     public static HashMap<Item, Integer> readItemList(String filename) throws CSVFormatException{
 
         try{
+            if (!filename.contains("item_properties")){
+                throw new CSVFormatException("Error 100: Invalid filename!\nFailed to load " + filename + "\nFilename must contain item_properties");
+            }
+
             HashMap<Item, Integer> itemlist = new HashMap<>();
             CSVReader csvReader = new CSVReader(new FileReader(filename));
             String[] nextRecord;
@@ -50,11 +54,11 @@ public class Utility {
             csvReader.close();
             return itemlist;
         } catch (IOException e){
-            System.out.println("Error loading item list!");
+            System.out.println("Error 101: I/O exception!\nFailed loading item list.");
             e.printStackTrace();
             return null;
         } catch (ArrayIndexOutOfBoundsException err){
-            throw new CSVFormatException("Error 100: Failed to load " + filename + "\nInvalid file contents");
+            throw new CSVFormatException("Error 102: Invalid file contents!\nFailed to load " + filename + ".");
         }
     }
 
@@ -147,6 +151,10 @@ public class Utility {
      */
     public static HashMap<Item, Integer> readManifest(String filename, Boolean ref) throws CSVFormatException{
         try{
+            if (!filename.contains("manifest")){
+                throw new CSVFormatException("Error 300: Invalid manifest file!\nFailed to load: " + filename + "\nFilename must contain manifest.");
+            }
+
             HashMap<Item, Integer> tempCargo = new HashMap<>();
 
             // LOADS CSV IN
@@ -164,9 +172,7 @@ public class Utility {
 
                 // CHECK VALUE EXISTS IN ITEM LIST
                 if (getItem(nextRecord[0]) == null){
-                    throw new CSVFormatException("Error 300: Failed to load " + filename + "\nItem not contained in item list");
-                } else if (nextRecord.length != 2){
-                    throw new CSVFormatException("Error 301: Failed to load " + filename + "\nInvalid file contents");
+                    throw new CSVFormatException("Error 301: Item in manifest not found!\nFailed to load: " + filename + "\nEnsure item list has been loaded and all items on manifest are in the item list.");
                 }
 
                 // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
@@ -182,9 +188,8 @@ public class Utility {
             }
             csvReader.close();
             return tempCargo;
-        } catch(IOException err){
-            err.printStackTrace();
-            return null;
+        } catch(IOException e){
+            throw new CSVFormatException("Error 302: I/O Exception!\nFailed to load: " + filename + ".");
         }
     }
 
@@ -192,7 +197,7 @@ public class Utility {
      * Exports manifest into a .csv format from HashMap<Item, Integer>
      * @param manifest HashMap<Item, Integer>
      */
-    public static void createManifest(HashMap<Item, Integer> manifest){
+    public static void createManifest(HashMap<Item, Integer> manifest) throws CSVFormatException {
         try{
             CSVWriter csvWriter = new CSVWriter(new FileWriter(getManifestFileName()),
                     CSVWriter.DEFAULT_SEPARATOR,
@@ -219,8 +224,8 @@ public class Utility {
             }
             csvWriter.close();
         } catch (IOException e){
-            System.out.println("Error writing to manifest!");
             e.printStackTrace();
+            throw new CSVFormatException("Error 500: I/O Exception!\nFailed to write manifest.");
         }
     }
 
@@ -255,22 +260,22 @@ public class Utility {
      */
     public static HashMap<Item, Integer> loadSalesLog(String filename) throws CSVFormatException{
         try{
+            if (!filename.contains("sales_log")){
+                throw new CSVFormatException("Error 400: Invalid filename!\nFailed to load: " + filename + "\nFilename must contain sales_log.");
+            }
+
             // LOADS CSV IN
             HashMap<Item, Integer> tempLog = new HashMap<>();
             CSVReader csvReader = new CSVReader(new FileReader(filename));
             String[] nextRecord;
             while ((nextRecord = csvReader.readNext()) != null) {
-                if(nextRecord.length == 2){
-                    tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
-                } else {
-                    throw new CSVFormatException("Error 400: Failed to load " + filename + "\nInvalid file contents");
-                }
+                tempLog.put(getItem(nextRecord[0]), Integer.parseInt(nextRecord[1]));
             }
             return tempLog;
-        } catch (IOException err){
-            throw new CSVFormatException("Error 401: Failed to load " + filename + "\nInvalid file contents");
-        } catch (ArrayIndexOutOfBoundsException err){
-            throw new CSVFormatException("Error 402: Failed to load " + filename + "\nInvalid file contents");
+        } catch (IOException e){
+            throw new CSVFormatException("Error 401: I/O Exception!\nFailed to load: " + filename + ".");
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new CSVFormatException("Error 402: Invalid file contents!\nFailed to load: " + filename + ".");
         }
     }
 

@@ -59,7 +59,7 @@ public class Manifest {
      * Exports a new manifest by calling the createManifest() function in the Utility class
      * @param itemList HashMap<Item, Integer>
      */
-    public void exportManifest(HashMap<Item, Integer> itemList){
+    public void exportManifest(HashMap<Item, Integer> itemList) throws CSVFormatException {
         Utility.createManifest(itemList);
     }
 
