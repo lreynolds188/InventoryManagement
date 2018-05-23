@@ -28,7 +28,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     private JLabel capitolLabel;
     private JFrame mainFrame;
     private JPanel menuPanel, expansionPanel_1, itemListPanel, expansionPanel_2;
-    private JButton btnExpansion_1, btnItemList, btnExpansion_2, btnLoadItemList, btnExportManifest, btnLoadManifest, btnLoadSalesLog;
+    private JButton btnItemList, btnLoadItemList, btnExportManifest, btnLoadManifest, btnLoadSalesLog;
     private JTable itemListTable;
     private JScrollPane scrollPane;
     private JFileChooser fileChooser;
@@ -50,22 +50,8 @@ public class GUI extends JPanel implements Runnable, ActionListener{
      * @param e ActionEvent
      */
     public void actionPerformed(ActionEvent e){
-        if (e.getSource() == btnExpansion_1){
-            expansionPanel_1.setVisible(true);
-            itemListPanel.setVisible(false);
-            expansionPanel_2.setVisible(false);
-        }
-
         if (e.getSource() == btnItemList){
-            expansionPanel_1.setVisible(false);
             itemListPanel.setVisible(true);
-            expansionPanel_2.setVisible(false);
-        }
-
-        if (e.getSource() == btnExpansion_2){
-            expansionPanel_1.setVisible(false);
-            itemListPanel.setVisible(false);
-            expansionPanel_2.setVisible(true);
         }
 
         if (e.getSource() == btnLoadItemList){

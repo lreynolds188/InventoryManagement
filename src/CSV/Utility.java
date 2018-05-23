@@ -152,7 +152,7 @@ public class Utility {
     public static HashMap<Item, Integer> readManifest(String filename, Boolean ref) throws CSVFormatException{
         try{
             if (!filename.contains("manifest")){
-                throw new CSVFormatException("Error 300: Invalid manifest file!\nFailed to load: " + filename + "\nFilename must contain manifest.");
+                throw new CSVFormatException("Error 200: Invalid manifest file!\nFailed to load: " + filename + "\nFilename must contain manifest.");
             }
 
             HashMap<Item, Integer> tempCargo = new HashMap<>();
@@ -172,7 +172,7 @@ public class Utility {
 
                 // CHECK VALUE EXISTS IN ITEM LIST
                 if (getItem(nextRecord[0]) == null){
-                    throw new CSVFormatException("Error 301: Item in manifest not found!\nFailed to load: " + filename + "\nEnsure item list has been loaded and all items on manifest are in the item list.");
+                    throw new CSVFormatException("Error 201: Item in manifest not found!\nFailed to load: " + filename + "\nEnsure item list has been loaded and all items on manifest are in the item list.");
                 }
 
                 // SEPARATES CARGO INTO REFRIGERATED OR ORDINARY
@@ -189,7 +189,7 @@ public class Utility {
             csvReader.close();
             return tempCargo;
         } catch(IOException e){
-            throw new CSVFormatException("Error 302: I/O Exception!\nFailed to load: " + filename + ".");
+            throw new CSVFormatException("Error 202: I/O Exception!\nFailed to load: " + filename + ".");
         }
     }
 
@@ -199,6 +199,9 @@ public class Utility {
      */
     public static void createManifest(HashMap<Item, Integer> manifest) throws CSVFormatException {
         try{
+            if (manifest.size() == 0){
+                throw new CSVFormatException("Error 300: Empty manifest!\nThere is no data to be exported. Check the item list has been loaded.");
+            }
             CSVWriter csvWriter = new CSVWriter(new FileWriter(getManifestFileName()),
                     CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
@@ -225,7 +228,7 @@ public class Utility {
             csvWriter.close();
         } catch (IOException e){
             e.printStackTrace();
-            throw new CSVFormatException("Error 500: I/O Exception!\nFailed to write manifest.");
+            throw new CSVFormatException("Error 301: I/O Exception!\nFailed to write manifest.");
         }
     }
 
