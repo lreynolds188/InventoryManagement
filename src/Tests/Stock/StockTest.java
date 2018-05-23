@@ -24,7 +24,7 @@ public class StockTest {
      * Testing stock items collection is of type HashMap
      */
     @Test
-    public void test_stock_collection_type(){
+    public void testStockCollectionType(){
 
         assertThat(
                 "This collection must be of type HashMap whose key is a String and value is an Object",
@@ -36,7 +36,7 @@ public class StockTest {
      * Test that Hashmap Value is of type Item and that the reference to the item is of type String
      */
     @Test
-    public void test_hashmap_value_object() {
+    public void testHashmapValueObject() {
 
         Item item1 = new Item("car",new BigDecimal(100),new BigDecimal(200),1,5);
         stock_object.put(item1 , 5);

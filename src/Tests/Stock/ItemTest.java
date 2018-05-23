@@ -23,13 +23,13 @@ public class ItemTest {
      * Tests if item is of class Item
      */
     @Test
-    public void test_item_obj_type(){ assertThat(item, instanceOf(Item.class)); }
+    public void testItemObjType(){ assertThat(item, instanceOf(Item.class)); }
 
     /**
      * Series of tests for Item name property
      */
     @Test
-    public void test_item_name_property(){
+    public void testItemNameProperty(){
 
         // Test that name is of type String and not Null
         assertThat(
@@ -46,7 +46,7 @@ public class ItemTest {
      * Series of tests for Manufacturing cost in dollars
      */
     @Test
-    public void test_Item_manufacturing_cost() {
+    public void testItemManufacturingCost() {
 
         BigDecimal zero = new BigDecimal(0.0);
 
@@ -65,7 +65,7 @@ public class ItemTest {
      * Series of tests for Manufacturing cost in dollars
      */
     @Test
-    public void test_Item_sell_price() {
+    public void testItemSellPrice() {
 
         BigDecimal zero = new BigDecimal(0.0);
 
@@ -89,7 +89,7 @@ public class ItemTest {
      * Testing reorder point property
      */
     @Test
-    public void test_reorder_point() {
+    public void testReorderPoint() {
 
         // Test that reorder point property is of type int
         assertThat(
@@ -106,7 +106,7 @@ public class ItemTest {
      * Testing reorder point property
      */
     @Test
-    public void test_reorder_amount() {
+    public void testReorderAmount() {
 
         // Test that amount property is of type int
         assertThat(
@@ -122,7 +122,7 @@ public class ItemTest {
      * Testing temperature value
      */
     @Test
-    public void test_temperature_value() {
+    public void testTemperatureValue() {
 
         // Test that temperature variable is of type Integer
         assertThat(
