@@ -226,13 +226,13 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         capitolLabel = new JLabel("Capital: $" + store.getCapitalToString());
         capitolLabel.setHorizontalAlignment(JLabel.CENTER);
         btnItemList = generateButton("Item List", 195, 40);
-        btnExpansion_1 = generateButton("Expansion_1", 195, 40);
-        btnExpansion_2 = generateButton("Expansion_2", 195, 40);
+//        btnExpansion_1 = generateButton("Expansion_1", 195, 40);
+//        btnExpansion_2 = generateButton("Expansion_2", 195, 40);
 
         menuPanel.add(capitolLabel);
         menuPanel.add(btnItemList);
-        menuPanel.add(btnExpansion_1);
-        menuPanel.add(btnExpansion_2);
+//        menuPanel.add(btnExpansion_1);
+//        menuPanel.add(btnExpansion_2);
     }
 
     /**
