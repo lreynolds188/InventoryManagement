@@ -10,11 +10,10 @@ package Delivery.Cargo;
 
 public class CargoFactory {
     /**
-     * If boolean passed to getCargo method is TRUE
-     * return an ordinary cargo object from the OrdinaryCargo Class
-     * vis versa for a refrigerated cargo object.
+     * Returns a refrigerated cargo object if the boolean value parameter is True
+     * Otherwise return an ordinary cargo object if boolean value is False
      */
-    public static Cargo getCargo(boolean ref_cargo){
+    public static Cargo makeCargoObject(boolean ref_cargo){
         if(ref_cargo == true){
             return new RefrigeratedCargo();
         }

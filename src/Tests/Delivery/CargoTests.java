@@ -31,8 +31,8 @@ public class CargoTests {
         CargoFactory cargoFactory = new CargoFactory();
 
         // Tests Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
-        ordCargo = cargoFactory.getCargo(true);
-        refCargo = cargoFactory.getCargo(false);
+        ordCargo = cargoFactory.makeCargoObject(true);
+        refCargo = cargoFactory.makeCargoObject(false);
         System.out.print(refCargo.getClass());
     }
 

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import Delivery.Trucks.Truck;
 import Delivery.Trucks.OrdinaryTruck;
 import Delivery.Trucks.RefrigeratedTruck;
+import Delivery.Trucks.TruckFactory;
 import Stock.Item;
 
 import Stock.Store;
@@ -75,7 +76,7 @@ public class Utility {
 
         // ADD REF CARGO INTO REF TRUCKS
         while (sortedRefCargo.size() != 0){
-            Truck temp = new RefrigeratedTruck();
+            Truck temp = TruckFactory.generateTruck(true);
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedRefCargo) {
                 if ((map1.getValue() + temp.getCargo().getSize()) <= 800){
@@ -108,7 +109,7 @@ public class Utility {
 
         // ADD REMAINING ORD CARGO INTO ORD TRUCKS
         while (sortedOrdCargo.size() != 0){
-            Truck temp = new OrdinaryTruck();
+            Truck temp = TruckFactory.generateTruck(false);
             HashMap<Item, Integer> items = new HashMap<>();
             for (Map.Entry<Item, Integer> map1 : sortedOrdCargo) {
                     if ((map1.getValue() + temp.getCargo().getSize()) <= 1000){

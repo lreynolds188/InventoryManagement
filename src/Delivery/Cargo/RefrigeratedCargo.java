@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Ordinary cargo class implementing Cargo interface.
+ * Refrigerated cargo class implementing Cargo interface.
  *
  * @author <Jonathan Gonzalez | n9821112>
  * @since <pre>May 16, 2018</pre>
@@ -27,13 +27,22 @@ public class RefrigeratedCargo implements Cargo{
         return refrigerated_cargo;
     }
 
+    /**
+     * Getter for cost of refrigerated cargo
+     * @return the total cost of the refrigerated cargo
+     */
     @Override
     public BigDecimal getCost(){
+
         BigDecimal cost = new BigDecimal(0);
+
+        // for each item in ordinary cargo calculate the cost using temperature variable
         for (Map.Entry<Item, Integer> set : refrigerated_cargo.entrySet()){
             BigDecimal temp = set.getKey().getManufacturingCost().multiply(new BigDecimal(set.getValue()));
             cost = cost.add(temp);
         }
+
+        // set scale and round down and return the cost
         return cost.setScale(2, BigDecimal.ROUND_FLOOR);
     }
 
@@ -47,6 +56,10 @@ public class RefrigeratedCargo implements Cargo{
         refrigerated_cargo.put(item,quantity);
     }
 
+    /**
+     * Getter for cargo size
+     * @return
+     */
     @Override
     public Integer getSize() {
         int size = 0;
