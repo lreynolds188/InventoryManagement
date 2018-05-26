@@ -1,6 +1,10 @@
 package Stock;
 
+import CSV.CSVFormatException;
+import CSV.Utility;
+
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Luke Reynolds
@@ -14,10 +18,24 @@ public class Stock {
     /**
      * Stores all items and their quantities
      */
-    private HashMap<Item, Integer> stockList;
+    private HashMap<Item, Integer> stocklist;
 
     public Stock(){
-        stockList = new HashMap<>();
+        stocklist = new HashMap<>();
+    }
+
+    /**
+     * Loads itemlist, adds values to the
+     * @param filename
+     * @return
+     * @throws CSVFormatException
+     */
+    public void loadItemlist(String filename) throws CSVFormatException {
+        HashMap<Item, Integer> temp = Utility.loadItemlist(filename);
+        stocklist.clear();
+        for (Map.Entry<Item, Integer> item : temp.entrySet()){
+            stocklist.put(item.getKey(), item.getValue());
+        }
     }
 
     /**
@@ -26,7 +44,7 @@ public class Stock {
      * @param quantity Integer
      */
     public void put(Item item, Integer quantity){
-        stockList.put(item, quantity);
+        stocklist.put(item, quantity);
     }
 
     /**
@@ -35,7 +53,7 @@ public class Stock {
      * @return Integer
      */
     public Integer get(Item item){
-        return(stockList.get(item));
+        return(stocklist.get(item));
     }
 
     /**
@@ -43,6 +61,6 @@ public class Stock {
      * @return HashMap<Item, Integer>
      */
     public HashMap<Item, Integer> getStock(){
-        return stockList;
+        return stocklist;
     }
 }

@@ -26,7 +26,7 @@ public class OrdinaryTruck implements Truck {
      * sets the cargo object to a new ordinary cargo object using cargo factory
      */
     public OrdinaryTruck(){
-        this.cargo = CargoFactory.makeCargoObject(false);
+        this.cargo = CargoFactory.generateCargo(false);
     }
 
     /**

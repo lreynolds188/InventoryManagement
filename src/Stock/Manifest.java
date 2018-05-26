@@ -3,7 +3,6 @@ package Stock;
 import CSV.CSVFormatException;
 import CSV.Utility;
 import Delivery.Trucks.Truck;
-
 import java.util.HashMap;
 import java.util.Map;
 

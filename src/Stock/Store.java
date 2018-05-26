@@ -71,28 +71,37 @@ public class Store {
 
     /**
      * Calls the loadManifest() function in the manifest
-     * @param fileName String
+     * @param filename String
      * @throws CSVFormatException
      */
-    public static void loadManifest(String fileName) throws CSVFormatException {
-        manifest.loadManifest(fileName);
+    public static void loadItemlist(String filename) throws CSVFormatException {
+        stock.loadItemlist(filename);
+    }
+
+    /**
+     * Calls the loadManifest() function in the manifest
+     * @param filename String
+     * @throws CSVFormatException
+     */
+    public static void loadManifest(String filename) throws CSVFormatException {
+        manifest.loadManifest(filename);
     }
 
     /**
      * Calls the Utility.loadSalesLog() function, removing inventory and adding capital where required
-     * @param fileName String
+     * @param filename String
      * @throws CSVFormatException
      */
-    public static void loadSalesLog(String fileName) throws CSVFormatException {
+    public static void loadSalesLog(String filename) throws CSVFormatException {
         try {
-            HashMap<Item, Integer> sales = Utility.loadSalesLog(fileName);
+            HashMap<Item, Integer> sales = Utility.loadSalesLog(filename);
             Store.removeInventory(sales);
 
             for (Map.Entry<Item, Integer> log : sales.entrySet()){
                 Store.putCapital(log.getKey().getSellPrice().multiply(new BigDecimal(log.getValue())));
             }
         }catch(NullPointerException err){
-            throw new CSVFormatException("Error 4: Failed to load sales log " + fileName + "\nNullPointerException: Please check that the item list has been loaded!");
+            throw new CSVFormatException("Error 4: Failed to load sales log " + filename + "\nNullPointerException: Please check that the item list has been loaded!");
         }
     }
 

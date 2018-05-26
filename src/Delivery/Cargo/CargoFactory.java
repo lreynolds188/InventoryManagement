@@ -13,7 +13,7 @@ public class CargoFactory {
      * Returns a refrigerated cargo object if the boolean value parameter is True
      * Otherwise return an ordinary cargo object if boolean value is False
      */
-    public static Cargo makeCargoObject(boolean ref_cargo){
+    public static Cargo generateCargo(boolean ref_cargo){
         if(ref_cargo == true){
             return new RefrigeratedCargo();
         }

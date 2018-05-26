@@ -34,7 +34,7 @@ public class Utility {
      * Returns an item list of type HashMap<Item, Integer> from selected file
      * @return HashMap<Item, Integer>
      */
-    public static HashMap<Item, Integer> readItemList(String filename) throws CSVFormatException{
+    public static HashMap<Item, Integer> loadItemlist(String filename) throws CSVFormatException{
 
         try{
             if (!filename.contains("item_properties")){

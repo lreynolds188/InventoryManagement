@@ -19,7 +19,7 @@ public class RefrigeratedTruck implements Truck {
 
     private BigDecimal cost;
 
-    private int capacity = 800, temperature;
+    private int capacity = 800, temperature = 11;
 
     private Cargo cargo;
 
@@ -28,7 +28,7 @@ public class RefrigeratedTruck implements Truck {
      * sets the cargo object to a new refrigerated cargo object using cargo factory
      */
     public RefrigeratedTruck(){
-        this.cargo = CargoFactory.makeCargoObject(true);
+        this.cargo = CargoFactory.generateCargo(true);
     }
 
     /**

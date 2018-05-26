@@ -1,7 +1,6 @@
 package GUI;
 
 import CSV.CSVFormatException;
-import CSV.Utility;
 import Stock.Item;
 import Stock.Store;
 
@@ -27,8 +26,8 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     private JLayeredPane layeredPane;
     private JLabel capitolLabel;
     private JFrame mainFrame;
-    private JPanel menuPanel, expansionPanel_1, itemListPanel, expansionPanel_2;
-    private JButton btnItemList, btnLoadItemList, btnExportManifest, btnLoadManifest, btnLoadSalesLog;
+    private JPanel menuPanel, expansionPanel_1, itemlistPanel, expansionPanel_2;
+    private JButton btnItemlist, btnLoadItemlist, btnExportManifest, btnLoadManifest, btnLoadSalesLog;
     private JTable itemListTable;
     private JScrollPane scrollPane;
     private JFileChooser fileChooser;
@@ -50,16 +49,16 @@ public class GUI extends JPanel implements Runnable, ActionListener{
      * @param e ActionEvent
      */
     public void actionPerformed(ActionEvent e){
-        if (e.getSource() == btnItemList){
-            itemListPanel.setVisible(true);
+        if (e.getSource() == btnItemlist){
+            itemlistPanel.setVisible(true);
         }
 
-        if (e.getSource() == btnLoadItemList){
+        if (e.getSource() == btnLoadItemlist){
             int returnVal = fileChooser.showOpenDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
-                    loadItemList(fileChooser.getSelectedFile().getAbsolutePath());
+                    loadItemlist(fileChooser.getSelectedFile().getAbsolutePath());
                 } catch (CSVFormatException e1) {
                     displayError(e1.error);
                 }
@@ -104,10 +103,10 @@ public class GUI extends JPanel implements Runnable, ActionListener{
      * @param filename String
      * @throws CSVFormatException
      */
-    public void loadItemList(String filename) throws CSVFormatException {
-        HashMap<Item, Integer> hashMapData = Utility.readItemList(filename);
+    public void loadItemlist(String filename) throws CSVFormatException {
+        store.loadItemlist(filename);
+        HashMap<Item, Integer> hashMapData = Store.getInventory().getStock();
         tableModel.setRowCount(0);
-        store.getInventory().getStock().clear();
         for (Map.Entry<Item, Integer> item : hashMapData.entrySet()){
             Object[] data = new Object[7];
             data[0] = item.getKey().getName();
@@ -119,7 +118,6 @@ public class GUI extends JPanel implements Runnable, ActionListener{
             if (item.getKey().getTemperature() != 11){
                 data[6] = item.getKey().getTemperature();
             }
-            store.getInventory().getStock().put(item.getKey(), item.getValue());
             tableModel.addRow(data);
         }
         tableModel.fireTableDataChanged();
@@ -215,35 +213,31 @@ public class GUI extends JPanel implements Runnable, ActionListener{
 
         capitolLabel = new JLabel("Capital: $" + store.getCapitalToString());
         capitolLabel.setHorizontalAlignment(JLabel.CENTER);
-        btnItemList = generateButton("Item List", 195, 40);
-//        btnExpansion_1 = generateButton("Expansion_1", 195, 40);
-//        btnExpansion_2 = generateButton("Expansion_2", 195, 40);
+        btnItemlist = generateButton("Item List", 195, 40);
 
         menuPanel.add(capitolLabel);
-        menuPanel.add(btnItemList);
-//        menuPanel.add(btnExpansion_1);
-//        menuPanel.add(btnExpansion_2);
+        menuPanel.add(btnItemlist);
     }
 
     /**
      * Generates the GUI's item list panel
      */
-    public void generateItemListPanel(){
-        itemListPanel = new JPanel();
-        itemListPanel.setBounds(0, 0, 1080, 800);
-        itemListPanel.setVisible(true);
+    public void generateItemlistPanel(){
+        itemlistPanel = new JPanel();
+        itemlistPanel.setBounds(0, 0, 1080, 800);
+        itemlistPanel.setVisible(true);
         btnLoadSalesLog = generateButton("Load Sales Log", 195, 40);
         btnLoadManifest = generateButton("Load Manifest", 195, 40);
         btnExportManifest = generateButton("Export Manifest", 195, 40);
-        btnLoadItemList = generateButton("Load Item List", 195, 40);
-        itemListPanel.add(btnLoadSalesLog);
-        itemListPanel.add(btnLoadManifest);
-        itemListPanel.add(btnExportManifest);
-        itemListPanel.add(btnLoadItemList);
+        btnLoadItemlist = generateButton("Load Item List", 195, 40);
+        itemlistPanel.add(btnLoadSalesLog);
+        itemlistPanel.add(btnLoadManifest);
+        itemlistPanel.add(btnExportManifest);
+        itemlistPanel.add(btnLoadItemlist);
 
         generateItemListTable();
         generateScrollPane();
-        itemListPanel.add(scrollPane);
+        itemlistPanel.add(scrollPane);
 
         generateFileChooser();
     }
@@ -254,26 +248,6 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     public void generateFileChooser(){
         fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/assets"));
-    }
-
-    /**
-     * Generates the GUI's expansion panel 1
-     */
-    public void generateExpansionPanel_1(){
-        expansionPanel_1 = new JPanel();
-        expansionPanel_1.setBounds(0, 0, 1080, 800);
-        expansionPanel_1.setBackground(Color.BLACK);
-        expansionPanel_1.setVisible(false);
-    }
-
-    /**
-     * Generates the GUI's expansion panel 2
-     */
-    public void generateExpansionPanel_2(){
-        expansionPanel_2 = new JPanel();
-        expansionPanel_2.setBounds(0, 0, 1080, 800);
-        expansionPanel_2.setBackground(Color.GREEN);
-        expansionPanel_2.setVisible(false);
     }
 
     /**
@@ -303,12 +277,8 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     public void generateLayeredPane(){
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(200, 0, 520, 480);
-        generateExpansionPanel_1();
-        generateItemListPanel();
-        generateExpansionPanel_2();
-        layeredPane.add(itemListPanel, new Integer(1), 0);
-        layeredPane.add(expansionPanel_1, new Integer(0), 0);
-        layeredPane.add(expansionPanel_2, new Integer(2), 0);
+        generateItemlistPanel();
+        layeredPane.add(itemlistPanel, new Integer(1), 0);
     }
 
     /**
