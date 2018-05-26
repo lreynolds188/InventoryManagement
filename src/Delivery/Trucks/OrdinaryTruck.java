@@ -64,8 +64,18 @@ public class OrdinaryTruck implements Truck {
      */
     @Override
     public void addItem(Item item, Integer quantity){
+
         cargo.addItem(item, quantity);
+        // calculate the cost of an item added to the ordinary truck
         cost = new BigDecimal(750 + (0.25 * cargo.getSize()));
     }
 
 }
+
+
+
+
+
+
+
+
