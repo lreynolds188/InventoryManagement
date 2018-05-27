@@ -1,4 +1,4 @@
-Jonathan (24):
+Jonathan (26):
       Added a small set of tests for item class name property and manufacturing cost property
       Completed initial version of Item class test cases.
       Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
@@ -23,8 +23,10 @@ Jonathan (24):
       Finalized report
       Updated author tag to display name properly in javadoc
       Updated item test and store test
+      Fixed broken tests in manifest and store
+      Merge remote-tracking branch 'origin/master'
 
-Luke Reynolds (28):
+Luke Reynolds (30):
       Initial commit
       - initial commit
       Delete uiDesigner.xml
@@ -53,11 +55,19 @@ Luke Reynolds (28):
       - Updated exception handling - Removed extra exception classes - Removed manifests from vcs - Added invalid files for testing
       - Added extra exception to createManifest - Up to 100% code coverage
       - Updated read item list functionality - Updated cargo tests - Updated truck tests - Added test assets
+      - Fixed all remaining errors and warnings in javaDoc - Added draft JavaDoc to project - Added draft git log to project
+      - Changed manifest HashMap inside Manifest class from private to public
 
 lreynolds (2):
       - added sort function
       - added sort function
 
+* e90d3d4 - Changed manifest HashMap inside Manifest class from private to public
+*   802c1b1 Merge remote-tracking branch 'origin/master'
+|\  
+| * ad6dab4 - Fixed all remaining errors and warnings in javaDoc - Added draft JavaDoc to project - Added draft git log to project
+* | 62ceb73 Fixed broken tests in manifest and store
+|/  
 * 7206b6f Updated item test and store test
 * f43acb4 Updated author tag to display name properly in javadoc
 * 6d82739 Finalized report
@@ -122,6 +132,42 @@ lreynolds (2):
 |/  
 * 8897278 - initial commit
 * 3028596 Initial commit
+commit e90d3d46e101d2573814925fd7cfd4af5ffecb14
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sun May 27 15:11:36 2018 +1000
+
+    - Changed manifest HashMap inside Manifest class from private to public
+
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 802c1b1f27d043365bda5df08438cb7dc0464021
+Merge: 62ceb73 ad6dab4
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sun May 27 15:07:15 2018 +1000
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       src/Stock/Manifest.java
+
+commit 62ceb735db25cef0beb400bb386db2ce7f220388
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sun May 27 15:06:00 2018 +1000
+
+    Fixed broken tests in manifest and store
+
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+commit ad6dab4edd404ffe041102606cec486be50dbf9f
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sun May 27 14:43:55 2018 +1000
+
+    - Fixed all remaining errors and warnings in javaDoc
+    - Added draft JavaDoc to project
+    - Added draft git log to project
+
+ 114 files changed, 19657 insertions(+), 82 deletions(-)
+
 commit 7206b6f8b87cafa64b5a1c213d005d8fc2809dbe
 Author: Jonathan <jn.gz85@gmail.com>
 Date:   Sun May 27 12:44:16 2018 +1000
