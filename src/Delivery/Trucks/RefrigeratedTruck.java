@@ -7,7 +7,6 @@ import Stock.Item;
 import java.math.BigDecimal;
 
 /**
- *
  * Refrigerated Truck Class implements Truck interface
  *
  * @author Jonathan Gonzalez

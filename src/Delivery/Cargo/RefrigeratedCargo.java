@@ -1,7 +1,6 @@
 package Delivery.Cargo;
 
 import Stock.Item;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +57,7 @@ public class RefrigeratedCargo implements Cargo{
 
     /**
      * Getter for cargo size
-     * @return
+     * @return Integer
      */
     @Override
     public Integer getSize() {

@@ -36,6 +36,7 @@ public class Store {
 
     /**
      * Returns an instance of the store class
+     * @return Store
      */
     public static Store getInstance(){
         return InstanceHolder.INSTANCE;
@@ -50,8 +51,8 @@ public class Store {
     }
 
     /**
-     * Adds each <Item, Quantity> in the HashMap<Item, Integer> to the inventory
-     * @param itemList HashMap<Item, Integer>
+     * Adds each Item, Quantity in the HashMap to the inventory
+     * @param itemList HashMap
      */
     public static void addInventory(HashMap<Item, Integer> itemList){
         for (Map.Entry<Item, Integer> set : itemList.entrySet()){
@@ -60,8 +61,8 @@ public class Store {
     }
 
     /**
-     * Removes each <Item, Quantity> in the HashMap<Item, Integer> from the inventory
-     * @param itemList HashMap<Item, Integer>
+     * Removes each Item, Quantity in the HashMap from the inventory
+     * @param itemList HashMap
      */
     public static void removeInventory(HashMap<Item, Integer> itemList){
         for (Map.Entry<Item, Integer> set : itemList.entrySet()){
@@ -72,7 +73,7 @@ public class Store {
     /**
      * Calls the loadManifest() function in the manifest
      * @param filename String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading itemlist
      */
     public static void loadItemlist(String filename) throws CSVFormatException {
         stock.loadItemlist(filename);
@@ -81,7 +82,7 @@ public class Store {
     /**
      * Calls the loadManifest() function in the manifest
      * @param filename String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading manifest
      */
     public static void loadManifest(String filename) throws CSVFormatException {
         manifest.loadManifest(filename);
@@ -90,7 +91,7 @@ public class Store {
     /**
      * Calls the Utility.loadSalesLog() function, removing inventory and adding capital where required
      * @param filename String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading sales log
      */
     public static void loadSalesLog(String filename) throws CSVFormatException {
         try {

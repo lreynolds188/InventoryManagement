@@ -10,9 +10,12 @@ package Delivery.Trucks;
  */
 
 public class TruckFactory {
+
     /**
      * Returns a refrigerated truck object if the boolean value parameter is True
      * Otherwise return an ordinary truck object if boolean value is False
+     * @param refTruck Truck
+     * @return Truck truck
      */
     public static Truck generateTruck(boolean refTruck){
         if(refTruck){

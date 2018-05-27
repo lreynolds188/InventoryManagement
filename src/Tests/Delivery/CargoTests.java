@@ -22,68 +22,64 @@ public class CargoTests {
 
     Cargo ordCargo, refCargo;
 
-    //
+    // Tests the existence and ability to create an instance of required objects and their functions.
     @Before@Test
     public void test1InitOrdCargo (){
-        // Tests Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
         ordCargo = CargoFactory.generateCargo(false);
     }
 
-    //
+    // Tests the existence and ability to create an instance of required objects and their functions.
     @Before@Test
     public void test2InitRefCargo (){
-        // Tests Cargo class creation passing it a boolean variable relative to whether the Cargo is refrigerated or not
         refCargo = CargoFactory.generateCargo(true);
     }
 
-    //
+    // Tests the ordinary cargo's class type
     @Test
     public void testOrdCargoClassType(){
         assertThat(ordCargo, instanceOf(OrdinaryCargo.class));
     }
 
-    //
+    // Tests the refrigerated cargo's class type
     @Test
     public void testRefCargoClassType(){
         assertThat(refCargo, instanceOf(RefrigeratedCargo.class));
     }
 
-    //
+    // Tests the ordinary cargo's cargo type
     @Test
     public void testOrdCargoType(){
         assertThat(ordCargo.getCargo(), instanceOf(HashMap.class));
     }
 
-    //
+    // Tests the refrigerated cargo's cargo type
     @Test
     public void testRefCargoType(){
         assertThat(refCargo.getCargo(), instanceOf(HashMap.class));
     }
 
-    //
+    // Tests the ordinary cargo's cost type
     @Test
     public void testOrdCargoCost(){
         assertThat(ordCargo.getCost(), instanceOf(BigDecimal.class));
     }
 
-    //
+    // Tests the refrigerated cargo's cost type
     @Test
     public void testRefCargoCost(){
         assertThat(refCargo.getCost(), instanceOf(BigDecimal.class));
     }
 
-    //
+    // Tests the ordinary cargo's size
     @Test
     public void testOrdCargoSize(){
         assertThat(ordCargo.getSize(), instanceOf(Integer.class));
     }
 
-    //
+    // Tests the refrigerated cargo's size
     @Test
     public void testRefCargoSize(){
         assertThat(ordCargo.getSize(), instanceOf(Integer.class));
     }
-
-
 
 }

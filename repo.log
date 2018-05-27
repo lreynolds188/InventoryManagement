@@ -1,0 +1,620 @@
+Jonathan (24):
+      Added a small set of tests for item class name property and manufacturing cost property
+      Completed initial version of Item class test cases.
+      Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+      Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+      Completed initial version of Manifest test cases.
+      Completed initial version of Manifest test cases.
+      Completed initial version of Manifest test cases.
+      Revert to original version
+      Added initial store tests. Requires instance of store and appropriate getters for field properties. Also added quantity field property to Item test. *** UPDATE implemented version of Item class.
+      Implemented factory pattern for specific cargo class generation. Tweaked cargo test init method to compensate for design change
+      Implemented abstract Truck class and two sub classes ordinaryTruck and refrigeratedTruck
+      Refactored Truck class to work with HashMap instead of ArrayList. Also added abstract methods (getCost, addItem) that are utilized in Utility class
+      Refactored the load manifest method. Optimized loading of refrigerated items into refrigerated trucks.
+      Created truck factory and changed truck class to interface
+      Added comment stubs to Trucks class
+      Merge branch 'master' of /Users/JNGZ/IdeaProjects/InventoryMaster with conflicts.
+      Implemented use of truck factory in utiltiy class. Add final comments to cargo and truck packages
+      Refactored test case syntax for better continuity throughout code base
+      Added gui test section to report
+      Merge remote-tracking branch 'origin/master'
+      Updated report
+      Finalized report
+      Updated author tag to display name properly in javadoc
+      Updated item test and store test
+
+Luke Reynolds (28):
+      Initial commit
+      - initial commit
+      Delete uiDesigner.xml
+      Create README.md
+      - added tests for truck functionality
+      Merge remote-tracking branch 'origin/master'
+      - changed around init
+      - added assets (csv files) - added separate packages - added project framework (classes)
+      - added package imports to test class
+      - added item constructor in relation to test cases - added item initializer variables to test case - error asserting BigDecimal scale
+      - removed Tests from excludes
+      - updated cargo test with accurate data type inputs
+      Merge remote-tracking branch 'origin/dev'
+      - split cargo and truck tests into separate test classes - added file header - added comments to tests
+      - updated test package name to Tests
+      Merge remote-tracking branch 'origin/dev'
+      - added lib files for saving to csv - temporarily added cookies to the item list - added major functionality for storing/reading to/from csv files to the utility class - added partial manifest functionality - added main method to GUI class and implemented runnable - changed item variables to private and added getters - added stock functionality - added store functionality and declared as singleton instance - moved store tests to tests package - updated cargo test methods - added comment stubs to all complex methods
+      - added task sheet and report with a basic framework - modified test variables to match actual modules
+      - added functions to utility - added partial gui functionality - added export manifest functionality
+      - moved gui buttons to one page - modified load manifest functionality ($700 off target)
+      - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store
+      - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store - removed some try catch blocks in Utility - added some exception throws throughout - added catch methods to the GUI - added error dialog to GUI
+      - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store - removed some try catch blocks in Utility - added some exception throws throughout - added catch methods to the GUI - added error dialog to GUI
+      Merge remote-tracking branch 'origin/master'
+      - Added comments to functions - Moved manifest class
+      - Updated exception handling - Removed extra exception classes - Removed manifests from vcs - Added invalid files for testing
+      - Added extra exception to createManifest - Up to 100% code coverage
+      - Updated read item list functionality - Updated cargo tests - Updated truck tests - Added test assets
+
+lreynolds (2):
+      - added sort function
+      - added sort function
+
+* 7206b6f Updated item test and store test
+* f43acb4 Updated author tag to display name properly in javadoc
+* 6d82739 Finalized report
+* babd08c - Updated read item list functionality - Updated cargo tests - Updated truck tests - Added test assets
+* cbd891c Updated report
+* 394c411 - Added extra exception to createManifest - Up to 100% code coverage
+*   1c36539 Merge remote-tracking branch 'origin/master'
+|\  
+| * 8de0e8e - Updated exception handling - Removed extra exception classes - Removed manifests from vcs - Added invalid files for testing
+* | c6be8c8 Added gui test section to report
+|/  
+* 654a45f Refactored test case syntax for better continuity throughout code base
+* dcaa878 Implemented use of truck factory in utiltiy class. Add final comments to cargo and truck packages
+* f6cb793 Merge branch 'master' of /Users/JNGZ/IdeaProjects/InventoryMaster with conflicts.
+* 0b0cbf1 - Added comments to functions - Moved manifest class
+* a61b5ee Added comment stubs to Trucks class
+*   5a2bacd Merge remote-tracking branch 'origin/master'
+|\  
+| * 50211f2 Created truck factory and changed truck class to interface
+* | 0df9ba4 - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store - removed some try catch blocks in Utility - added some exception throws throughout - added catch methods to the GUI - added error dialog to GUI
+* | 3accc5e - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store - removed some try catch blocks in Utility - added some exception throws throughout - added catch methods to the GUI - added error dialog to GUI
+* | 59ec355 - added sortMap method to Utility - updated loadManifest method in Utility - added loadSalesLog method to Utility - removed excess unused code - added loadSalesLog button to GUI - modified getter for stock from String name to Item item - added removeInventory method to Store - added loadManifest method to Store - added loadSalesLog method to Store - updated addInventory method in Store
+|/  
+* a22fb0c - moved gui buttons to one page - modified load manifest functionality ($700 off target)
+* c12ac32 - added sort function
+* 098c6c5 - added sort function
+* e1a6cf3 Refactored the load manifest method. Optimized loading of refrigerated items into refrigerated trucks.
+* 0b60158 - added functions to utility - added partial gui functionality - added export manifest functionality
+* 3ef039b Refactored Truck class to work with HashMap instead of ArrayList. Also added abstract methods (getCost, addItem) that are utilized in Utility class
+* 126faab Implemented abstract Truck class and two sub classes ordinaryTruck and refrigeratedTruck
+* 46e3ca6 Implemented factory pattern for specific cargo class generation. Tweaked cargo test init method to compensate for design change
+* 78830e6 - added task sheet and report with a basic framework - modified test variables to match actual modules
+* 8edd376 - added lib files for saving to csv - temporarily added cookies to the item list - added major functionality for storing/reading to/from csv files to the utility class - added partial manifest functionality - added main method to GUI class and implemented runnable - changed item variables to private and added getters - added stock functionality - added store functionality and declared as singleton instance - moved store tests to tests package - updated cargo test methods - added comment stubs to all complex methods
+*   dd07ead Merge remote-tracking branch 'origin/dev'
+|\  
+| * 7b2f5b4 Added initial store tests. Requires instance of store and appropriate getters for field properties. Also added quantity field property to Item test. *** UPDATE implemented version of Item class.
+* | 50276d2 - updated test package name to Tests
+* | aa5b7d1 - split cargo and truck tests into separate test classes - added file header - added comments to tests
+* |   66e5350 Merge remote-tracking branch 'origin/dev'
+|\ \  
+| |/  
+| * f2ac71c Revert to original version
+| * b4971b6 Completed initial version of Manifest test cases.
+| * c82bb97 Completed initial version of Manifest test cases.
+| * ef4ee87 Completed initial version of Manifest test cases.
+| * 9971f23 Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+| * 409ca2f Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+* | 96bfaae - updated cargo test with accurate data type inputs
+* | 877c23c - removed Tests from excludes
+* | f114aa5 - added item constructor in relation to test cases - added item initializer variables to test case - error asserting BigDecimal scale
+|/  
+* 213aae1 Completed initial version of Item class test cases.
+* fa133b4 Added a small set of tests for item class name property and manufacturing cost property
+* af4244a - added package imports to test class
+* f6d4e94 - added assets (csv files) - added separate packages - added project framework (classes)
+* 4f6cc1e - changed around init
+*   689124d Merge remote-tracking branch 'origin/master'
+|\  
+| * cd495b1 Create README.md
+| * 6e6b921 Delete uiDesigner.xml
+* | e0227d5 - added tests for truck functionality
+|/  
+* 8897278 - initial commit
+* 3028596 Initial commit
+commit 7206b6f8b87cafa64b5a1c213d005d8fc2809dbe
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sun May 27 12:44:16 2018 +1000
+
+    Updated item test and store test
+
+ 2 files changed, 74 insertions(+), 18 deletions(-)
+
+commit f43acb4c6332b482fe5044c77f70f8baef9427ca
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sun May 27 12:24:23 2018 +1000
+
+    Updated author tag to display name properly in javadoc
+
+ 11 files changed, 26 insertions(+), 26 deletions(-)
+
+commit 6d82739abf6171c49d4b15b029b1d130cb4ddce4
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sun May 27 11:52:52 2018 +1000
+
+    Finalized report
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit babd08c168673d0712888d175ca8e7ab5356b865
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sat May 26 21:45:42 2018 +1000
+
+    - Updated read item list functionality
+    - Updated cargo tests
+    - Updated truck tests
+    - Added test assets
+
+ 14 files changed, 239 insertions(+), 184 deletions(-)
+
+commit cbd891ce8bf364ff80aa2d77e1c7ba4b1929c24a
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sat May 26 15:12:49 2018 +1000
+
+    Updated report
+
+ 2 files changed, 10 insertions(+)
+
+commit 394c41195f9954b659028ac051d98c797e663bf4
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 23 19:26:03 2018 +1000
+
+    - Added extra exception to createManifest
+    - Up to 100% code coverage
+
+ 2 files changed, 8 insertions(+), 19 deletions(-)
+
+commit 1c36539038dcaa0347a31aa9673d7c815d992e8f
+Merge: c6be8c8 8de0e8e
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 23 18:05:58 2018 +1000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit c6be8c80c11bac20ab3c6c986b31434a1828b67c
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 23 18:05:44 2018 +1000
+
+    Added gui test section to report
+
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 8de0e8e58eed691b962605d6163ac227e9496710
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 23 17:42:54 2018 +1000
+
+    - Updated exception handling
+    - Removed extra exception classes
+    - Removed manifests from vcs
+    - Added invalid files for testing
+
+ 11 files changed, 78 insertions(+), 87 deletions(-)
+
+commit 654a45f7dd928b0469b9962c2195c35e7b2367d1
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 23 12:58:33 2018 +1000
+
+    Refactored test case syntax for better continuity throughout code base
+
+ 4 files changed, 30 insertions(+), 31 deletions(-)
+
+commit dcaa8788aa5a903d7b5fa27d9c9abc7f40f134fb
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 23 12:47:55 2018 +1000
+
+    Implemented use of truck factory in utiltiy class. Add final comments to cargo and truck packages
+
+ 10 files changed, 134 insertions(+), 22 deletions(-)
+
+commit f6cb793553fd7b4cc3b6d81b7d31d5ca8ce498c8
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 23 11:37:27 2018 +1000
+
+    Merge branch 'master' of /Users/JNGZ/IdeaProjects/InventoryMaster with conflicts.
+
+ 6 files changed, 43 insertions(+), 56 deletions(-)
+
+commit 0b0cbf1187674600a2fe3969b8d739b1b1666560
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Tue May 22 10:08:50 2018 +1000
+
+    - Added comments to functions
+    - Moved manifest class
+
+ 15 files changed, 378 insertions(+), 161 deletions(-)
+
+commit a61b5eea016b586fe5841d608aa6654d792687b7
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Tue May 22 18:21:18 2018 +1000
+
+    Added comment stubs to Trucks class
+
+ 5 files changed, 27 insertions(+), 3 deletions(-)
+
+commit 5a2bacd8ca38e96d719d91faa6b5fb805e78aba3
+Merge: 0df9ba4 50211f2
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Tue May 22 07:10:40 2018 +1000
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       src/GUI/GUI.java
+
+commit 50211f2132ee3b98142fa48000f729faecabba2c
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Tue May 22 16:40:41 2018 +1000
+
+    Created truck factory and changed truck class to interface
+
+ 5 files changed, 24 insertions(+), 8 deletions(-)
+
+commit 0df9ba4b69bfc4e0492ef3644ade88897c55e31a
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Tue May 22 07:08:12 2018 +1000
+
+    - added sortMap method to Utility
+    - updated loadManifest method in Utility
+    - added loadSalesLog method to Utility
+    - removed excess unused code
+    - added loadSalesLog button to GUI
+    - modified getter for stock from String name to Item item
+    - added removeInventory method to Store
+    - added loadManifest method to Store
+    - added loadSalesLog method to Store
+    - updated addInventory method in Store
+    - removed some try catch blocks in Utility
+    - added some exception throws throughout
+    - added catch methods to the GUI
+    - added error dialog to GUI
+
+ 21 files changed, 80 insertions(+), 188 deletions(-)
+
+commit 3accc5e1e1e6a28c3fb03897a82cd6f71de20dec
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Tue May 22 00:05:32 2018 +1000
+
+    - added sortMap method to Utility
+    - updated loadManifest method in Utility
+    - added loadSalesLog method to Utility
+    - removed excess unused code
+    - added loadSalesLog button to GUI
+    - modified getter for stock from String name to Item item
+    - added removeInventory method to Store
+    - added loadManifest method to Store
+    - added loadSalesLog method to Store
+    - updated addInventory method in Store
+    - removed some try catch blocks in Utility
+    - added some exception throws throughout
+    - added catch methods to the GUI
+    - added error dialog to GUI
+
+ 5 files changed, 121 insertions(+), 80 deletions(-)
+
+commit 59ec3555cf7465da87a61dbe2ec919e06ace42b4
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon May 21 22:42:57 2018 +1000
+
+    - added sortMap method to Utility
+    - updated loadManifest method in Utility
+    - added loadSalesLog method to Utility
+    - removed excess unused code
+    - added loadSalesLog button to GUI
+    - modified getter for stock from String name to Item item
+    - added removeInventory method to Store
+    - added loadManifest method to Store
+    - added loadSalesLog method to Store
+    - updated addInventory method in Store
+
+ 11 files changed, 255 insertions(+), 118 deletions(-)
+
+commit a22fb0c4456b1d312b134ef3dc28dce7b0b077b5
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sun May 20 03:23:36 2018 +1000
+
+    - moved gui buttons to one page
+    - modified load manifest functionality ($700 off target)
+
+ 7 files changed, 58 insertions(+), 98 deletions(-)
+
+commit c12ac324e148b8c219a07228baa931cf02dace1b
+Author: lreynolds <lreynolds188@gmail.com>
+Date:   Sat May 19 21:01:27 2018 +1000
+
+    - added sort function
+
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+commit 098c6c5789e99099e28bca28400ae35eb33c7c69
+Author: lreynolds <lreynolds188@gmail.com>
+Date:   Sat May 19 20:32:32 2018 +1000
+
+    - added sort function
+
+ 2 files changed, 29 insertions(+), 2 deletions(-)
+
+commit e1a6cf3df5f3886d7ad238f89fa8d658f958b5d9
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sat May 19 20:57:22 2018 +1000
+
+    Refactored the load manifest method. Optimized loading of refrigerated items into refrigerated trucks.
+
+ 10 files changed, 175 insertions(+), 59 deletions(-)
+
+commit 0b60158c2fc1af7cfa5dfbceccf25e11d4337710
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sat May 19 12:19:51 2018 +1000
+
+    - added functions to utility
+    - added partial gui functionality
+    - added export manifest functionality
+
+ 19 files changed, 570 insertions(+), 364 deletions(-)
+
+commit 3ef039b99ad7ded635a4c5a1b40bbc057b4406aa
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 16 17:25:40 2018 +1000
+
+    Refactored Truck class to work with HashMap instead of ArrayList. Also added abstract methods (getCost, addItem) that are utilized in Utility class
+
+ 9 files changed, 62 insertions(+), 25 deletions(-)
+
+commit 126faaba201a1795616cae88aa82b8b9cc3ebdbd
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 16 16:27:09 2018 +1000
+
+    Implemented abstract Truck class and two sub classes ordinaryTruck and refrigeratedTruck
+
+ 12 files changed, 192 insertions(+), 30 deletions(-)
+
+commit 46e3ca6d4399926afecfabd69e75ab83ae787e0d
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Wed May 16 14:49:40 2018 +1000
+
+    Implemented factory pattern for specific cargo class generation. Tweaked cargo test init method to compensate for design change
+
+ 7 files changed, 133 insertions(+), 7 deletions(-)
+
+commit 78830e69a8e5fabdcb022746244bdae8845064b8
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Fri May 11 23:54:09 2018 +1000
+
+    - added task sheet and report with a basic framework
+    - modified test variables to match actual modules
+
+ 9 files changed, 73 insertions(+), 76 deletions(-)
+
+commit 8edd376edd3073e06c57744bb39ff7bde6183191
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Fri May 11 23:16:14 2018 +1000
+
+    - added lib files for saving to csv
+    - temporarily added cookies to the item list
+    - added major functionality for storing/reading to/from csv files to the utility class
+    - added partial manifest functionality
+    - added main method to GUI class and implemented runnable
+    - changed item variables to private and added getters
+    - added stock functionality
+    - added store functionality and declared as singleton instance
+    - moved store tests to tests package
+    - updated cargo test methods
+    - added comment stubs to all complex methods
+
+ 16 files changed, 449 insertions(+), 112 deletions(-)
+
+commit dd07eadd78ee0d73e9748e6163dd620a21cb6775
+Merge: 50276d2 7b2f5b4
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Fri May 11 15:31:45 2018 +1000
+
+    Merge remote-tracking branch 'origin/dev'
+
+commit 7b2f5b4d5207ae900eaf10d57059343a98e709d4
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 19:59:46 2018 +1000
+
+    Added initial store tests. Requires instance of store and appropriate getters for field properties. Also added quantity field property to Item test. *** UPDATE implemented version of Item class.
+
+ 3 files changed, 77 insertions(+)
+
+commit 50276d2ee379dc9f328e7dc77c0df71e8824dd2f
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon May 7 14:54:56 2018 +1000
+
+    - updated test package name to Tests
+
+ 5 files changed, 8 insertions(+), 18 deletions(-)
+
+commit aa5b7d10e03c2eec3627ff0b3c99fddeaa644668
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon May 7 14:53:26 2018 +1000
+
+    - split cargo and truck tests into separate test classes
+    - added file header
+    - added comments to tests
+
+ 3 files changed, 222 insertions(+), 41 deletions(-)
+
+commit 66e5350f1d59209ada897428a161455219e494c4
+Merge: 96bfaae f2ac71c
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon May 7 14:13:48 2018 +1000
+
+    Merge remote-tracking branch 'origin/dev'
+    
+    # Conflicts:
+    #       src/Stock/Item.java
+    #       src/test/Stock/ItemTest.java
+
+commit f2ac71c66992d5b69f15b6e3ff1870363a8f9745
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 13:38:26 2018 +1000
+
+    Revert to original version
+
+ 1 file changed, 44 deletions(-)
+
+commit b4971b64835d46e3ea3c51ed8f4a49b50aac7a10
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 13:37:33 2018 +1000
+
+    Completed initial version of Manifest test cases.
+
+ 1 file changed, 48 insertions(+), 3 deletions(-)
+
+commit c82bb977ab3d00d1a71f92436631c93400609212
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 13:36:00 2018 +1000
+
+    Completed initial version of Manifest test cases.
+
+ 1 file changed, 18 insertions(+)
+
+commit ef4ee87b77efb46a28fe8d428abd7a3e5347bd35
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 12:57:18 2018 +1000
+
+    Completed initial version of Manifest test cases.
+
+ 2 files changed, 46 insertions(+)
+
+commit 9971f23406a7d07192b5ae08413c40c66792ce12
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 12:20:21 2018 +1000
+
+    Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+
+ 1 file changed, 145 insertions(+)
+
+commit 409ca2f90e555480b60ee3d24f1c0bbeaf670dcb
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Mon May 7 12:17:15 2018 +1000
+
+    Completed initial version of Stock test cases. Tests stock collection type, key type, and value type
+
+ 4 files changed, 60 insertions(+), 116 deletions(-)
+
+commit 96bfaae642ad98e13793d1a999e5e8605e276e67
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sat May 5 15:24:31 2018 +1000
+
+    - updated cargo test with accurate data type inputs
+
+ 1 file changed, 52 insertions(+), 49 deletions(-)
+
+commit 877c23c2eb47a4c8cdee88705ab4e6b85be5a736
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sat May 5 14:56:45 2018 +1000
+
+    - removed Tests from excludes
+
+ 1 file changed, 8 deletions(-)
+
+commit f114aa53c931fb3865f1526737961ee7c855e061
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Sat May 5 14:51:45 2018 +1000
+
+    - added item constructor in relation to test cases
+    - added item initializer variables to test case
+    - error asserting BigDecimal scale
+
+ 4 files changed, 55 insertions(+), 2 deletions(-)
+
+commit 213aae18e3f99b3fc13c00d232418cd524afc0cb
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Sat May 5 10:13:45 2018 +1000
+
+    Completed initial version of Item class test cases.
+
+ 1 file changed, 83 insertions(+), 24 deletions(-)
+
+commit fa133b4f0eca7c3543a9adb9b93e5dfd083e2ed7
+Author: Jonathan <jn.gz85@gmail.com>
+Date:   Fri May 4 14:25:16 2018 +1000
+
+    Added a small set of tests for item class name property and manufacturing cost property
+
+ 1 file changed, 57 insertions(+)
+
+commit af4244a4fc460d03d8f7e1faf908f20f29b839b5
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 2 21:34:40 2018 +1000
+
+    - added package imports to test class
+
+ 1 file changed, 1 insertion(+)
+
+commit f6d4e94bace1e35e09117034dffa0e81ec36c00f
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 2 21:33:27 2018 +1000
+
+    - added assets (csv files)
+    - added separate packages
+    - added project framework (classes)
+
+ 22 files changed, 207 insertions(+)
+
+commit 4f6cc1e7ac24064efc03e16fc860c59437963a1c
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 2 21:06:29 2018 +1000
+
+    - changed around init
+
+ 1 file changed, 10 insertions(+)
+
+commit 689124d8cc45ec026397a4b8282f64c6752e0af2
+Merge: e0227d5 cd495b1
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 2 20:44:56 2018 +1000
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e0227d5e964ba96d2fe63dc8499daa126d39fa9d
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Wed May 2 20:44:44 2018 +1000
+
+    - added tests for truck functionality
+
+ 2 files changed, 131 insertions(+), 126 deletions(-)
+
+commit cd495b1a56e5284dc4be3842020942f76f7ddc20
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon Apr 30 19:27:10 2018 +1000
+
+    Create README.md
+
+ 1 file changed, 40 insertions(+)
+
+commit 6e6b9218a80c46a8e88a4d91e1e7d5964e311b41
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon Apr 30 17:16:30 2018 +1000
+
+    Delete uiDesigner.xml
+
+ 1 file changed, 124 deletions(-)
+
+commit 8897278b087a208f2b29ad9cf8851aa651489cb7
+Author: Luke Reynolds <lreynolds188@gmail.com>
+Date:   Mon Apr 30 17:15:02 2018 +1000
+
+    - initial commit
+
+ 6 files changed, 146 insertions(+), 10 deletions(-)
+
+commit 30285962d84384329ec4769492888cb3b62e49b3
+Author: Luke Reynolds <n10083481@qut.edu.au>
+Date:   Mon Apr 30 14:46:49 2018 +1000
+
+    Initial commit
+
+ 6 files changed, 40 insertions(+)

@@ -31,8 +31,10 @@ import com.opencsv.CSVWriter;
 public class Utility {
 
     /**
-     * Returns an item list of type HashMap<Item, Integer> from selected file
-     * @return HashMap<Item, Integer>
+     * Returns an item list of type HashMap from selected file
+     * @param filename String
+     * @return HashMap
+     * @throws CSVFormatException Exception loading itemlist
      */
     public static HashMap<Item, Integer> loadItemlist(String filename) throws CSVFormatException{
 
@@ -64,7 +66,9 @@ public class Utility {
 
     /**
      * Loads the manifest and splits the items into refrigerated and ordinary trucks
-     * @return HashMap<String, Truck>
+     * @param filename String
+     * @return HashMap
+     * @throws CSVFormatException Exception loading manifest
      */
     public static HashMap<String, Truck> loadManifest(String filename) throws CSVFormatException {
         HashMap<String, Truck> manifest = new HashMap<>();
@@ -131,9 +135,9 @@ public class Utility {
     }
 
     /**
-     * Returns a sorted manifest of type List<Map.Entry<Item, Integer>> in descending order by item quantity
-     * @param map HashMap<Item, Integer>
-     * @return List<Map.Entry<Item, Integer>>
+     * Returns a sorted manifest of type List in descending order by item quantity
+     * @param map HashMap
+     * @return List
      */
     public static List<Map.Entry<Item, Integer>> sortMap(HashMap<Item, Integer> map){
         List<Map.Entry<Item, Integer>> temp = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList());
@@ -143,11 +147,11 @@ public class Utility {
     }
 
     /**
-     * Returns an unsorted manifest of type HashMap<Item, Integer> from a selected file
+     * Returns an unsorted manifest of type HashMap from a selected file
      * @param filename String
      * @param ref Boolean
-     * @return HashMap<Item, Integer>
-     * @throws CSVFormatException
+     * @return HashMap
+     * @throws CSVFormatException Exception reading manifest
      */
     public static HashMap<Item, Integer> readManifest(String filename, Boolean ref) throws CSVFormatException{
         try{
@@ -194,8 +198,9 @@ public class Utility {
     }
 
     /**
-     * Exports manifest into a .csv format from HashMap<Item, Integer>
-     * @param manifest HashMap<Item, Integer>
+     * Exports manifest into a .csv format from HashMap
+     * @param manifest HashMap
+     * @throws CSVFormatException Exception creating manifest
      */
     public static void createManifest(HashMap<Item, Integer> manifest) throws CSVFormatException {
         try{
@@ -257,9 +262,10 @@ public class Utility {
     }
 
     /**
-     * Returns a sales log of type HashMap<Item, Integer> from selected file
+     * Returns a sales log of type HashMap from selected file
      * @param filename String
-     * @return HashMap<Item, Integer>
+     * @return HashMap
+     * @throws CSVFormatException Exception loading sales log
      */
     public static HashMap<Item, Integer> loadSalesLog(String filename) throws CSVFormatException{
         try{
