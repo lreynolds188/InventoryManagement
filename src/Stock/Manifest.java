@@ -16,7 +16,7 @@ import java.util.Map;
 public class Manifest {
 
     // Stores all trucks and their names
-    private HashMap<String, Truck> manifest;
+    public HashMap<String, Truck> manifest;
 
     public Manifest(){
         manifest = new HashMap<>();
