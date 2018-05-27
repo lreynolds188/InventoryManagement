@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Manifest {
 
-    private HashMap<String, Truck> manifest;
+    public HashMap<String, Truck> manifest;
 
     public Manifest(){
         manifest = new HashMap<>();

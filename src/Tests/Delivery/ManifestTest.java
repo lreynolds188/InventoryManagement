@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
  */
 public class ManifestTest {
 
-    Manifest manifestObject;
+    Manifest manifestObject = new Manifest();
 
     /**
      * Testing manifest collection type is of hashmap
@@ -30,7 +30,7 @@ public class ManifestTest {
 
         assertThat(
                 "This collection must be of type HashMap whose key is a String and value is an instance of TruckAbst",
-                manifestObject,
+                manifestObject.manifest,
                 instanceOf(HashMap.class));
     }
 

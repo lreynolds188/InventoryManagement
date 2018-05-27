@@ -40,7 +40,7 @@ public class StoreTest {
      */
     @Test
     public void testCapitalDecimalPoints() {
-        BigDecimal oneHundredThousand = new BigDecimal(100000.00);
+        BigDecimal oneHundredThousand = new BigDecimal(100000.00).setScale(2);
 
         BigDecimal capital = storeSingleton.getCapital();
 

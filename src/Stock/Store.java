@@ -134,7 +134,7 @@ public class Store {
      * @return BigDecimal
      */
     public static BigDecimal getCapital(){
-        return capital;
+        return capital.setScale(2);
     }
 
     /**
