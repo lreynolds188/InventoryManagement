@@ -9,8 +9,8 @@ import java.math.BigDecimal;
  * Truck interface that defines a set of methods used by Ordinary and Refrigerated
  * sub classes
  *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 16, 2018</pre>
+ * @author Jonathan Gonzalez
+ * @since May 16, 2018
  * @version 1.0
  */
 public interface Truck {

@@ -6,10 +6,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 /**
- * Cargo class
- *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 16, 2018</pre>
+ * Cargo Class
+ * @author Jonathan Gonzalez
+ * @since May 16, 2018
  * @version 1.0
  */
  public interface Cargo {

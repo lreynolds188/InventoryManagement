@@ -13,9 +13,9 @@ import static org.junit.Assert.assertThat;
 /**
  * Stock Tester.
  *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 5, 2018</pre>
- * @version 1.0  HashMap<Object, Item> stock_items
+ * @author Jonathan Gonzalez
+ * @since May 20, 2018
+ * @version 1.0
  */
 public class StockTest {
 

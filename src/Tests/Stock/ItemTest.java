@@ -11,8 +11,8 @@ import static org.junit.Assert.assertThat;
 /**
  * Item Tester.
  *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 5, 2018</pre>
+ * @author Jonathan Gonzalez
+ * @since May 20, 2018
  * @version 1.0
  */
 public class ItemTest {
@@ -56,7 +56,7 @@ public class ItemTest {
                 item.getManufacturingCost(),
                 instanceOf(BigDecimal.class));
 
-        // Test that manufacturing cost is value is greater than zero
+        // Test that manufacturing cost value is greater than zero
         assert (item.getManufacturingCost().compareTo(zero) > 0) : "Manufacturing cost must be greater than Zero.";
 
     }
@@ -83,6 +83,7 @@ public class ItemTest {
 
         // Test that sell price is greater than manufacturing cost
         assert (item.getSellPrice().compareTo(item.getManufacturingCost()) > 0);
+
     }
 
     /**

@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  *
  * Refrigerated Truck Class implements Truck interface
  *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 16, 2018</pre>
+ * @author Jonathan Gonzalez
+ * @since May 16, 2018
  * @version 1.0
  */
 
