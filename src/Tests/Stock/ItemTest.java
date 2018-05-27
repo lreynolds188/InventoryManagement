@@ -37,13 +37,19 @@ public class ItemTest {
                 item.getName(),
                 instanceOf(String.class));
 
-        // Test that name is not empty
-        assert (item.getName() != "") : "name can not be an empty string";
-
     }
 
     /**
-     * Series of tests for Manufacturing cost in dollars
+     * Test Item property is not empty
+     */
+    @Test
+    public void testItemIsNotEmpty() {
+        // Test that name is not empty
+        assert (item.getName() != "") : "name can not be an empty string";
+    }
+
+    /**
+     * Test manufacturing cost is instance of Big Decimal
      */
     @Test
     public void testItemManufacturingCost() {
@@ -55,39 +61,52 @@ public class ItemTest {
                 "Manufacturing cost must be of type Big Decimal.",
                 item.getManufacturingCost(),
                 instanceOf(BigDecimal.class));
+    }
+
+    /**
+     * Test manufacturing cost is greater than zero
+     */
+    @Test
+    public void testManufacturingCostGreaterThanZero() {
+        BigDecimal zero = new BigDecimal(0.0);
 
         // Test that manufacturing cost value is greater than zero
         assert (item.getManufacturingCost().compareTo(zero) > 0) : "Manufacturing cost must be greater than Zero.";
 
     }
 
+
     /**
-     * Series of tests for Manufacturing cost in dollars
+     * Test that sell price is greater than manufacturing cost
      */
     @Test
-    public void testItemSellPrice() {
-
-        BigDecimal zero = new BigDecimal(0.0);
-
-        // Test that sell price is of type Big Decimal
-        assertThat(
-                "Sell price must be of type Big Decimal",
-                item.getSellPrice(),
-                instanceOf(BigDecimal.class));
-
-        // Test that sell price is greater than zero
-        assert (item.getSellPrice().compareTo(zero) > 0);
-
-        // Test that sell price is of type Big Decimal - Appropriate for currency values
-        assertThat(item.getSellPrice(), instanceOf(BigDecimal.class));
-
+    public void testSellPriceGreaterThanManufacturingCost() {
         // Test that sell price is greater than manufacturing cost
         assert (item.getSellPrice().compareTo(item.getManufacturingCost()) > 0);
-
     }
 
     /**
-     * Testing reorder point property
+     * Test sell prices is greater than zero
+     */
+    @Test
+    public void testSellPriceGreaterThanZero() {
+        BigDecimal zero = new BigDecimal(0.0);
+
+        // Test that sell price is greater than zero
+        assert (item.getSellPrice().compareTo(zero) > 0);
+    }
+
+    /**
+     * Test sell prices is of of type Big Decimal
+     */
+    @Test
+    public void testSellPriceType() {
+        // Test that sell price is of type Big Decimal - Appropriate for currency values
+        assertThat(item.getSellPrice(), instanceOf(BigDecimal.class));
+    }
+
+    /**
+     * Testing reorder point type
      */
     @Test
     public void testReorderPoint() {
@@ -98,9 +117,15 @@ public class ItemTest {
                 item.getReorderPoint(),
                 instanceOf(Integer.class));
 
+    }
+
+    /**
+     * Test reorder point is greater than zero
+     */
+    @Test
+    public void testReorderPointGreaterThanZero() {
         // Test that reorder point is greater than or equal to zero
         assert (item.getReorderPoint() >= 0);
-
     }
 
     /**
@@ -114,9 +139,16 @@ public class ItemTest {
                 "amount must be of type int.",
                 item.getReorderAmount(),
                 instanceOf(Integer.class));
+    }
 
+    /**
+     * Test reorder amount is greater than zero
+     */
+    @Test
+    public void testReorderAmountGreaterThanZero() {
         // Test that amount point is greater than or equal to zero
         assert (item.getReorderAmount() >= 0);
+
     }
 
     /**
