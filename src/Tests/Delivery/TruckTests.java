@@ -1,5 +1,6 @@
 package Tests.Delivery;
 
+import Delivery.Cargo.Cargo;
 import Delivery.Trucks.OrdinaryTruck;
 import Delivery.Trucks.RefrigeratedTruck;
 import Delivery.Trucks.Truck;
@@ -37,53 +38,65 @@ public class TruckTests {
         refrigeratedTruck = TruckFactory.generateTruck(true);
     }
 
-    //
+    // Tests the ability to add an item into an ordinary trucks cargo
     @Before
     @Test
     public void test3AddItemOrdTruck(){
         ordinaryTruck.addItem(new Item("rice", new BigDecimal(2), new BigDecimal(3), 225, 300), 1);
     }
 
-    //
+    // Tests the ability to add an item into a refrigerated trucks cargo
     @Before
     @Test
     public void test4AddItemRefTruck(){
         refrigeratedTruck.addItem(new Item("ice", new BigDecimal(2), new BigDecimal(5), 225, 325, -20), 1);
     }
 
-    //
+    // Tests the ordinary trucks class type
     @Test
-    public void testOrdTruckType(){
+    public void testOrdTruckClassType(){
         assertThat(ordinaryTruck, instanceOf(OrdinaryTruck.class));
     }
 
-    //
+    // Tests the refrigerated trucks class type
     @Test
-    public void testRefTruckType(){
+    public void testRefTruckClassType(){
         assertThat(refrigeratedTruck, instanceOf(RefrigeratedTruck.class));
     }
 
-    //
+    // Tests the ordinary trucks cargo type
+    @Test
+    public void testOrdTruckCargoType(){
+        assertThat(ordinaryTruck.getCargo(), instanceOf(Cargo.class));
+    }
+
+    // Tests the refrigerated trucks cargo type
+    @Test
+    public void testRefTruckCargoType(){
+        assertThat(refrigeratedTruck.getCargo(), instanceOf(Cargo.class));
+    }
+
+    // Tests the ordinary trucks cost type
     @Test
     public void testOrdTruckCostType(){
         assertThat(ordinaryTruck.getCost(), instanceOf(BigDecimal.class));
     }
 
-    //
+    // Tests the refrigerated trucks cost type
     @Test
     public void testRefTruckCostType(){
         assertThat(refrigeratedTruck.getCost(), instanceOf(BigDecimal.class));
     }
 
-    // Tests the ordinary and refrigerated trucks capacity
+    // Tests the ordinary trucks capacity
     @Test
     public void testOrdTruckCapacity(){
-        assertEquals("Ordinary trucks capacity inaccurate", 1000, ordinaryTruck.getCapacity());
+        assertEquals(1000, ordinaryTruck.getCapacity());
     }
 
-    //
+    // Tests the refrigerated trucks capacity
     @Test
     public void testRefTruckCapacity(){
-        assertEquals("Refrigerated trucks capacity inaccurate", 800, refrigeratedTruck.getCapacity());
+        assertEquals(800, refrigeratedTruck.getCapacity());
     }
 }

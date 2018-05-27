@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class Manifest {
 
+    // Stores all trucks and their names
     private HashMap<String, Truck> manifest;
 
     public Manifest(){
@@ -24,7 +25,7 @@ public class Manifest {
     /**
      * Loads the manifest by calling the loadManifest function inside the Utility class and update the capital and inventory
      * @param filename String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading manifest
      */
     public void loadManifest(String filename) throws CSVFormatException {
         manifest = Utility.loadManifest(filename);
@@ -56,7 +57,8 @@ public class Manifest {
 
     /**
      * Exports a new manifest by calling the createManifest() function in the Utility class
-     * @param itemList HashMap<Item, Integer>
+     * @param itemList HashMap
+     * @throws CSVFormatException Exception exporting manifest
      */
     public void exportManifest(HashMap<Item, Integer> itemList) throws CSVFormatException {
         Utility.createManifest(itemList);

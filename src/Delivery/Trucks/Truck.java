@@ -17,21 +17,26 @@ public interface Truck {
 
     /**
      * Method signature for getting the list of cargo items
+     * @return Cargo
      */
     Cargo getCargo();
 
     /**
      * Method signature for adding items to truck cargo
+     * @param item Item
+     * @param quantity Integer
      */
     void addItem(Item item, Integer quantity);
 
     /**
      * Method signature for getting the cost of the truck
+     * @return BigDecimal
      */
     BigDecimal getCost();
 
     /**
      * Method signature for getting the trucks capacity
+     * @return int
      */
     int getCapacity();
 

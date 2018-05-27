@@ -14,8 +14,8 @@ import static org.junit.Assert.assertThat;
 /**
  * Manifest Tester.
  *
- * @author <Jonathan Gonzalez | n9821112>
- * @since <pre>May 7, 2018</pre>
+ * @author Jonathan Gonzalez
+ * @since May 7, 2018
  * @version 1.0
  */
 public class ManifestTest {

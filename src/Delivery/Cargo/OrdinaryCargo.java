@@ -57,7 +57,7 @@ public class OrdinaryCargo implements Cargo{
 
     /**
      * Getter for cargo size
-     * @return
+     * @return size - integer
      */
     @Override
     public Integer getSize() {

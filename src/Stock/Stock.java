@@ -15,9 +15,7 @@ import java.util.Map;
  */
 public class Stock {
 
-    /**
-     * Stores all items and their quantities
-     */
+    // Stores all items and their quantities
     private HashMap<Item, Integer> stocklist;
 
     public Stock(){
@@ -26,9 +24,8 @@ public class Stock {
 
     /**
      * Loads itemlist, adds values to the
-     * @param filename
-     * @return
-     * @throws CSVFormatException
+     * @param filename String
+     * @throws CSVFormatException Exception loading itemlist
      */
     public void loadItemlist(String filename) throws CSVFormatException {
         HashMap<Item, Integer> temp = Utility.loadItemlist(filename);
@@ -58,7 +55,7 @@ public class Stock {
 
     /**
      * Getter for the stock list
-     * @return HashMap<Item, Integer>
+     * @return stocklist HashMap
      */
     public HashMap<Item, Integer> getStock(){
         return stocklist;

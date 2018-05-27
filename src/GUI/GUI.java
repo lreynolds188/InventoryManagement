@@ -101,7 +101,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     /**
      * Loads an item list from file and update the tableModel
      * @param filename String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading itemlist
      */
     public void loadItemlist(String filename) throws CSVFormatException {
         store.loadItemlist(filename);
@@ -126,7 +126,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     /**
      * Loads a manifest and updates the GUI
      * @param fileName String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading manifest
      */
     public void loadManifest(String fileName) throws CSVFormatException {
         store.loadManifest(fileName);
@@ -135,6 +135,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
 
     /**
      * Exports a new manifest to .csv
+     * @throws CSVFormatException Exception exporting manifest
      */
     public void exportManifest() throws CSVFormatException {
         store.getManifest().exportManifest(store.getInventory().getStock());
@@ -143,7 +144,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
     /**
      * Loads a sales log and updates the GUI
      * @param fileName String
-     * @throws CSVFormatException
+     * @throws CSVFormatException Exception loading sales log
      */
     public void loadSalesLog(String fileName) throws CSVFormatException {
         store.loadSalesLog(fileName);
@@ -278,7 +279,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(200, 0, 520, 480);
         generateItemlistPanel();
-        layeredPane.add(itemlistPanel, new Integer(1), 0);
+        layeredPane.add(itemlistPanel, 1, 0);
     }
 
     /**
@@ -286,7 +287,7 @@ public class GUI extends JPanel implements Runnable, ActionListener{
      * @param text String
      * @param width int
      * @param height int
-     * @return
+     * @return JButton
      */
     public JButton generateButton(String text, int width, int height){
         JButton temp = new JButton(text);
